@@ -1,0 +1,7 @@
+# Placeholder until stage 02 imports the real data.
+- id: iron-plate
+  name: Iron plate
+- id: copper-plate
+  name: Copper plate
+- id: electronic-circuit
+  name: Electronic circuit
