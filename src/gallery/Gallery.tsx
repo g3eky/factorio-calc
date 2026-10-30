@@ -1,7 +1,9 @@
 // Every UI component in every state, for checking looks, keyboard use and smoothness.
 // Dev builds only: open #/gallery.
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+import { defaultDisabled } from '../calculator/solve.ts'
+import { useSolver } from '../calculator/useSolver.ts'
 import { useGame } from '../db/GameProvider.tsx'
 import { Button } from '../ui/Button/Button.tsx'
 import { Checkbox, Radio } from '../ui/Checkbox/Checkbox.tsx'
@@ -105,6 +107,8 @@ export function Gallery() {
         </p>
       </Window>
 
+      <SolverDemo target={picked} rate={rate} />
+
       <Window title={`Icon atlas (${icons.length})`} className={styles.wide}>
         <ScrollPane className={styles.atlas}>
           <Panel deep className={styles.icons}>
@@ -120,5 +124,33 @@ export function Gallery() {
         </ScrollPane>
       </Window>
     </div>
+  )
+}
+
+// Solves for the picked item at the rate above, in the worker.
+function SolverDemo({ target, rate }: { target: Pick; rate: number }) {
+  const game = useGame()
+  const disabled = useMemo(() => defaultDisabled(game.data), [game])
+  const request = useMemo(
+    () => ({ targets: [{ ...target, rate: rate / 60 }], machines: {}, setups: {}, overrides: {}, disabled, research: {}, fuel: 'coal' }),
+    [target, rate, disabled],
+  )
+  const { response, solving } = useSolver(game.data, request)
+  return (
+    <Window title="Solver (worker)">
+      <Panel className={styles.column} data-testid="solver">
+        <span>
+          {rate}/min {target.id} {solving ? '(solving…)' : ''}
+        </span>
+        {response?.ok === false && <span>{response.error}</span>}
+        {response?.ok &&
+          response.result.processes.map((p) => (
+            <span key={p.key} className={styles.row}>
+              <Icon kind={p.kind === 'recipe' ? 'recipe' : 'machine'} id={p.kind === 'recipe' ? p.id : p.machine} size={20} />
+              {p.key}: {p.machines.toFixed(2)} × {game.machines.get(p.machine)?.name}
+            </span>
+          ))}
+      </Panel>
+    </Window>
   )
 }
