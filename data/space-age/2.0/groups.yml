@@ -1,4 +1,0 @@
-- id: intermediate-products
-  name: Intermediate products
-  order: c
-  subgroups: [{ id: raw-material, order: a }, { id: intermediate-product, order: b }]

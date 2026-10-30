@@ -1,4 +1,0 @@
-name: Space Age
-version: "2.0"
-mods: [base, space-age, quality, elevated-rails]
-source: Placeholder until stage 02 imports the real data
