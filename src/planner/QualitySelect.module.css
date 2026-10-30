@@ -1,0 +1,26 @@
+.select {
+  min-width: 120px;
+}
+
+.dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin: 0 2px;
+  transform: rotate(45deg);
+  box-shadow: 0 0 0 1px #000;
+  background: #a0a0a0;
+}
+
+.dot[data-quality='uncommon'] {
+  background: #2ad16b;
+}
+.dot[data-quality='rare'] {
+  background: #2a8bf2;
+}
+.dot[data-quality='epic'] {
+  background: #b23bf6;
+}
+.dot[data-quality='legendary'] {
+  background: #ff9f1c;
+}

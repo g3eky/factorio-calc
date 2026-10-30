@@ -9,6 +9,7 @@ import { ScrollPane } from '../ui/ScrollPane/ScrollPane.tsx'
 import { Select } from '../ui/Select/Select.tsx'
 import { Slot } from '../ui/Slot/Slot.tsx'
 import { Window } from '../ui/Window/Window.tsx'
+import { QualitySelect } from './QualitySelect.tsx'
 import type { Update } from './Planner.tsx'
 import { knownTargets, recipesFor, type Calculation, type TargetUnit } from './state.ts'
 import styles from './Targets.module.css'
@@ -51,13 +52,14 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
         {targets.length === 0 && <p className={styles.hint}>Nothing yet. Add an item to make.</p>}
         {targets.map((t, i) => (
           <Panel key={`${t.kind}/${t.id}/${i}`} className={styles.target}>
-            <Slot kind={t.kind} id={t.id} title={name(t)} aria-label={`Change ${name(t)}`} onClick={(e) => setPicking({ index: i, anchor: e.currentTarget })} />
+            <Slot kind={t.kind} id={t.id} quality={t.quality} title={name(t)} aria-label={`Change ${name(t)}`} onClick={(e) => setPicking({ index: i, anchor: e.currentTarget })} />
             <div className={styles.fields}>
               <span className={styles.name}>{name(t)}</span>
               <span className={styles.amount}>
                 <NumberInput value={t.amount} min={0} onChange={(amount) => change(i, { amount })} aria-label={`Amount of ${name(t)}`} />
                 <Select label={`Unit for ${name(t)}`} value={t.unit} options={UNITS} onChange={(unit) => change(i, { unit })} className={styles.unit} />
               </span>
+              {t.kind === 'item' && <QualitySelect label={`Quality of ${name(t)}`} value={t.quality} onChange={(quality) => change(i, { quality })} />}
             </div>
             <Button square variant="danger" aria-label={`Remove ${name(t)}`} onClick={() => update((c) => ({ ...c, targets: c.targets.filter((_, j) => j !== i) }))}>
               ✕

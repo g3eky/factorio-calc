@@ -5,6 +5,7 @@ import type { EffectName, Machine } from '../db/types.ts'
 import { Button } from '../ui/Button/Button.tsx'
 import { NumberInput } from '../ui/Input/Input.tsx'
 import { Slot } from '../ui/Slot/Slot.tsx'
+import { QualitySelect } from './QualitySelect.tsx'
 import styles from './ModuleSetupEditor.module.css'
 
 interface Props {
@@ -22,12 +23,19 @@ export function ModuleSetupEditor({ machine, allowed, setup, onChange }: Props) 
   const placed = setup.beacons[0]
   const options = game.data.modules.filter((m) => fits(m.effects, allowed))
   const beaconOptions = beacon ? options.filter((m) => fits(m.effects, beacon.allowed_effects)) : []
-  const setBeacons = (count: number, module: string | undefined) =>
-    onChange({ ...setup, beacons: beacon && count > 0 && module ? [{ id: beacon.id, count, modules: Array(beacon.module_slots).fill(module) }] : [] })
+  const setBeacons = (count: number, module: string | undefined, quality = placed?.quality, moduleQuality = placed?.moduleQuality) =>
+    onChange({
+      ...setup,
+      beacons: beacon && count > 0 && module ? [{ id: beacon.id, count, modules: Array(beacon.module_slots).fill(module), quality, moduleQuality }] : [],
+    })
 
   return (
     <div className={styles.editor}>
-      <span>Fill {machine.module_slots} slots with:</span>
+      <span className={styles.beacons}>
+        Fill {machine.module_slots} slots with
+        <QualitySelect label={`Quality of modules in ${machine.name}`} value={setup.quality} onChange={(quality) => onChange({ ...setup, quality })} />
+        modules:
+      </span>
       <div className={styles.choices}>
         <Button square aria-label={`No modules in ${machine.name}`} selected={!setup.modules.length} onClick={() => onChange({ ...setup, modules: [] })}>
           ∅
@@ -55,7 +63,17 @@ export function ModuleSetupEditor({ machine, allowed, setup, onChange }: Props) 
               onChange={(n) => setBeacons(n, placed?.modules[0] ?? beaconOptions[0].id)}
               aria-label={`Beacons around ${machine.name}`}
             />
-            each with:
+            {placed && (
+              <QualitySelect label="Beacon quality" value={placed.quality} onChange={(quality) => setBeacons(placed.count, placed.modules[0], quality)} />
+            )}
+            each with
+            {placed && (
+              <QualitySelect
+                label="Quality of beacon modules"
+                value={placed.moduleQuality}
+                onChange={(moduleQuality) => setBeacons(placed.count, placed.modules[0], placed.quality, moduleQuality)}
+              />
+            )}
           </span>
           <div className={styles.choices}>
             {beaconOptions.map((m) => (

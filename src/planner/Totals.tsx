@@ -32,9 +32,10 @@ function TotalsPanel({ result, calc, solving }: Props) {
       .sort((a, b) => b.rate - a.rate)
       .map((a) => (
         <Slot
-          key={`${a.kind}/${a.id}`}
+          key={`${a.kind}/${a.id}@${a.quality ?? ''}`}
           kind={a.kind}
           id={a.id}
+          quality={a.quality}
           amount={short(a.rate * scale)}
           title={amountName(game, a)}
           details={`${long(a.rate * scale)}${unit}${a.kind === 'item' && belt ? ` (${long(a.rate / belt.speed)} ${belt.name.toLowerCase()}s)` : ''}`}

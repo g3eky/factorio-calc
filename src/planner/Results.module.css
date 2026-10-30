@@ -53,6 +53,11 @@
   white-space: nowrap;
 }
 
+.quality {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
 .amounts {
   flex-wrap: wrap;
   gap: 2px;

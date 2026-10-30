@@ -15,6 +15,8 @@ export interface Preferences {
   enabled: string[]
   // Fuel item for burner machines.
   fuel: string
+  // Default quality of machines; missing means normal. (Added after version 1; optional.)
+  machineQuality?: string
 }
 
 export const CURRENT_VERSION = 1
@@ -49,7 +51,8 @@ export function isPreferences(v: unknown): v is Preferences {
     Object.values(v.research).every((n) => typeof n === 'number' && n >= 0) &&
     isStringList(v.disabled) &&
     isStringList(v.enabled) &&
-    typeof v.fuel === 'string'
+    typeof v.fuel === 'string' &&
+    (v.machineQuality === undefined || typeof v.machineQuality === 'string')
   )
 }
 

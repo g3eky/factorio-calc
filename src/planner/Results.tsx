@@ -13,6 +13,7 @@ import { cx } from '../ui/cx.ts'
 import { Window } from '../ui/Window/Window.tsx'
 import { long, power, short, UNIT_LABELS, UNIT_SECONDS } from './format.ts'
 import { ModuleSetupEditor } from './ModuleSetupEditor.tsx'
+import { QualitySelect } from './QualitySelect.tsx'
 import type { Update } from './Planner.tsx'
 import { recipesFor, type Calculation } from './state.ts'
 import styles from './Results.module.css'
@@ -56,7 +57,11 @@ export function processName(game: Game, p: ProcessResult): string {
   return `Pumping ${(game.fluids.get(p.id)?.name ?? p.id).toLowerCase()}`
 }
 
-export const amountName = (game: Game, a: { kind: string; id: string }) => (a.kind === 'fluid' ? game.fluids : game.items).get(a.id)?.name ?? a.id
+export const amountName = (game: Game, a: { kind: string; id: string; quality?: string }) => {
+  const name = (a.kind === 'fluid' ? game.fluids : game.items).get(a.id)?.name ?? a.id
+  const quality = a.quality && game.data.qualities.find((q) => q.id === a.quality)
+  return quality ? `${quality.name} ${name.toLowerCase()}` : name
+}
 
 interface Props {
   result: SolveResult
@@ -108,8 +113,8 @@ function ResultsTable({ result, calc, prefs, update }: Props) {
               <Row
                 key={p.key}
                 process={p}
-                override={calc.overrides[p.key]}
-                setup={calc.overrides[p.key]?.setup ?? prefs.setups[p.machine]}
+                override={calc.overrides[p.key.split('@')[0]]}
+                setup={calc.overrides[p.key.split('@')[0]]?.setup ?? prefs.setups[p.machine]}
                 unit={calc.unit}
                 onEdit={setEditing}
               />
@@ -163,9 +168,10 @@ const Row = memo(
         const label = `${amountName(game, a)}: ${long(a.rate * scale)}${unit}`
         return (
           <Slot
-            key={`${a.kind}/${a.id}`}
+            key={`${a.kind}/${a.id}@${a.quality ?? ''}`}
             kind={a.kind}
             id={a.id}
+            quality={a.quality}
             amount={short(a.rate * scale)}
             title={amountName(game, a)}
             details={`${long(a.rate * scale)}${unit}${choices.length > 1 ? '. Click to choose its recipe.' : ''}`}
@@ -182,6 +188,7 @@ const Row = memo(
           <span className={styles.recipe}>
             <Icon kind={p.kind === 'recipe' ? 'recipe' : p.outputs[0].kind} id={p.kind === 'recipe' ? p.id : p.outputs[0].id} />
             {name}
+            {p.quality && <span className={styles.quality}>({game.data.qualities.find((q) => q.id === p.quality)?.name ?? p.quality})</span>}
           </span>
         </td>
         <td>
@@ -189,6 +196,7 @@ const Row = memo(
             <Slot
               kind="machine"
               id={p.machine}
+              quality={p.machineQuality}
               amount={Math.ceil(p.machines - 1e-9)}
               title={machine?.name}
               details={editable ? 'Click to change the machine.' : undefined}
@@ -241,8 +249,10 @@ function MachineChooser({ process, calc, update, done }: { process: ProcessResul
   const categories = process.kind === 'recipe' ? game.recipes.get(process.id)!.categories : [game.data.resources.find((r) => r.id === process.id)!.category]
   const planet = game.data.planets.find((p) => p.id === calc.planet)
   const machines = game.data.machines.filter((m) => m.categories.some((c) => categories.includes(c)) && onSurface(game.data, planet, m.surface_conditions))
+  // Settings belong to the recipe, whatever quality it's running at in this row.
+  const key = process.key.split('@')[0]
   const choose = (machine: string | undefined) => {
-    update((c) => ({ ...c, overrides: { ...c.overrides, [process.key]: { ...c.overrides[process.key], machine } } }))
+    update((c) => ({ ...c, overrides: { ...c.overrides, [key]: { ...c.overrides[key], machine } } }))
     done()
   }
   return (
@@ -252,7 +262,12 @@ function MachineChooser({ process, calc, update, done }: { process: ProcessResul
           <Slot key={m.id} kind="machine" id={m.id} title={m.name} details={`Speed ${m.speed}`} aria-label={m.name} selected={m.id === process.machine} onClick={() => choose(m.id)} />
         ))}
       </div>
-      {calc.overrides[process.key]?.machine && <Button onClick={() => choose(undefined)}>Use the default</Button>}
+      <QualitySelect
+        label="Machine quality"
+        value={calc.overrides[key]?.quality}
+        onChange={(quality) => update((c) => ({ ...c, overrides: { ...c.overrides, [key]: { ...c.overrides[key], quality } } }))}
+      />
+      {calc.overrides[key]?.machine && <Button onClick={() => choose(undefined)}>Use the default</Button>}
     </>
   )
 }
@@ -262,14 +277,15 @@ function ModuleEditor({ process, calc, prefs, update }: { process: ProcessResult
   const machine = game.machines.get(process.machine)!
   const recipe = process.kind === 'recipe' ? game.recipes.get(process.id) : undefined
   const allowed = machine.allowed_effects.filter((e) => !recipe || recipe.allowed_effects.includes(e)) as EffectName[]
-  const override = calc.overrides[process.key]?.setup
-  const save = (setup: ModuleSetup | undefined) =>
-    update((c) => ({ ...c, overrides: { ...c.overrides, [process.key]: { ...c.overrides[process.key], setup } } }))
+  const key = process.key.split('@')[0]
+  const override = calc.overrides[key]?.setup
+  const save = (setup: ModuleSetup | undefined) => update((c) => ({ ...c, overrides: { ...c.overrides, [key]: { ...c.overrides[key], setup } } }))
   return (
     <>
       <ModuleSetupEditor machine={machine} allowed={allowed} setup={override ?? prefs.setups[machine.id] ?? { modules: [], beacons: [] }} onChange={save} />
       <span className={styles.effects}>
         Speed {pct(process.speed)}, productivity {pct(process.productivity)}, power {pct(process.consumption)}
+        {process.qualityEffect > 0 && `, quality ${pct(process.qualityEffect)}`}
       </span>
       {override && <Button onClick={() => save(undefined)}>Use the default from settings</Button>}
     </>

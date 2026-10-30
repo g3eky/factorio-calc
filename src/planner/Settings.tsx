@@ -14,6 +14,7 @@ import { Select } from '../ui/Select/Select.tsx'
 import { Slot } from '../ui/Slot/Slot.tsx'
 import { Tabs } from '../ui/Tabs/Tabs.tsx'
 import { ModuleSetupEditor } from './ModuleSetupEditor.tsx'
+import { QualitySelect } from './QualitySelect.tsx'
 import styles from './Settings.module.css'
 
 type Tab = 'machines' | 'modules' | 'research' | 'recipes'
@@ -116,6 +117,10 @@ function MachinesTab({ prefs, setPrefs }: { prefs: Preferences; setPrefs: SetPre
       <div className={styles.row}>
         <span className={styles.rowLabel}>Fuel for burners</span>
         <Select label="Fuel" value={prefs.fuel} onChange={(fuel) => setPrefs((p) => ({ ...p, fuel }))} options={fuels.map((f) => ({ value: f.id, label: <><Icon kind="item" id={f.id} size={20} /> {f.name}</> }))} />
+      </div>
+      <div className={styles.row}>
+        <span className={styles.rowLabel}>Machine quality</span>
+        <QualitySelect label="Machine quality" value={prefs.machineQuality} onChange={(machineQuality) => setPrefs((p) => ({ ...p, machineQuality }))} />
       </div>
       {categories.map((c) => {
         const current = prefs.machines[c.id] ?? defaults[c.id]

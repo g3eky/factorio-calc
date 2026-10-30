@@ -15,6 +15,8 @@ export interface Target {
   id: string
   amount: number
   unit: TargetUnit
+  // Quality tier wanted; missing means normal.
+  quality?: string
 }
 
 export interface Calculation {
@@ -99,6 +101,7 @@ export function toRequest(game: Game, calc: Calculation, prefs: Preferences): So
     research: prefs.research,
     fuel: prefs.fuel,
     planet: game.data.planets.some((p) => p.id === calc.planet) ? calc.planet : undefined,
+    machineQuality: prefs.machineQuality,
   }
   const beltSpeed = game.data.belts.find((b) => b.id === calc.belt)?.speed ?? 15
   // For "machines" targets: output of one machine of the recipe that would make the item.
@@ -111,7 +114,7 @@ export function toRequest(game: Game, calc: Calculation, prefs: Preferences): So
       const process = processes.find((p) => p.kind === 'recipe' && p.id === recipe)
       rate = t.amount * (process?.outputs.find((o) => o.kind === t.kind && o.id === t.id)?.rate ?? 0)
     } else rate = t.amount / UNIT_SECONDS[t.unit]
-    return { kind: t.kind, id: t.id, rate }
+    return t.quality ? { kind: t.kind, id: t.id, rate, quality: t.quality } : { kind: t.kind, id: t.id, rate }
   })
   return base
 }
