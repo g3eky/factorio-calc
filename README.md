@@ -2,9 +2,11 @@
 
 A production calculator for Factorio, styled like the game's menus. Pick a game version, pick what you want to make, and see the machines, inputs and rates needed.
 
-It's a static website hosted on GitHub Pages. Everything runs in your browser: the game data is downloaded as a SQLite database, and your preferences are saved in your browser's local storage. Nothing is sent to a server.
+![The calculator, building red, green and military science on Nauvis](docs/screenshot.png)
 
-> Work in progress. The first target is a single version of Factorio: Space Age; base game and other versions come later.
+It's a static website hosted on GitHub Pages. Everything runs in your browser: the game data is downloaded as a SQLite database, the solver (a linear program, [HiGHS](https://highs.dev)) runs in a Web Worker, and your calculations and settings are saved in your browser's local storage. Nothing is sent to a server. After the first visit it works offline.
+
+**What it does:** Factorio 2.1 base game and Space Age. Targets per second, minute, hour, belt or machine; machines, modules, beacons and productivity research; cycles and byproducts (oil cracking, Kovarex, recycling); per-planet production with surface conditions and imports; quality, including upcycling loops.
 
 ## Run it locally
 
@@ -26,6 +28,8 @@ Needs Node.js 24 and bash.
 | `./run db` | Build only the SQLite databases into `dist/db/`. |
 | `./run test` | Run the tests. |
 | `./run import` | Re-import game data (needs [LuaJIT](https://luajit.org)); see `docs/plans/02-data-import.md`. |
+
+The component gallery is at `#/gallery` while `./run dev` is running.
 
 ## Repo layout
 

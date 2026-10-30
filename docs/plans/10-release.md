@@ -33,7 +33,21 @@ Out:
 
 ## Done when
 
-- Lighthouse on the live site: Performance, Accessibility, Best Practices ≥ 95.
-- With the network off, a second visit loads and calculates.
-- No axe violations on the main screen and settings window.
-- Licensing and credits are settled and shown on the site.
+- Lighthouse: Accessibility, Best Practices and SEO 100. Performance 91 on desktop and 74 on simulated slow-4G mobile. ✘ for the ≥ 95 performance target, and measured on the local preview server, not the live site (not deployed yet). Total blocking time 0 ms, layout shift 0.002. On mobile the remaining time is downloading 315 KB of JavaScript and the 685 KB SQLite WebAssembly, which the local preview server sends uncompressed; GitHub Pages compresses JavaScript, so the live numbers should be better. Re-measure after deploying.
+- With the network off, a second visit loads and calculates. ✔ Checked in Chrome over the DevTools protocol.
+- No axe violations on the main screen and settings window. ✔ (axe-core injected into the production build.)
+- Licensing and credits are settled and shown on the site. ✔ The About window credits Wube, factorio-data, the wiki (CC BY-NC-SA 3.0 text), Titillium Web, HiGHS and sql.js; the README too. The icons remain Wube's art, used knowingly (see 02).
+
+## What changed
+
+- **Offline:** a service worker (`src/sw/sw.js`, built by `scripts/vite-plugin-sw.ts`) caches the app shell at install, and the page tells it which game data it loaded. Hashed files are cache-first; `index.html` and the database manifest are network-first. A notice offers to reload when a new version is deployed.
+- **Smaller downloads:** databases ship gzipped (Space Age 688 KB → 157 KB) and are unpacked in the browser with `DecompressionStream`, only if the server didn't already. The default database and SQLite are preloaded from `index.html`.
+- **No layout shift on load:** `index.html` paints the header immediately, and the app shows the planner's layout while loading.
+- **Errors:** if the data can't load, the planner layout shows a game-style message with a retry button.
+- **Accessibility:** drop-downs are named by their label and value; windows are named regions; slot and module button names include what they show; muted text contrast raised to 4.5:1.
+- **Polish:** favicon, description and link preview metadata, `preview.png`, README screenshot, About window.
+
+## Not done
+
+- Firefox and Safari: only Chrome was tested (headless, over the DevTools protocol).
+- Lighthouse on the live site, after the first deploy.
