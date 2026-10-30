@@ -1,24 +1,81 @@
-/* Colours and sizes taken from Factorio's in-game menus. */
+/* Colours, bevels, sizes and motion taken from Factorio's in-game menus. */
 :root {
   --font: 'Titillium Web', sans-serif;
   --font-size: 15px;
+  --font-size-small: 13px;
+  --font-size-heading: 17px;
 
+  /* Text */
   --color-text: #ffffff;
   --color-text-muted: #a8a8a8;
+  --color-text-dark: #000000;
   --color-heading: #ffe6c0;
+  --color-link: #ffa200;
+
+  /* Surfaces */
   --color-background: #1b1a1b;
-
   --color-frame: #313031;
-  --color-frame-light: #4a4a4a;
-  --color-frame-dark: #141314;
-  --color-panel: #242324;
-  --color-panel-deep: #1f1e1f;
+  --color-frame-light: #4b4a4b;
+  --color-frame-dark: #121112;
+  --color-panel: #403f40;
+  --color-panel-deep: #242324;
 
+  /* Buttons */
+  --color-button: #8e8e8e;
+  --color-button-light: #b1b1b1;
+  --color-button-dark: #5c5c5c;
+  --color-button-hover: #f9b44b;
+  --color-button-pressed: #e58e14;
+  --color-confirm: #5eb663;
+  --color-confirm-hover: #8ee193;
+  --color-danger: #e23a3a;
+  --color-danger-hover: #ff6d6d;
+  --color-selected: #ffa200;
+
+  /* Slots */
+  --color-slot: #2f2e2f;
+  --color-slot-light: #4e4d4e;
+  --color-slot-hover: #ffb84d;
+
+  /* Inputs */
+  --color-input: #e1e1e1;
+  --color-input-focus: #ffffff;
+
+  /* Tooltips */
+  --color-tooltip: rgb(31 30 31 / 0.96);
+  --color-tooltip-title: #ffe6c0;
+  --color-tooltip-title-background: #424142;
+
+  /* Bevels: outset for raised things (frames, buttons), inset for wells (panels, slots). */
   --bevel-outset: inset 0 1px 0 var(--color-frame-light), inset 0 -1px 0 var(--color-frame-dark), 0 2px 6px rgb(0 0 0 / 0.5);
   --bevel-inset: inset 0 2px 3px rgb(0 0 0 / 0.6), inset 0 -1px 0 rgb(255 255 255 / 0.06);
+  --bevel-button: inset 0 1px 0 rgb(255 255 255 / 0.45), inset 0 -2px 0 rgb(0 0 0 / 0.35), 0 1px 2px rgb(0 0 0 / 0.6);
+  --bevel-button-pressed: inset 0 2px 2px rgb(0 0 0 / 0.45);
+  --bevel-slot: inset 0 1px 0 rgb(255 255 255 / 0.1), inset 0 -1px 0 rgb(0 0 0 / 0.5), 0 0 0 1px rgb(0 0 0 / 0.6);
+  --text-outline: 0 0 2px #000, 0 0 2px #000, 1px 1px 1px #000;
 
+  /* Spacing and sizes */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
+  --slot-size: 40px;
+  --icon-size: 32px;
+  --control-height: 28px;
+  --radius: 2px;
+
+  /* Motion. Only transform and opacity are animated. */
+  --duration-fast: 80ms;
+  --duration: 150ms;
+  --duration-slow: 250ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --tooltip-delay: 150ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration: 0ms;
+    --duration-slow: 0ms;
+  }
 }

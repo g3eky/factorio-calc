@@ -2,10 +2,10 @@ import initSqlJs, { type Database } from 'sql.js'
 import wasmUrl from 'sql.js/dist/sql-wasm.wasm?url'
 
 export interface Manifest {
-  datasets: { id: string; name: string; version: string; file: string }[]
+  datasets: { id: string; name: string; version: string; file: string; icons?: string }[]
 }
 
-const dbUrl = (file: string) => `${import.meta.env.BASE_URL}db/${file}`
+export const dbUrl = (file: string) => `${import.meta.env.BASE_URL}db/${file}`
 
 async function fetchOk(url: string): Promise<Response> {
   const response = await fetch(url)
