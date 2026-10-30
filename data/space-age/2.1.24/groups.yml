@@ -1,0 +1,126 @@
+- id: logistics
+  name: Logistics
+  order: a
+  subgroups:
+    - id: belt
+      order: b
+    - id: circuit-network
+      order: h
+    - id: energy-pipe-distribution
+      order: d
+    - id: inserter
+      order: c
+    - id: logistic-network
+      order: g
+    - id: storage
+      order: a
+    - id: terrain
+      order: i
+    - id: train-transport
+      order: e
+    - id: transport
+      order: f
+- id: production
+  name: Production
+  order: b
+  subgroups:
+    - id: agriculture
+      order: da
+    - id: energy
+      order: b
+    - id: environmental-protection
+      order: f
+    - id: extraction-machine
+      order: c
+    - id: module
+      order: g
+    - id: production-machine
+      order: e
+    - id: smelting-machine
+      order: d
+    - id: tool
+      order: a
+- id: intermediate-products
+  name: Intermediate products
+  order: c
+  subgroups:
+    - id: agriculture-processes
+      order: m
+    - id: agriculture-products
+      order: n
+    - id: aquilo-processes
+      order: p
+    - id: barrel
+      order: d
+    - id: empty-barrel
+      order: f
+    - id: fill-barrel
+      order: e
+    - id: fluid-recipes
+      order: a
+    - id: fulgora-processes
+      order: l
+    - id: intermediate-product
+      order: g
+    - id: nauvis-agriculture
+      order: o
+    - id: raw-material
+      order: c
+    - id: raw-resource
+      order: b
+    - id: science-pack
+      order: y
+    - id: uranium-processing
+      order: i
+    - id: vulcanus-processes
+      order: k
+- id: space
+  name: Space
+  order: d
+  subgroups:
+    - id: space-crushing
+      order: h
+    - id: space-interactors
+      order: a
+    - id: space-material
+      order: g
+    - id: space-platform
+      order: a
+    - id: space-processing
+      order: i
+    - id: space-rocket
+      order: b
+- id: combat
+  name: Combat
+  order: e
+  subgroups:
+    - id: ammo
+      order: b
+    - id: armor
+      order: d
+    - id: capsule
+      order: c
+    - id: defensive-structure
+      order: h
+    - id: equipment
+      order: e
+    - id: gun
+      order: a
+    - id: military-equipment
+      order: g
+    - id: turret
+      order: i
+    - id: utility-equipment
+      order: f
+- id: fluids
+  name: Fluids
+  order: f
+  subgroups:
+    - id: fluid
+      order: a
+- id: other
+  name: Other
+  order: z
+  subgroups:
+    - id: spawnables
+      order: c

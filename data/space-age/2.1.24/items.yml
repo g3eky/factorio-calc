@@ -1,0 +1,1532 @@
+- id: accumulator
+  name: Accumulator
+  subgroup: energy
+  order: e[accumulator]-a[accumulator]
+  stack_size: 50
+- id: active-provider-chest
+  name: Active provider chest
+  subgroup: logistic-network
+  order: b[storage]-c[active-provider-chest]
+  stack_size: 50
+- id: advanced-circuit
+  name: Advanced circuit
+  subgroup: intermediate-product
+  order: b[circuits]-b[advanced-circuit]
+  stack_size: 200
+- id: agricultural-science-pack
+  name: Agricultural science pack
+  subgroup: science-pack
+  order: i
+  stack_size: 200
+  spoil:
+    time: 3600
+    result: spoilage
+- id: agricultural-tower
+  name: Agricultural tower
+  subgroup: agriculture
+  order: a[agricultural-tower]
+  stack_size: 20
+- id: arithmetic-combinator
+  name: Arithmetic combinator
+  subgroup: circuit-network
+  order: c[combinators]-a[arithmetic-combinator]
+  stack_size: 50
+- id: artificial-jellynut-soil
+  name: Artificial jellynut soil
+  subgroup: terrain
+  order: c[landfill]-d[artificial-jellynut-soil]
+  stack_size: 100
+- id: artificial-yumako-soil
+  name: Artificial yumako soil
+  subgroup: terrain
+  order: c[landfill]-b[artificial-yumako-soil]
+  stack_size: 100
+- id: artillery-shell
+  name: Artillery shell
+  subgroup: ammo
+  order: d[explosive-cannon-shell]-d[artillery]
+  stack_size: 1
+- id: artillery-targeting-remote
+  name: Artillery targeting remote
+  subgroup: spawnables
+  order: b[turret]-d[artillery-turret]-b[remote]
+  stack_size: 1
+- id: artillery-turret
+  name: Artillery turret
+  subgroup: turret
+  order: b[turret]-d[artillery-turret]-a[turret]
+  stack_size: 10
+- id: artillery-wagon
+  name: Artillery wagon
+  subgroup: train-transport
+  order: c[rolling-stock]-d[artillery-wagon]
+  stack_size: 5
+- id: assembling-machine-1
+  name: Assembling machine 1
+  subgroup: production-machine
+  order: a[assembling-machine-1]
+  stack_size: 50
+- id: assembling-machine-2
+  name: Assembling machine 2
+  subgroup: production-machine
+  order: b[assembling-machine-2]
+  stack_size: 50
+- id: assembling-machine-3
+  name: Assembling machine 3
+  subgroup: production-machine
+  order: c[assembling-machine-3]
+  stack_size: 50
+- id: asteroid-collector
+  name: Asteroid collector
+  subgroup: space-platform
+  order: d[asteroid-collector]
+  stack_size: 10
+- id: atomic-bomb
+  name: Atomic bomb
+  subgroup: ammo
+  order: d[rocket-launcher]-d[atomic-bomb]
+  stack_size: 10
+- id: automation-science-pack
+  name: Automation science pack
+  subgroup: science-pack
+  order: a[automation-science-pack]
+  stack_size: 200
+- id: barrel
+  name: Barrel
+  subgroup: intermediate-product
+  order: a[basic-intermediates]-d[empty-barrel]
+  stack_size: 10
+- id: battery
+  name: Battery
+  subgroup: raw-material
+  order: b[chemistry]-d[battery]
+  stack_size: 200
+- id: battery-equipment
+  name: Personal battery
+  subgroup: equipment
+  order: b[battery]-a[battery-equipment]
+  stack_size: 20
+- id: battery-mk2-equipment
+  name: Personal battery MK2
+  subgroup: equipment
+  order: b[battery]-b[battery-equipment-mk2]
+  stack_size: 20
+- id: battery-mk3-equipment
+  name: Personal battery MK3
+  subgroup: equipment
+  order: b[battery]-c[battery-equipment-mk3]
+  stack_size: 20
+- id: beacon
+  name: Beacon
+  subgroup: module
+  order: a[beacon]
+  stack_size: 20
+- id: belt-immunity-equipment
+  name: Belt immunity equipment
+  subgroup: utility-equipment
+  order: c[belt-immunity]-a[belt-immunity]
+  stack_size: 20
+- id: big-electric-pole
+  name: Big electric pole
+  subgroup: energy-pipe-distribution
+  order: a[energy]-c[big-electric-pole]
+  stack_size: 50
+- id: big-mining-drill
+  name: Big mining drill
+  subgroup: extraction-machine
+  order: a[items]-c[big-mining-drill]
+  stack_size: 20
+- id: biochamber
+  name: Biochamber
+  subgroup: agriculture
+  order: b[biochamber]
+  stack_size: 20
+- id: bioflux
+  name: Bioflux
+  subgroup: agriculture-products
+  order: a[organic-processing]-b[bioflux]
+  stack_size: 100
+  fuel:
+    category: food
+    value: 6000000
+  spoil:
+    time: 7200
+    result: spoilage
+- id: biolab
+  name: Biolab
+  subgroup: production-machine
+  order: z[z-biolab]
+  stack_size: 5
+- id: biter-egg
+  name: Biter egg
+  subgroup: agriculture-products
+  order: c[eggs]-a[biter-egg]
+  stack_size: 100
+  fuel:
+    category: chemical
+    value: 6000000
+  spoil:
+    time: 1800
+- id: boiler
+  name: Boiler
+  subgroup: energy
+  order: b[steam-power]-a[boiler]
+  stack_size: 50
+- id: buffer-chest
+  name: Buffer chest
+  subgroup: logistic-network
+  order: b[storage]-d[buffer-chest]
+  stack_size: 50
+- id: bulk-inserter
+  name: Bulk inserter
+  subgroup: inserter
+  order: f[bulk-inserter]
+  stack_size: 50
+- id: burner-inserter
+  name: Burner inserter
+  subgroup: inserter
+  order: a[burner-inserter]
+  stack_size: 50
+- id: burner-mining-drill
+  name: Burner mining drill
+  subgroup: extraction-machine
+  order: a[items]-a[burner-mining-drill]
+  stack_size: 50
+- id: calcite
+  name: Calcite
+  subgroup: vulcanus-processes
+  order: a[melting]-a[calcite]
+  stack_size: 50
+- id: cannon-shell
+  name: Cannon shell
+  subgroup: ammo
+  order: d[cannon-shell]-a[basic]
+  stack_size: 100
+- id: captive-biter-spawner
+  name: Captive biter spawner
+  subgroup: agriculture
+  order: z[biter-nest]
+  stack_size: 1
+  spoil:
+    time: 1800
+- id: capture-robot-rocket
+  name: Capture bot rocket
+  subgroup: ammo
+  order: d[rocket-launcher]-d[capture]
+  stack_size: 10
+- id: car
+  name: Zippy/workbench
+  subgroup: transport
+  order: b[personal-transport]-a[car]
+  stack_size: 1
+- id: carbon
+  name: Carbon
+  subgroup: raw-material
+  order: b[chemistry]-f[carbon]
+  stack_size: 50
+  fuel:
+    category: chemical
+    value: 2000000
+- id: carbon-fiber
+  name: Carbon fiber
+  subgroup: agriculture-products
+  order: a[organic-products]-e[carbon-fiber]
+  stack_size: 100
+- id: carbonic-asteroid-chunk
+  name: Carbonic asteroid chunk
+  subgroup: space-material
+  order: b[carbonic]-e[chunk]
+  stack_size: 1
+- id: cargo-bay
+  name: Cargo bay
+  subgroup: space-interactors
+  order: c-b[cargo-bay]
+  stack_size: 10
+- id: cargo-landing-pad
+  name: Cargo landing pad
+  subgroup: space-interactors
+  order: c-a[cargo-landing-pad]
+  stack_size: 1
+- id: cargo-wagon
+  name: Cargo wagon
+  subgroup: train-transport
+  order: c[rolling-stock]-b[cargo-wagon]
+  stack_size: 5
+- id: centrifuge
+  name: Centrifuge
+  subgroup: production-machine
+  order: f[centrifuge]
+  stack_size: 10
+- id: chemical-plant
+  name: Chemical plant
+  subgroup: production-machine
+  order: e[chemical-plant]
+  stack_size: 10
+- id: chemical-science-pack
+  name: Chemical science pack
+  subgroup: science-pack
+  order: d[chemical-science-pack]
+  stack_size: 200
+- id: cliff-explosives
+  name: Cliff explosives
+  subgroup: terrain
+  order: d[cliff-explosives]
+  stack_size: 20
+- id: cluster-grenade
+  name: Cluster grenade
+  subgroup: capsule
+  order: a[grenade]-b[cluster]
+  stack_size: 100
+- id: coal
+  name: Coal
+  subgroup: raw-resource
+  order: b[coal]
+  stack_size: 50
+  fuel:
+    category: chemical
+    value: 4000000
+- id: combat-shotgun
+  name: Combat shotgun
+  subgroup: gun
+  order: b[shotgun]-a[combat]
+  stack_size: 5
+- id: concrete
+  name: Concrete
+  subgroup: terrain
+  order: b[concrete]-a[plain]
+  stack_size: 100
+- id: constant-combinator
+  name: Constant combinator
+  subgroup: circuit-network
+  order: c[combinators]-d[constant-combinator]
+  stack_size: 50
+- id: construction-robot
+  name: Construction robot
+  subgroup: logistic-network
+  order: a[robot]-b[construction-robot]
+  stack_size: 50
+- id: copper-bacteria
+  name: Copper bacteria
+  subgroup: agriculture-processes
+  order: b[agriculture]-d[bacteria]-c[copper-bacteria]
+  stack_size: 50
+  spoil:
+    time: 60
+    result: copper-ore
+- id: copper-cable
+  name: Copper cable
+  subgroup: intermediate-product
+  order: a[basic-intermediates]-c[copper-cable]
+  stack_size: 200
+- id: copper-ore
+  name: Copper ore
+  subgroup: raw-resource
+  order: f[copper-ore]
+  stack_size: 50
+- id: copper-plate
+  name: Copper plate
+  subgroup: raw-material
+  order: a[smelting]-b[copper-plate]
+  stack_size: 100
+- id: copper-wire
+  name: Copper wire
+  subgroup: spawnables
+  order: ""
+  stack_size: 1
+- id: crude-oil-barrel
+  name: Crude oil barrel
+  subgroup: barrel
+  order: a[fluid]-b[oil]-a[crude-oil]
+  stack_size: 10
+- id: crusher
+  name: Crusher
+  subgroup: space-platform
+  order: e[crusher]
+  stack_size: 10
+- id: cryogenic-plant
+  name: Cryogenic plant
+  subgroup: production-machine
+  order: h[cryogenic-plant]
+  stack_size: 20
+- id: cryogenic-science-pack
+  name: Cryogenic science pack
+  subgroup: science-pack
+  order: k
+  stack_size: 200
+- id: decider-combinator
+  name: Decider combinator
+  subgroup: circuit-network
+  order: c[combinators]-b[decider-combinator]
+  stack_size: 50
+- id: defender-capsule
+  name: Defender capsule
+  subgroup: capsule
+  order: d[defender]-b[capsule]
+  stack_size: 100
+- id: depleted-uranium-fuel-cell
+  name: Depleted uranium fuel cell
+  subgroup: uranium-processing
+  order: b[uranium-products]-b[depleted-uranium-fuel-cell]
+  stack_size: 50
+- id: destroyer-capsule
+  name: Destroyer capsule
+  subgroup: capsule
+  order: f[destroyer]-b[capsule]
+  stack_size: 100
+- id: discharge-defense-equipment
+  name: Discharge defense
+  subgroup: military-equipment
+  order: b[active-defense]-b[discharge-defense-equipment]-a[equipment]
+  stack_size: 20
+- id: discharge-defense-remote
+  name: Discharge defense remote
+  subgroup: spawnables
+  order: b[active-defense]-b[discharge-defense-equipment]-b[remote]
+  stack_size: 1
+- id: display-panel
+  name: Display panel
+  subgroup: circuit-network
+  order: s[display-panel]
+  stack_size: 10
+- id: distractor-capsule
+  name: Distractor capsule
+  subgroup: capsule
+  order: e[distractor]-b[capsule]
+  stack_size: 100
+- id: efficiency-module
+  name: Efficiency module
+  subgroup: module
+  order: c[efficiency]-a[efficiency-module-1]
+  stack_size: 50
+- id: efficiency-module-2
+  name: Efficiency module 2
+  subgroup: module
+  order: c[efficiency]-b[efficiency-module-2]
+  stack_size: 50
+- id: efficiency-module-3
+  name: Efficiency module 3
+  subgroup: module
+  order: c[efficiency]-c[efficiency-module-3]
+  stack_size: 50
+- id: electric-engine-unit
+  name: Electric engine unit
+  subgroup: intermediate-product
+  order: c[advanced-intermediates]-b[electric-engine-unit]
+  stack_size: 50
+- id: electric-furnace
+  name: Electric furnace
+  subgroup: smelting-machine
+  order: c[electric-furnace]
+  stack_size: 50
+- id: electric-mining-drill
+  name: Electric mining drill
+  subgroup: extraction-machine
+  order: a[items]-b[electric-mining-drill]
+  stack_size: 50
+- id: electromagnetic-plant
+  name: Electromagnetic plant
+  subgroup: production-machine
+  order: g[electromagnetic-plant]
+  stack_size: 20
+- id: electromagnetic-science-pack
+  name: Electromagnetic science pack
+  subgroup: science-pack
+  order: j
+  stack_size: 200
+- id: electronic-circuit
+  name: Electronic circuit
+  subgroup: intermediate-product
+  order: b[circuits]-a[electronic-circuit]
+  stack_size: 200
+- id: energy-shield-equipment
+  name: Energy shield
+  subgroup: military-equipment
+  order: a[shield]-a[energy-shield-equipment]
+  stack_size: 20
+- id: energy-shield-mk2-equipment
+  name: Energy shield MK2
+  subgroup: military-equipment
+  order: a[shield]-b[energy-shield-equipment-mk2]
+  stack_size: 20
+- id: engine-unit
+  name: Engine unit
+  subgroup: intermediate-product
+  order: c[advanced-intermediates]-a[engine-unit]
+  stack_size: 50
+- id: exoskeleton-equipment
+  name: Exoskeleton
+  subgroup: utility-equipment
+  order: d[exoskeleton]-a[exoskeleton-equipment]
+  stack_size: 20
+- id: explosive-cannon-shell
+  name: Explosive cannon shell
+  subgroup: ammo
+  order: d[cannon-shell]-c[explosive]
+  stack_size: 100
+- id: explosive-rocket
+  name: Explosive rocket
+  subgroup: ammo
+  order: d[rocket-launcher]-b[explosive]
+  stack_size: 100
+- id: explosive-uranium-cannon-shell
+  name: Explosive uranium cannon shell
+  subgroup: ammo
+  order: d[explosive-cannon-shell]-c[uranium]
+  stack_size: 100
+- id: explosives
+  name: Explosives
+  subgroup: raw-material
+  order: b[chemistry]-e[explosives]
+  stack_size: 50
+- id: express-splitter
+  name: Express splitter
+  subgroup: belt
+  order: c[splitter]-c[express-splitter]
+  stack_size: 50
+- id: express-transport-belt
+  name: Express transport belt
+  subgroup: belt
+  order: a[transport-belt]-c[express-transport-belt]
+  stack_size: 100
+- id: express-underground-belt
+  name: Express underground belt
+  subgroup: belt
+  order: b[underground-belt]-c[express-underground-belt]
+  stack_size: 50
+- id: fast-inserter
+  name: Fast inserter
+  subgroup: inserter
+  order: d[fast-inserter]
+  stack_size: 50
+- id: fast-splitter
+  name: Fast splitter
+  subgroup: belt
+  order: c[splitter]-b[fast-splitter]
+  stack_size: 50
+- id: fast-transport-belt
+  name: Fast transport belt
+  subgroup: belt
+  order: a[transport-belt]-b[fast-transport-belt]
+  stack_size: 100
+- id: fast-underground-belt
+  name: Fast underground belt
+  subgroup: belt
+  order: b[underground-belt]-b[fast-underground-belt]
+  stack_size: 50
+- id: firearm-magazine
+  name: Firearm magazine
+  subgroup: ammo
+  order: a[basic-clips]-a[firearm-magazine]
+  stack_size: 100
+- id: fission-reactor-equipment
+  name: Portable fission reactor
+  subgroup: equipment
+  order: a[energy-source]-b[fission-reactor]
+  stack_size: 20
+- id: flamethrower
+  name: Flamethrower
+  subgroup: gun
+  order: e[flamethrower]
+  stack_size: 5
+- id: flamethrower-ammo
+  name: Flamethrower ammo
+  subgroup: ammo
+  order: e[flamethrower]
+  stack_size: 100
+- id: flamethrower-turret
+  name: Flamethrower turret
+  subgroup: turret
+  order: b[turret]-c[flamethrower-turret]
+  stack_size: 50
+- id: fluid-wagon
+  name: Fluid wagon
+  subgroup: train-transport
+  order: c[rolling-stock]-c[fluid-wagon]
+  stack_size: 5
+- id: fluoroketone-cold-barrel
+  name: Fluoroketone cold barrel
+  subgroup: barrel
+  order: b[new-fluid]-e[aquilo]-e[fluoroketone-cold]
+  stack_size: 10
+- id: fluoroketone-hot-barrel
+  name: Fluoroketone hot barrel
+  subgroup: barrel
+  order: b[new-fluid]-e[aquilo]-d[fluoroketone-hot]
+  stack_size: 10
+- id: flying-robot-frame
+  name: Flying robot frame
+  subgroup: intermediate-product
+  order: c[advanced-intermediates]-c[flying-robot-frame]
+  stack_size: 50
+- id: foundation
+  name: Foundation
+  subgroup: terrain
+  order: c[landfill]-g[foundation]
+  stack_size: 50
+- id: foundry
+  name: Foundry
+  subgroup: smelting-machine
+  order: d[foundry]
+  stack_size: 20
+- id: fusion-generator
+  name: Fusion generator
+  subgroup: energy
+  order: g[fusion-energy]-b[generator]
+  stack_size: 5
+- id: fusion-power-cell
+  name: Fusion power cell
+  subgroup: aquilo-processes
+  order: c[lithium]-d[fusion-power-cell]
+  stack_size: 50
+  fuel:
+    category: fusion
+    value: 40000000000
+- id: fusion-reactor
+  name: Fusion reactor
+  subgroup: energy
+  order: g[fusion-energy]-a[reactor]
+  stack_size: 1
+- id: fusion-reactor-equipment
+  name: Portable fusion reactor
+  subgroup: equipment
+  order: a[energy-source]-c[fusion-reactor]
+  stack_size: 20
+- id: gate
+  name: Gate
+  subgroup: defensive-structure
+  order: a[wall]-b[gate]
+  stack_size: 50
+- id: green-wire
+  name: Green wire
+  subgroup: spawnables
+  order: ""
+  stack_size: 1
+- id: grenade
+  name: Grenade
+  subgroup: capsule
+  order: a[grenade]-a[normal]
+  stack_size: 100
+- id: gun-turret
+  name: Gun turret
+  subgroup: turret
+  order: b[turret]-a[gun-turret]
+  stack_size: 50
+- id: hazard-concrete
+  name: Hazard concrete
+  subgroup: terrain
+  order: b[concrete]-b[hazard]
+  stack_size: 100
+- id: heat-exchanger
+  name: Heat exchanger
+  subgroup: energy
+  order: f[nuclear-energy]-c[heat-exchanger]
+  stack_size: 50
+- id: heat-pipe
+  name: Heat pipe
+  subgroup: energy
+  order: f[nuclear-energy]-b[heat-pipe]
+  stack_size: 50
+- id: heating-tower
+  name: Heating tower
+  subgroup: environmental-protection
+  order: c[heating-tower]
+  stack_size: 20
+- id: heavy-armor
+  name: Heavy armor
+  subgroup: armor
+  order: b[heavy-armor]
+  stack_size: 1
+- id: heavy-oil-barrel
+  name: Heavy oil barrel
+  subgroup: barrel
+  order: a[fluid]-b[oil]-d[heavy-oil]
+  stack_size: 10
+- id: holmium-ore
+  name: Holmium ore
+  subgroup: fulgora-processes
+  order: b[holmium]-a[holmium-ore]
+  stack_size: 50
+- id: holmium-plate
+  name: Holmium plate
+  subgroup: fulgora-processes
+  order: b[holmium]-c[holmium-plate]
+  stack_size: 100
+- id: ice
+  name: Ice
+  subgroup: raw-resource
+  order: j[ice]
+  stack_size: 50
+- id: ice-platform
+  name: Ice platform
+  subgroup: terrain
+  order: c[landfill]-f[ice-platform]
+  stack_size: 100
+- id: inserter
+  name: Inserter
+  subgroup: inserter
+  order: b[inserter]
+  stack_size: 50
+- id: iron-bacteria
+  name: Iron bacteria
+  subgroup: agriculture-processes
+  order: b[agriculture]-d[bacteria]-a[iron-bacteria]
+  stack_size: 50
+  spoil:
+    time: 60
+    result: iron-ore
+- id: iron-chest
+  name: Iron chest
+  subgroup: storage
+  order: a[items]-b[iron-chest]
+  stack_size: 50
+- id: iron-gear-wheel
+  name: Iron gear wheel
+  subgroup: intermediate-product
+  order: a[basic-intermediates]-a[iron-gear-wheel]
+  stack_size: 100
+- id: iron-ore
+  name: Iron ore
+  subgroup: raw-resource
+  order: e[iron-ore]
+  stack_size: 50
+- id: iron-plate
+  name: Iron plate
+  subgroup: raw-material
+  order: a[smelting]-a[iron-plate]
+  stack_size: 100
+- id: iron-stick
+  name: Iron stick
+  subgroup: intermediate-product
+  order: a[basic-intermediates]-b[iron-stick]
+  stack_size: 100
+- id: jelly
+  name: Jelly
+  subgroup: agriculture-products
+  order: a[organic-processing]-d[jelly]
+  stack_size: 100
+  fuel:
+    category: chemical
+    value: 1000000
+  spoil:
+    time: 240
+    result: spoilage
+- id: jellynut
+  name: Jellynut
+  subgroup: agriculture-processes
+  order: b[agriculture]-b[jellynut]
+  stack_size: 50
+  fuel:
+    category: chemical
+    value: 10000000
+  spoil:
+    time: 3600
+    result: spoilage
+- id: jellynut-seed
+  name: Jellynut seed
+  subgroup: agriculture-processes
+  order: a[seeds]-b[jellynut-seed]
+  stack_size: 10
+  fuel:
+    category: chemical
+    value: 4000000
+- id: lab
+  name: Lab
+  subgroup: production-machine
+  order: z[lab]
+  stack_size: 10
+- id: land-mine
+  name: Land mine
+  subgroup: defensive-structure
+  order: f[land-mine]
+  stack_size: 100
+- id: landfill
+  name: Landfill
+  subgroup: terrain
+  order: c[landfill]-a[dirt]
+  stack_size: 100
+- id: landing-pad-unloading-bay
+  name: Landing pad unloading bay
+  subgroup: space-interactors
+  order: c-c[landing-pad-unloading-bay]
+  stack_size: 10
+- id: laser-turret
+  name: Laser turret
+  subgroup: turret
+  order: b[turret]-b[laser-turret]
+  stack_size: 50
+- id: light-armor
+  name: Light armor
+  subgroup: armor
+  order: a[light-armor]
+  stack_size: 1
+- id: light-oil-barrel
+  name: Light oil barrel
+  subgroup: barrel
+  order: a[fluid]-b[oil]-c[light-oil]
+  stack_size: 10
+- id: lightning-collector
+  name: Lightning collector
+  subgroup: environmental-protection
+  order: b[lightning-collector]
+  stack_size: 20
+- id: lightning-rod
+  name: Lightning rod
+  subgroup: environmental-protection
+  order: a[lightning-rod]
+  stack_size: 50
+- id: lithium
+  name: Lithium
+  subgroup: aquilo-processes
+  order: c[lithium]-a[lithium]
+  stack_size: 50
+- id: lithium-plate
+  name: Lithium plate
+  subgroup: aquilo-processes
+  order: c[lithium]-b[lithium-plate]
+  stack_size: 100
+- id: locomotive
+  name: Locomotive
+  subgroup: train-transport
+  order: c[rolling-stock]-a[locomotive]
+  stack_size: 5
+- id: logistic-robot
+  name: Logistic robot
+  subgroup: logistic-network
+  order: a[robot]-a[logistic-robot]
+  stack_size: 50
+- id: logistic-science-pack
+  name: Logistic science pack
+  subgroup: science-pack
+  order: b[logistic-science-pack]
+  stack_size: 200
+- id: long-handed-inserter
+  name: Long-handed inserter
+  subgroup: inserter
+  order: c[long-handed-inserter]
+  stack_size: 50
+- id: low-density-structure
+  name: Low density structure
+  subgroup: intermediate-product
+  order: d[rocket-parts]-a[low-density-structure]
+  stack_size: 50
+- id: lubricant-barrel
+  name: Lubricant barrel
+  subgroup: barrel
+  order: a[fluid]-b[oil]-e[lubricant]
+  stack_size: 10
+- id: mech-armor
+  name: Mech armor
+  subgroup: armor
+  order: f[mech-armor]
+  stack_size: 1
+- id: medium-electric-pole
+  name: Medium electric pole
+  subgroup: energy-pipe-distribution
+  order: a[energy]-b[medium-electric-pole]
+  stack_size: 50
+- id: metallic-asteroid-chunk
+  name: Metallic asteroid chunk
+  subgroup: space-material
+  order: a[metallic]-e[chunk]
+  stack_size: 1
+- id: metallurgic-science-pack
+  name: Metallurgic science pack
+  subgroup: science-pack
+  order: h
+  stack_size: 200
+- id: military-science-pack
+  name: Military science pack
+  subgroup: science-pack
+  order: c[military-science-pack]
+  stack_size: 200
+- id: modular-armor
+  name: Modular armor
+  subgroup: armor
+  order: c[modular-armor]
+  stack_size: 1
+- id: night-vision-equipment
+  name: Nightvision
+  subgroup: utility-equipment
+  order: f[night-vision]-a[night-vision-equipment]
+  stack_size: 20
+- id: nuclear-fuel
+  name: Nuclear fuel
+  subgroup: uranium-processing
+  order: r[uranium-processing]-e[nuclear-fuel]
+  stack_size: 1
+  fuel:
+    category: chemical
+    value: 1210000000
+- id: nuclear-reactor
+  name: Nuclear reactor
+  subgroup: energy
+  order: f[nuclear-energy]-a[reactor]
+  stack_size: 10
+- id: nutrients
+  name: Nutrients
+  subgroup: agriculture-processes
+  order: c[nutrients]-b[nutrients]
+  stack_size: 100
+  fuel:
+    category: nutrients
+    value: 2000000
+  spoil:
+    time: 300
+    result: spoilage
+- id: offshore-pump
+  name: Offshore pump
+  subgroup: extraction-machine
+  order: b[fluids]-a[offshore-pump]
+  stack_size: 20
+- id: oil-refinery
+  name: Oil refinery
+  subgroup: production-machine
+  order: d[refinery]
+  stack_size: 10
+- id: overgrowth-jellynut-soil
+  name: Overgrowth jellynut soil
+  subgroup: terrain
+  order: c[landfill]-e[overgrowth-jellynut-soil]
+  stack_size: 100
+- id: overgrowth-yumako-soil
+  name: Overgrowth yumako soil
+  subgroup: terrain
+  order: c[landfill]-c[overgrowth-yumako-soil]
+  stack_size: 100
+- id: oxide-asteroid-chunk
+  name: Oxide asteroid chunk
+  subgroup: space-material
+  order: c[oxide]-e[chunk]
+  stack_size: 1
+- id: passive-provider-chest
+  name: Passive provider chest
+  subgroup: logistic-network
+  order: b[storage]-c[passive-provider-chest]
+  stack_size: 50
+- id: pentapod-egg
+  name: Pentapod egg
+  subgroup: agriculture-products
+  order: c[eggs]-b[pentapod-egg]
+  stack_size: 20
+  fuel:
+    category: chemical
+    value: 5000000
+  spoil:
+    time: 900
+- id: personal-laser-defense-equipment
+  name: Personal laser defense
+  subgroup: military-equipment
+  order: b[active-defense]-a[personal-laser-defense-equipment]
+  stack_size: 20
+- id: personal-roboport-equipment
+  name: Personal roboport
+  subgroup: utility-equipment
+  order: e[robotics]-a[personal-roboport-equipment]
+  stack_size: 20
+- id: personal-roboport-mk2-equipment
+  name: Personal roboport MK2
+  subgroup: utility-equipment
+  order: e[robotics]-b[personal-roboport-mk2-equipment]
+  stack_size: 20
+- id: petroleum-gas-barrel
+  name: Petroleum gas barrel
+  subgroup: barrel
+  order: a[fluid]-b[oil]-b[petroleum-gas]
+  stack_size: 10
+- id: piercing-rounds-magazine
+  name: Piercing rounds magazine
+  subgroup: ammo
+  order: a[basic-clips]-b[piercing-rounds-magazine]
+  stack_size: 100
+- id: piercing-shotgun-shell
+  name: Piercing shotgun shells
+  subgroup: ammo
+  order: b[shotgun]-b[piercing]
+  stack_size: 100
+- id: pipe
+  name: Pipe
+  subgroup: energy-pipe-distribution
+  order: a[pipe]-a[pipe]
+  stack_size: 100
+- id: pipe-to-ground
+  name: Pipe to ground
+  subgroup: energy-pipe-distribution
+  order: a[pipe]-b[pipe-to-ground]
+  stack_size: 50
+- id: pistol
+  name: Pistol
+  subgroup: gun
+  order: a[basic-clips]-a[pistol]
+  stack_size: 5
+- id: plastic-bar
+  name: Plastic bar
+  subgroup: raw-material
+  order: b[chemistry]-b[plastic-bar]
+  stack_size: 100
+- id: poison-capsule
+  name: Poison capsule
+  subgroup: capsule
+  order: b[poison-capsule]
+  stack_size: 100
+- id: power-armor
+  name: Power armor
+  subgroup: armor
+  order: d[power-armor]
+  stack_size: 1
+- id: power-armor-mk2
+  name: Power armor MK2
+  subgroup: armor
+  order: e[power-armor-mk2]
+  stack_size: 1
+- id: power-switch
+  name: Power switch
+  subgroup: circuit-network
+  order: d[other]-a[power-switch]
+  stack_size: 10
+- id: processing-unit
+  name: Processing unit
+  subgroup: intermediate-product
+  order: b[circuits]-c[processing-unit]
+  stack_size: 100
+- id: production-science-pack
+  name: Production science pack
+  subgroup: science-pack
+  order: e[production-science-pack]
+  stack_size: 200
+- id: productivity-module
+  name: Productivity module
+  subgroup: module
+  order: c[productivity]-a[productivity-module-1]
+  stack_size: 50
+- id: productivity-module-2
+  name: Productivity module 2
+  subgroup: module
+  order: c[productivity]-b[productivity-module-2]
+  stack_size: 50
+- id: productivity-module-3
+  name: Productivity module 3
+  subgroup: module
+  order: c[productivity]-c[productivity-module-3]
+  stack_size: 50
+- id: programmable-speaker
+  name: Programmable speaker
+  subgroup: circuit-network
+  order: d[other]-b[programmable-speaker]
+  stack_size: 10
+- id: promethium-asteroid-chunk
+  name: Promethium asteroid chunk
+  subgroup: space-material
+  order: d[promethium]-e[chunk]
+  stack_size: 1
+- id: promethium-science-pack
+  name: Promethium science pack
+  subgroup: science-pack
+  order: l
+  stack_size: 200
+- id: pump
+  name: Pump
+  subgroup: energy-pipe-distribution
+  order: b[pipe]-c[pump]
+  stack_size: 50
+- id: pumpjack
+  name: Pumpjack
+  subgroup: extraction-machine
+  order: b[fluids]-b[pumpjack]
+  stack_size: 20
+- id: quality-module
+  name: Quality module
+  subgroup: module
+  order: d[quality]-a[quality-module-1]
+  stack_size: 50
+- id: quality-module-2
+  name: Quality module 2
+  subgroup: module
+  order: d[quality]-b[quality-module-2]
+  stack_size: 50
+- id: quality-module-3
+  name: Quality module 3
+  subgroup: module
+  order: d[quality]-c[quality-module-3]
+  stack_size: 50
+- id: quantum-processor
+  name: Quantum processor
+  subgroup: aquilo-processes
+  order: c[lithium]-c[quantum-processor]
+  stack_size: 100
+- id: radar
+  name: Radar
+  subgroup: defensive-structure
+  order: d[radar]-a[radar]
+  stack_size: 50
+- id: rail
+  name: Rail
+  subgroup: train-transport
+  order: a[rail]-a[rail]
+  stack_size: 100
+- id: rail-chain-signal
+  name: Rail chain signal
+  subgroup: train-transport
+  order: b[train-automation]-c[rail-chain-signal]
+  stack_size: 50
+- id: rail-ramp
+  name: Rail ramp
+  subgroup: train-transport
+  order: a[rail]-b[rail-ramp]
+  stack_size: 10
+- id: rail-signal
+  name: Rail signal
+  subgroup: train-transport
+  order: b[train-automation]-b[rail-signal]
+  stack_size: 50
+- id: rail-support
+  name: Rail support
+  subgroup: train-transport
+  order: a[rail]-c[rail-support]
+  stack_size: 20
+- id: railgun
+  name: Railgun
+  subgroup: gun
+  order: a[basic-clips]-h[railgun]
+  stack_size: 1
+- id: railgun-ammo
+  name: Railgun ammo
+  subgroup: ammo
+  order: e[railgun-ammo]-a[basic]
+  stack_size: 10
+- id: railgun-turret
+  name: Railgun turret
+  subgroup: turret
+  order: b[turret]-g[railgun-turret]-a[turret]
+  stack_size: 10
+- id: raw-fish
+  name: Raw fish
+  subgroup: raw-resource
+  order: h[raw-fish]
+  stack_size: 100
+  spoil:
+    time: 7550
+    result: spoilage
+- id: recycler
+  name: Recycler
+  subgroup: smelting-machine
+  order: d[recycler]
+  stack_size: 20
+- id: red-wire
+  name: Red wire
+  subgroup: spawnables
+  order: ""
+  stack_size: 1
+- id: refined-concrete
+  name: Refined concrete
+  subgroup: terrain
+  order: b[concrete]-c[refined]
+  stack_size: 100
+- id: refined-hazard-concrete
+  name: Refined hazard concrete
+  subgroup: terrain
+  order: b[concrete]-d[refined-hazard]
+  stack_size: 100
+- id: repair-pack
+  name: Repair pack
+  subgroup: tool
+  order: b[repair]-a[repair-pack]
+  stack_size: 100
+- id: requester-chest
+  name: Requester chest
+  subgroup: logistic-network
+  order: b[storage]-e[requester-chest]
+  stack_size: 50
+- id: roboport
+  name: Roboport
+  subgroup: logistic-network
+  order: c[signal]-a[roboport]
+  stack_size: 10
+- id: rocket
+  name: Rocket
+  subgroup: ammo
+  order: d[rocket-launcher]-a[basic]
+  stack_size: 100
+- id: rocket-fuel
+  name: Rocket fuel
+  subgroup: intermediate-product
+  order: d[rocket-parts]-b[rocket-fuel]
+  stack_size: 20
+  fuel:
+    category: chemical
+    value: 100000000
+- id: rocket-launcher
+  name: Rocket launcher
+  subgroup: gun
+  order: d[rocket-launcher]
+  stack_size: 5
+- id: rocket-silo
+  name: Rocket silo
+  subgroup: space-interactors
+  order: a[rocket-silo]
+  stack_size: 1
+- id: rocket-turret
+  name: Rocket turret
+  subgroup: turret
+  order: b[turret]-e[rocket-turret]-a[turret]
+  stack_size: 10
+- id: scrap
+  name: Scrap
+  subgroup: fulgora-processes
+  order: a[scrap]-a[scrap]
+  stack_size: 50
+- id: selector-combinator
+  name: Selector combinator
+  subgroup: circuit-network
+  order: c[combinators]-c[selector-combinator]
+  stack_size: 50
+- id: shotgun
+  name: Shotgun
+  subgroup: gun
+  order: b[shotgun]-a[basic]
+  stack_size: 5
+- id: shotgun-shell
+  name: Shotgun shells
+  subgroup: ammo
+  order: b[shotgun]-a[basic]
+  stack_size: 100
+- id: slowdown-capsule
+  name: Slowdown capsule
+  subgroup: capsule
+  order: c[slowdown-capsule]
+  stack_size: 100
+- id: small-electric-pole
+  name: Small electric pole
+  subgroup: energy-pipe-distribution
+  order: a[energy]-a[small-electric-pole]
+  stack_size: 50
+- id: small-lamp
+  name: Lamp
+  subgroup: circuit-network
+  order: a[light]-a[small-lamp]
+  stack_size: 50
+- id: solar-panel
+  name: Solar panel
+  subgroup: energy
+  order: d[solar-panel]-a[solar-panel]
+  stack_size: 50
+- id: solar-panel-equipment
+  name: Portable solar panel
+  subgroup: equipment
+  order: a[energy-source]-a[solar-panel]
+  stack_size: 20
+- id: solid-fuel
+  name: Solid fuel
+  subgroup: raw-material
+  order: b[chemistry]-a[solid-fuel]
+  stack_size: 50
+  fuel:
+    category: chemical
+    value: 12000000
+- id: space-platform-foundation
+  name: Space platform foundation
+  subgroup: space-platform
+  order: a[space-platform-foundation]
+  stack_size: 100
+- id: space-platform-starter-pack
+  name: Space platform starter pack
+  subgroup: space-rocket
+  order: b[space-platform-starter-pack]
+  stack_size: 1
+- id: space-science-pack
+  name: Space science pack
+  subgroup: science-pack
+  order: g[space-science-pack]
+  stack_size: 200
+- id: speed-module
+  name: Speed module
+  subgroup: module
+  order: a[speed]-a[speed-module-1]
+  stack_size: 50
+- id: speed-module-2
+  name: Speed module 2
+  subgroup: module
+  order: a[speed]-b[speed-module-2]
+  stack_size: 50
+- id: speed-module-3
+  name: Speed module 3
+  subgroup: module
+  order: a[speed]-c[speed-module-3]
+  stack_size: 50
+- id: spidertron
+  name: Spidertron
+  subgroup: transport
+  order: b[personal-transport]-c[spidertron]-a[spider]
+  stack_size: 1
+- id: splitter
+  name: Splitter
+  subgroup: belt
+  order: c[splitter]-a[splitter]
+  stack_size: 50
+- id: spoilage
+  name: Spoilage
+  subgroup: agriculture-processes
+  order: c[nutrients]-a[spoilage]
+  stack_size: 200
+  fuel:
+    category: chemical
+    value: 250000
+- id: stack-inserter
+  name: Stack inserter
+  subgroup: inserter
+  order: h[stack-inserter]
+  stack_size: 50
+- id: steam-engine
+  name: Steam engine
+  subgroup: energy
+  order: b[steam-power]-b[steam-engine]
+  stack_size: 10
+- id: steam-turbine
+  name: Steam turbine
+  subgroup: energy
+  order: f[nuclear-energy]-d[steam-turbine]
+  stack_size: 10
+- id: steel-chest
+  name: Steel chest
+  subgroup: storage
+  order: a[items]-c[steel-chest]
+  stack_size: 50
+- id: steel-furnace
+  name: Steel furnace
+  subgroup: smelting-machine
+  order: b[steel-furnace]
+  stack_size: 50
+- id: steel-plate
+  name: Steel plate
+  subgroup: raw-material
+  order: a[smelting]-c[steel-plate]
+  stack_size: 100
+- id: stone
+  name: Stone
+  subgroup: raw-resource
+  order: d[stone]
+  stack_size: 50
+- id: stone-brick
+  name: Stone brick
+  subgroup: terrain
+  order: a[stone-brick]
+  stack_size: 100
+- id: stone-furnace
+  name: Stone furnace
+  subgroup: smelting-machine
+  order: a[stone-furnace]
+  stack_size: 50
+- id: stone-wall
+  name: Wall
+  subgroup: defensive-structure
+  order: a[stone-wall]-a[stone-wall]
+  stack_size: 100
+- id: storage-chest
+  name: Storage chest
+  subgroup: logistic-network
+  order: b[storage]-c[storage-chest]
+  stack_size: 50
+- id: storage-tank
+  name: Storage tank
+  subgroup: storage
+  order: b[fluid]-a[storage-tank]
+  stack_size: 50
+- id: submachine-gun
+  name: Submachine gun
+  subgroup: gun
+  order: a[basic-clips]-b[submachine-gun]
+  stack_size: 5
+- id: substation
+  name: Substation
+  subgroup: energy-pipe-distribution
+  order: a[energy]-d[substation]
+  stack_size: 50
+- id: sulfur
+  name: Sulfur
+  subgroup: raw-material
+  order: b[chemistry]-c[sulfur]
+  stack_size: 50
+- id: sulfuric-acid-barrel
+  name: Sulfuric acid barrel
+  subgroup: barrel
+  order: a[fluid]-b[oil]-f[sulfuric-acid]
+  stack_size: 10
+- id: supercapacitor
+  name: Supercapacitor
+  subgroup: fulgora-processes
+  order: b[holmium]-f[supercapacitor]
+  stack_size: 100
+- id: superconductor
+  name: Superconductor
+  subgroup: fulgora-processes
+  order: b[holmium]-d[superconductor]
+  stack_size: 200
+- id: tank
+  name: Tank
+  subgroup: transport
+  order: b[personal-transport]-b[tank]
+  stack_size: 1
+- id: tesla-ammo
+  name: Tesla ammo
+  subgroup: ammo
+  order: e[railgun-ammo]-a[basic]
+  stack_size: 100
+- id: tesla-turret
+  name: Tesla turret
+  subgroup: turret
+  order: b[turret]-f[tesla-turret]-a[turret]
+  stack_size: 10
+- id: teslagun
+  name: Tesla gun
+  subgroup: gun
+  order: a[basic-clips]-h[teslagun]
+  stack_size: 5
+- id: thruster
+  name: Thruster
+  subgroup: space-platform
+  order: f[thruster]
+  stack_size: 10
+- id: toolbelt-equipment
+  name: Toolbelt equipment
+  subgroup: utility-equipment
+  order: g[toolbelt]-a[night-vision-equipment]
+  stack_size: 20
+- id: train-stop
+  name: Train stop
+  subgroup: train-transport
+  order: b[train-automation]-a[train-stop]
+  stack_size: 10
+- id: transport-belt
+  name: Transport belt
+  subgroup: belt
+  order: a[transport-belt]-a[transport-belt]
+  stack_size: 100
+- id: tree-seed
+  name: Tree seed
+  subgroup: nauvis-agriculture
+  order: a[seeds]-b[tree-seed]
+  stack_size: 10
+  fuel:
+    category: chemical
+    value: 100000
+- id: tungsten-carbide
+  name: Tungsten carbide
+  subgroup: vulcanus-processes
+  order: c[tungsten]-b[tungsten-carbide]
+  stack_size: 50
+- id: tungsten-ore
+  name: Tungsten ore
+  subgroup: vulcanus-processes
+  order: c[tungsten]-a[tungsten-ore]
+  stack_size: 50
+- id: tungsten-plate
+  name: Tungsten plate
+  subgroup: vulcanus-processes
+  order: c[tungsten]-c[tungsten-plate]
+  stack_size: 50
+- id: turbo-splitter
+  name: Turbo splitter
+  subgroup: belt
+  order: c[splitter]-d[turbo-splitter]
+  stack_size: 50
+- id: turbo-transport-belt
+  name: Turbo transport belt
+  subgroup: belt
+  order: a[transport-belt]-d[turbo-transport-belt]
+  stack_size: 100
+- id: turbo-underground-belt
+  name: Turbo underground belt
+  subgroup: belt
+  order: b[underground-belt]-d[turbo-underground-belt]
+  stack_size: 50
+- id: underground-belt
+  name: Underground belt
+  subgroup: belt
+  order: b[underground-belt]-a[underground-belt]
+  stack_size: 50
+- id: uranium-235
+  name: Uranium-235
+  subgroup: uranium-processing
+  order: a[uranium-processing]-b[uranium-235]
+  stack_size: 100
+- id: uranium-238
+  name: Uranium-238
+  subgroup: uranium-processing
+  order: a[uranium-processing]-c[uranium-238]
+  stack_size: 100
+- id: uranium-cannon-shell
+  name: Uranium cannon shell
+  subgroup: ammo
+  order: d[cannon-shell]-c[uranium]
+  stack_size: 100
+- id: uranium-fuel-cell
+  name: Uranium fuel cell
+  subgroup: uranium-processing
+  order: b[uranium-products]-a[uranium-fuel-cell]
+  stack_size: 50
+  fuel:
+    category: nuclear
+    value: 8000000000
+    burnt_result: depleted-uranium-fuel-cell
+- id: uranium-ore
+  name: Uranium ore
+  subgroup: raw-resource
+  order: g[uranium-ore]
+  stack_size: 50
+- id: uranium-rounds-magazine
+  name: Uranium rounds magazine
+  subgroup: ammo
+  order: a[basic-clips]-c[uranium-rounds-magazine]
+  stack_size: 100
+- id: utility-science-pack
+  name: Utility science pack
+  subgroup: science-pack
+  order: f[utility-science-pack]
+  stack_size: 200
+- id: water-barrel
+  name: Water barrel
+  subgroup: barrel
+  order: a[fluid]-a[water]-a[water]
+  stack_size: 10
+- id: wood
+  name: Wood
+  subgroup: raw-resource
+  order: a[wood]
+  stack_size: 100
+  fuel:
+    category: chemical
+    value: 2000000
+- id: wooden-chest
+  name: Wooden chest
+  subgroup: storage
+  order: a[items]-a[wooden-chest]
+  stack_size: 50
+- id: yumako
+  name: Yumako
+  subgroup: agriculture-processes
+  order: b[agriculture]-a[yumako]
+  stack_size: 50
+  fuel:
+    category: chemical
+    value: 2000000
+  spoil:
+    time: 3600
+    result: spoilage
+- id: yumako-mash
+  name: Yumako mash
+  subgroup: agriculture-products
+  order: a[organic-processing]-c[yumako-mash]
+  stack_size: 100
+  fuel:
+    category: chemical
+    value: 1000000
+  spoil:
+    time: 180
+    result: spoilage
+- id: yumako-seed
+  name: Yumako seed
+  subgroup: agriculture-processes
+  order: a[seeds]-a[yumako-seed]
+  stack_size: 10
+  fuel:
+    category: chemical
+    value: 4000000

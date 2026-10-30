@@ -1,0 +1,1683 @@
+{
+ "size": 64,
+ "width": 1344,
+ "height": 1280,
+ "icons": {
+  "fluid/ammonia": [
+   0,
+   0
+  ],
+  "fluid/ammoniacal-solution": [
+   64,
+   0
+  ],
+  "fluid/crude-oil": [
+   128,
+   0
+  ],
+  "fluid/electrolyte": [
+   192,
+   0
+  ],
+  "fluid/fluorine": [
+   256,
+   0
+  ],
+  "fluid/fluoroketone-cold": [
+   320,
+   0
+  ],
+  "fluid/fluoroketone-hot": [
+   384,
+   0
+  ],
+  "fluid/fusion-plasma": [
+   448,
+   0
+  ],
+  "fluid/heavy-oil": [
+   512,
+   0
+  ],
+  "fluid/holmium-solution": [
+   576,
+   0
+  ],
+  "fluid/lava": [
+   640,
+   0
+  ],
+  "fluid/light-oil": [
+   704,
+   0
+  ],
+  "fluid/lithium-brine": [
+   768,
+   0
+  ],
+  "fluid/lubricant": [
+   832,
+   0
+  ],
+  "fluid/molten-copper": [
+   896,
+   0
+  ],
+  "fluid/molten-iron": [
+   960,
+   0
+  ],
+  "fluid/petroleum-gas": [
+   1024,
+   0
+  ],
+  "fluid/steam": [
+   1088,
+   0
+  ],
+  "fluid/sulfuric-acid": [
+   1152,
+   0
+  ],
+  "fluid/thruster-fuel": [
+   1216,
+   0
+  ],
+  "fluid/thruster-oxidizer": [
+   1280,
+   0
+  ],
+  "fluid/water": [
+   0,
+   64
+  ],
+  "item/accumulator": [
+   64,
+   64
+  ],
+  "item/active-provider-chest": [
+   128,
+   64
+  ],
+  "item/advanced-circuit": [
+   192,
+   64
+  ],
+  "item/agricultural-science-pack": [
+   256,
+   64
+  ],
+  "item/agricultural-tower": [
+   320,
+   64
+  ],
+  "item/arithmetic-combinator": [
+   384,
+   64
+  ],
+  "item/artificial-jellynut-soil": [
+   448,
+   64
+  ],
+  "item/artificial-yumako-soil": [
+   512,
+   64
+  ],
+  "item/artillery-shell": [
+   576,
+   64
+  ],
+  "item/artillery-targeting-remote": [
+   640,
+   64
+  ],
+  "item/artillery-turret": [
+   704,
+   64
+  ],
+  "item/artillery-wagon": [
+   768,
+   64
+  ],
+  "item/assembling-machine-1": [
+   832,
+   64
+  ],
+  "item/assembling-machine-2": [
+   896,
+   64
+  ],
+  "item/assembling-machine-3": [
+   960,
+   64
+  ],
+  "item/asteroid-collector": [
+   1024,
+   64
+  ],
+  "item/atomic-bomb": [
+   1088,
+   64
+  ],
+  "item/automation-science-pack": [
+   1152,
+   64
+  ],
+  "item/barrel": [
+   1216,
+   64
+  ],
+  "item/battery": [
+   1280,
+   64
+  ],
+  "item/battery-equipment": [
+   0,
+   128
+  ],
+  "item/battery-mk2-equipment": [
+   64,
+   128
+  ],
+  "item/battery-mk3-equipment": [
+   128,
+   128
+  ],
+  "item/beacon": [
+   192,
+   128
+  ],
+  "item/belt-immunity-equipment": [
+   256,
+   128
+  ],
+  "item/big-electric-pole": [
+   320,
+   128
+  ],
+  "item/big-mining-drill": [
+   384,
+   128
+  ],
+  "item/biochamber": [
+   448,
+   128
+  ],
+  "item/bioflux": [
+   512,
+   128
+  ],
+  "item/biolab": [
+   576,
+   128
+  ],
+  "item/biter-egg": [
+   640,
+   128
+  ],
+  "item/boiler": [
+   704,
+   128
+  ],
+  "item/buffer-chest": [
+   768,
+   128
+  ],
+  "item/bulk-inserter": [
+   832,
+   128
+  ],
+  "item/burner-inserter": [
+   896,
+   128
+  ],
+  "item/burner-mining-drill": [
+   960,
+   128
+  ],
+  "item/calcite": [
+   1024,
+   128
+  ],
+  "item/cannon-shell": [
+   1088,
+   128
+  ],
+  "item/captive-biter-spawner": [
+   1152,
+   128
+  ],
+  "item/capture-robot-rocket": [
+   1216,
+   128
+  ],
+  "item/carbon": [
+   1280,
+   128
+  ],
+  "item/carbon-fiber": [
+   0,
+   192
+  ],
+  "item/carbonic-asteroid-chunk": [
+   64,
+   192
+  ],
+  "item/cargo-bay": [
+   128,
+   192
+  ],
+  "item/cargo-landing-pad": [
+   192,
+   192
+  ],
+  "item/cargo-wagon": [
+   256,
+   192
+  ],
+  "item/centrifuge": [
+   320,
+   192
+  ],
+  "item/chemical-plant": [
+   384,
+   192
+  ],
+  "item/chemical-science-pack": [
+   448,
+   192
+  ],
+  "item/cliff-explosives": [
+   512,
+   192
+  ],
+  "item/cluster-grenade": [
+   576,
+   192
+  ],
+  "item/coal": [
+   640,
+   192
+  ],
+  "item/combat-shotgun": [
+   704,
+   192
+  ],
+  "item/concrete": [
+   768,
+   192
+  ],
+  "item/constant-combinator": [
+   832,
+   192
+  ],
+  "item/construction-robot": [
+   896,
+   192
+  ],
+  "item/copper-bacteria": [
+   960,
+   192
+  ],
+  "item/copper-cable": [
+   1024,
+   192
+  ],
+  "item/copper-ore": [
+   1088,
+   192
+  ],
+  "item/copper-plate": [
+   1152,
+   192
+  ],
+  "item/copper-wire": [
+   1216,
+   192
+  ],
+  "item/crude-oil-barrel": [
+   1280,
+   192
+  ],
+  "item/crusher": [
+   0,
+   256
+  ],
+  "item/cryogenic-plant": [
+   64,
+   256
+  ],
+  "item/cryogenic-science-pack": [
+   128,
+   256
+  ],
+  "item/decider-combinator": [
+   192,
+   256
+  ],
+  "item/defender-capsule": [
+   256,
+   256
+  ],
+  "item/depleted-uranium-fuel-cell": [
+   320,
+   256
+  ],
+  "item/destroyer-capsule": [
+   384,
+   256
+  ],
+  "item/discharge-defense-equipment": [
+   448,
+   256
+  ],
+  "item/discharge-defense-remote": [
+   512,
+   256
+  ],
+  "item/display-panel": [
+   576,
+   256
+  ],
+  "item/distractor-capsule": [
+   640,
+   256
+  ],
+  "item/efficiency-module": [
+   704,
+   256
+  ],
+  "item/efficiency-module-2": [
+   768,
+   256
+  ],
+  "item/efficiency-module-3": [
+   832,
+   256
+  ],
+  "item/electric-engine-unit": [
+   896,
+   256
+  ],
+  "item/electric-furnace": [
+   960,
+   256
+  ],
+  "item/electric-mining-drill": [
+   1024,
+   256
+  ],
+  "item/electromagnetic-plant": [
+   1088,
+   256
+  ],
+  "item/electromagnetic-science-pack": [
+   1152,
+   256
+  ],
+  "item/electronic-circuit": [
+   1216,
+   256
+  ],
+  "item/energy-shield-equipment": [
+   1280,
+   256
+  ],
+  "item/energy-shield-mk2-equipment": [
+   0,
+   320
+  ],
+  "item/engine-unit": [
+   64,
+   320
+  ],
+  "item/exoskeleton-equipment": [
+   128,
+   320
+  ],
+  "item/explosive-cannon-shell": [
+   192,
+   320
+  ],
+  "item/explosive-rocket": [
+   256,
+   320
+  ],
+  "item/explosive-uranium-cannon-shell": [
+   320,
+   320
+  ],
+  "item/explosives": [
+   384,
+   320
+  ],
+  "item/express-splitter": [
+   448,
+   320
+  ],
+  "item/express-transport-belt": [
+   512,
+   320
+  ],
+  "item/express-underground-belt": [
+   576,
+   320
+  ],
+  "item/fast-inserter": [
+   640,
+   320
+  ],
+  "item/fast-splitter": [
+   704,
+   320
+  ],
+  "item/fast-transport-belt": [
+   768,
+   320
+  ],
+  "item/fast-underground-belt": [
+   832,
+   320
+  ],
+  "item/firearm-magazine": [
+   896,
+   320
+  ],
+  "item/fission-reactor-equipment": [
+   960,
+   320
+  ],
+  "item/flamethrower": [
+   1024,
+   320
+  ],
+  "item/flamethrower-ammo": [
+   1088,
+   320
+  ],
+  "item/flamethrower-turret": [
+   1152,
+   320
+  ],
+  "item/fluid-wagon": [
+   1216,
+   320
+  ],
+  "item/flying-robot-frame": [
+   1280,
+   320
+  ],
+  "item/foundation": [
+   0,
+   384
+  ],
+  "item/foundry": [
+   64,
+   384
+  ],
+  "item/fusion-generator": [
+   128,
+   384
+  ],
+  "item/fusion-power-cell": [
+   192,
+   384
+  ],
+  "item/fusion-reactor": [
+   256,
+   384
+  ],
+  "item/fusion-reactor-equipment": [
+   320,
+   384
+  ],
+  "item/gate": [
+   384,
+   384
+  ],
+  "item/green-wire": [
+   448,
+   384
+  ],
+  "item/grenade": [
+   512,
+   384
+  ],
+  "item/gun-turret": [
+   576,
+   384
+  ],
+  "item/hazard-concrete": [
+   640,
+   384
+  ],
+  "item/heat-exchanger": [
+   704,
+   384
+  ],
+  "item/heat-pipe": [
+   768,
+   384
+  ],
+  "item/heating-tower": [
+   832,
+   384
+  ],
+  "item/heavy-armor": [
+   896,
+   384
+  ],
+  "item/heavy-oil-barrel": [
+   960,
+   384
+  ],
+  "item/holmium-ore": [
+   1024,
+   384
+  ],
+  "item/holmium-plate": [
+   1088,
+   384
+  ],
+  "item/ice": [
+   1152,
+   384
+  ],
+  "item/ice-platform": [
+   1216,
+   384
+  ],
+  "item/inserter": [
+   1280,
+   384
+  ],
+  "item/iron-bacteria": [
+   0,
+   448
+  ],
+  "item/iron-chest": [
+   64,
+   448
+  ],
+  "item/iron-gear-wheel": [
+   128,
+   448
+  ],
+  "item/iron-ore": [
+   192,
+   448
+  ],
+  "item/iron-plate": [
+   256,
+   448
+  ],
+  "item/iron-stick": [
+   320,
+   448
+  ],
+  "item/jelly": [
+   384,
+   448
+  ],
+  "item/jellynut": [
+   448,
+   448
+  ],
+  "item/jellynut-seed": [
+   512,
+   448
+  ],
+  "item/lab": [
+   576,
+   448
+  ],
+  "item/land-mine": [
+   640,
+   448
+  ],
+  "item/landfill": [
+   704,
+   448
+  ],
+  "item/landing-pad-unloading-bay": [
+   768,
+   448
+  ],
+  "item/laser-turret": [
+   832,
+   448
+  ],
+  "item/light-armor": [
+   896,
+   448
+  ],
+  "item/light-oil-barrel": [
+   960,
+   448
+  ],
+  "item/lightning-collector": [
+   1024,
+   448
+  ],
+  "item/lightning-rod": [
+   1088,
+   448
+  ],
+  "item/lithium": [
+   1152,
+   448
+  ],
+  "item/lithium-plate": [
+   1216,
+   448
+  ],
+  "item/locomotive": [
+   1280,
+   448
+  ],
+  "item/logistic-robot": [
+   0,
+   512
+  ],
+  "item/logistic-science-pack": [
+   64,
+   512
+  ],
+  "item/long-handed-inserter": [
+   128,
+   512
+  ],
+  "item/low-density-structure": [
+   192,
+   512
+  ],
+  "item/lubricant-barrel": [
+   256,
+   512
+  ],
+  "item/mech-armor": [
+   320,
+   512
+  ],
+  "item/medium-electric-pole": [
+   384,
+   512
+  ],
+  "item/metallic-asteroid-chunk": [
+   448,
+   512
+  ],
+  "item/metallurgic-science-pack": [
+   512,
+   512
+  ],
+  "item/military-science-pack": [
+   576,
+   512
+  ],
+  "item/modular-armor": [
+   640,
+   512
+  ],
+  "item/night-vision-equipment": [
+   704,
+   512
+  ],
+  "item/nuclear-fuel": [
+   768,
+   512
+  ],
+  "item/nuclear-reactor": [
+   832,
+   512
+  ],
+  "item/nutrients": [
+   896,
+   512
+  ],
+  "item/offshore-pump": [
+   960,
+   512
+  ],
+  "item/oil-refinery": [
+   1024,
+   512
+  ],
+  "item/overgrowth-jellynut-soil": [
+   1088,
+   512
+  ],
+  "item/overgrowth-yumako-soil": [
+   1152,
+   512
+  ],
+  "item/oxide-asteroid-chunk": [
+   1216,
+   512
+  ],
+  "item/passive-provider-chest": [
+   1280,
+   512
+  ],
+  "item/pentapod-egg": [
+   0,
+   576
+  ],
+  "item/personal-laser-defense-equipment": [
+   64,
+   576
+  ],
+  "item/personal-roboport-equipment": [
+   128,
+   576
+  ],
+  "item/personal-roboport-mk2-equipment": [
+   192,
+   576
+  ],
+  "item/petroleum-gas-barrel": [
+   256,
+   576
+  ],
+  "item/piercing-rounds-magazine": [
+   320,
+   576
+  ],
+  "item/piercing-shotgun-shell": [
+   384,
+   576
+  ],
+  "item/pipe": [
+   448,
+   576
+  ],
+  "item/pipe-to-ground": [
+   512,
+   576
+  ],
+  "item/pistol": [
+   576,
+   576
+  ],
+  "item/plastic-bar": [
+   640,
+   576
+  ],
+  "item/poison-capsule": [
+   704,
+   576
+  ],
+  "item/power-armor": [
+   768,
+   576
+  ],
+  "item/power-armor-mk2": [
+   832,
+   576
+  ],
+  "item/power-switch": [
+   896,
+   576
+  ],
+  "item/processing-unit": [
+   960,
+   576
+  ],
+  "item/production-science-pack": [
+   1024,
+   576
+  ],
+  "item/productivity-module": [
+   1088,
+   576
+  ],
+  "item/productivity-module-2": [
+   1152,
+   576
+  ],
+  "item/productivity-module-3": [
+   1216,
+   576
+  ],
+  "item/programmable-speaker": [
+   1280,
+   576
+  ],
+  "item/promethium-asteroid-chunk": [
+   0,
+   640
+  ],
+  "item/promethium-science-pack": [
+   64,
+   640
+  ],
+  "item/pump": [
+   128,
+   640
+  ],
+  "item/pumpjack": [
+   192,
+   640
+  ],
+  "item/quality-module": [
+   256,
+   640
+  ],
+  "item/quality-module-2": [
+   320,
+   640
+  ],
+  "item/quality-module-3": [
+   384,
+   640
+  ],
+  "item/quantum-processor": [
+   448,
+   640
+  ],
+  "item/radar": [
+   512,
+   640
+  ],
+  "item/rail": [
+   576,
+   640
+  ],
+  "item/rail-chain-signal": [
+   640,
+   640
+  ],
+  "item/rail-ramp": [
+   704,
+   640
+  ],
+  "item/rail-signal": [
+   768,
+   640
+  ],
+  "item/rail-support": [
+   832,
+   640
+  ],
+  "item/railgun": [
+   896,
+   640
+  ],
+  "item/railgun-ammo": [
+   960,
+   640
+  ],
+  "item/railgun-turret": [
+   1024,
+   640
+  ],
+  "item/raw-fish": [
+   1088,
+   640
+  ],
+  "item/recycler": [
+   1152,
+   640
+  ],
+  "item/red-wire": [
+   1216,
+   640
+  ],
+  "item/refined-concrete": [
+   1280,
+   640
+  ],
+  "item/refined-hazard-concrete": [
+   0,
+   704
+  ],
+  "item/repair-pack": [
+   64,
+   704
+  ],
+  "item/requester-chest": [
+   128,
+   704
+  ],
+  "item/roboport": [
+   192,
+   704
+  ],
+  "item/rocket": [
+   256,
+   704
+  ],
+  "item/rocket-fuel": [
+   320,
+   704
+  ],
+  "item/rocket-launcher": [
+   384,
+   704
+  ],
+  "item/rocket-silo": [
+   448,
+   704
+  ],
+  "item/rocket-turret": [
+   512,
+   704
+  ],
+  "item/scrap": [
+   576,
+   704
+  ],
+  "item/selector-combinator": [
+   640,
+   704
+  ],
+  "item/shotgun": [
+   704,
+   704
+  ],
+  "item/shotgun-shell": [
+   768,
+   704
+  ],
+  "item/slowdown-capsule": [
+   832,
+   704
+  ],
+  "item/small-electric-pole": [
+   896,
+   704
+  ],
+  "item/small-lamp": [
+   960,
+   704
+  ],
+  "item/solar-panel": [
+   1024,
+   704
+  ],
+  "item/solar-panel-equipment": [
+   1088,
+   704
+  ],
+  "item/solid-fuel": [
+   1152,
+   704
+  ],
+  "item/space-platform-foundation": [
+   1216,
+   704
+  ],
+  "item/space-platform-starter-pack": [
+   1280,
+   704
+  ],
+  "item/space-science-pack": [
+   0,
+   768
+  ],
+  "item/speed-module": [
+   64,
+   768
+  ],
+  "item/speed-module-2": [
+   128,
+   768
+  ],
+  "item/speed-module-3": [
+   192,
+   768
+  ],
+  "item/spidertron": [
+   256,
+   768
+  ],
+  "item/splitter": [
+   320,
+   768
+  ],
+  "item/spoilage": [
+   384,
+   768
+  ],
+  "item/stack-inserter": [
+   448,
+   768
+  ],
+  "item/steam-engine": [
+   512,
+   768
+  ],
+  "item/steam-turbine": [
+   576,
+   768
+  ],
+  "item/steel-chest": [
+   640,
+   768
+  ],
+  "item/steel-furnace": [
+   704,
+   768
+  ],
+  "item/steel-plate": [
+   768,
+   768
+  ],
+  "item/stone": [
+   832,
+   768
+  ],
+  "item/stone-brick": [
+   896,
+   768
+  ],
+  "item/stone-furnace": [
+   960,
+   768
+  ],
+  "item/stone-wall": [
+   1024,
+   768
+  ],
+  "item/storage-chest": [
+   1088,
+   768
+  ],
+  "item/storage-tank": [
+   1152,
+   768
+  ],
+  "item/submachine-gun": [
+   1216,
+   768
+  ],
+  "item/substation": [
+   1280,
+   768
+  ],
+  "item/sulfur": [
+   0,
+   832
+  ],
+  "item/sulfuric-acid-barrel": [
+   64,
+   832
+  ],
+  "item/supercapacitor": [
+   128,
+   832
+  ],
+  "item/superconductor": [
+   192,
+   832
+  ],
+  "item/tank": [
+   256,
+   832
+  ],
+  "item/tesla-ammo": [
+   320,
+   832
+  ],
+  "item/tesla-turret": [
+   384,
+   832
+  ],
+  "item/teslagun": [
+   448,
+   832
+  ],
+  "item/thruster": [
+   512,
+   832
+  ],
+  "item/toolbelt-equipment": [
+   576,
+   832
+  ],
+  "item/train-stop": [
+   640,
+   832
+  ],
+  "item/transport-belt": [
+   704,
+   832
+  ],
+  "item/tree-seed": [
+   768,
+   832
+  ],
+  "item/tungsten-carbide": [
+   832,
+   832
+  ],
+  "item/tungsten-ore": [
+   896,
+   832
+  ],
+  "item/tungsten-plate": [
+   960,
+   832
+  ],
+  "item/turbo-splitter": [
+   1024,
+   832
+  ],
+  "item/turbo-transport-belt": [
+   1088,
+   832
+  ],
+  "item/turbo-underground-belt": [
+   1152,
+   832
+  ],
+  "item/underground-belt": [
+   1216,
+   832
+  ],
+  "item/uranium-235": [
+   1280,
+   832
+  ],
+  "item/uranium-238": [
+   0,
+   896
+  ],
+  "item/uranium-cannon-shell": [
+   64,
+   896
+  ],
+  "item/uranium-fuel-cell": [
+   128,
+   896
+  ],
+  "item/uranium-ore": [
+   192,
+   896
+  ],
+  "item/uranium-rounds-magazine": [
+   256,
+   896
+  ],
+  "item/utility-science-pack": [
+   320,
+   896
+  ],
+  "item/water-barrel": [
+   384,
+   896
+  ],
+  "item/wood": [
+   448,
+   896
+  ],
+  "item/wooden-chest": [
+   512,
+   896
+  ],
+  "item/yumako": [
+   576,
+   896
+  ],
+  "item/yumako-mash": [
+   640,
+   896
+  ],
+  "item/yumako-seed": [
+   704,
+   896
+  ],
+  "machine/assembling-machine-1": [
+   768,
+   896
+  ],
+  "machine/assembling-machine-2": [
+   832,
+   896
+  ],
+  "machine/assembling-machine-3": [
+   896,
+   896
+  ],
+  "machine/big-mining-drill": [
+   960,
+   896
+  ],
+  "machine/biochamber": [
+   1024,
+   896
+  ],
+  "machine/boiler": [
+   1088,
+   896
+  ],
+  "machine/burner-mining-drill": [
+   1152,
+   896
+  ],
+  "machine/captive-biter-spawner": [
+   1216,
+   896
+  ],
+  "machine/centrifuge": [
+   1280,
+   896
+  ],
+  "machine/chemical-plant": [
+   0,
+   960
+  ],
+  "machine/crusher": [
+   64,
+   960
+  ],
+  "machine/cryogenic-plant": [
+   128,
+   960
+  ],
+  "machine/electric-furnace": [
+   192,
+   960
+  ],
+  "machine/electric-mining-drill": [
+   256,
+   960
+  ],
+  "machine/electromagnetic-plant": [
+   320,
+   960
+  ],
+  "machine/foundry": [
+   384,
+   960
+  ],
+  "machine/heat-exchanger": [
+   448,
+   960
+  ],
+  "machine/offshore-pump": [
+   512,
+   960
+  ],
+  "machine/oil-refinery": [
+   576,
+   960
+  ],
+  "machine/pumpjack": [
+   640,
+   960
+  ],
+  "machine/recycler": [
+   704,
+   960
+  ],
+  "machine/rocket-silo": [
+   768,
+   960
+  ],
+  "machine/steel-furnace": [
+   832,
+   960
+  ],
+  "machine/stone-furnace": [
+   896,
+   960
+  ],
+  "planet/aquilo": [
+   960,
+   960
+  ],
+  "planet/fulgora": [
+   1024,
+   960
+  ],
+  "planet/gleba": [
+   1088,
+   960
+  ],
+  "planet/nauvis": [
+   1152,
+   960
+  ],
+  "planet/space-platform": [
+   1216,
+   960
+  ],
+  "planet/vulcanus": [
+   1280,
+   960
+  ],
+  "recipe/acid-neutralisation": [
+   0,
+   1024
+  ],
+  "recipe/advanced-carbonic-asteroid-crushing": [
+   64,
+   1024
+  ],
+  "recipe/advanced-metallic-asteroid-crushing": [
+   128,
+   1024
+  ],
+  "recipe/advanced-oil-processing": [
+   192,
+   1024
+  ],
+  "recipe/advanced-oxide-asteroid-crushing": [
+   256,
+   1024
+  ],
+  "recipe/advanced-thruster-fuel": [
+   320,
+   1024
+  ],
+  "recipe/advanced-thruster-oxidizer": [
+   384,
+   1024
+  ],
+  "recipe/ammonia-rocket-fuel": [
+   448,
+   1024
+  ],
+  "recipe/ammoniacal-solution-separation": [
+   512,
+   1024
+  ],
+  "recipe/artificial-jellynut-soil": [
+   576,
+   1024
+  ],
+  "recipe/artificial-yumako-soil": [
+   640,
+   1024
+  ],
+  "recipe/basic-oil-processing": [
+   704,
+   1024
+  ],
+  "recipe/bioflux": [
+   768,
+   1024
+  ],
+  "recipe/biolubricant": [
+   832,
+   1024
+  ],
+  "recipe/bioplastic": [
+   896,
+   1024
+  ],
+  "recipe/biosulfur": [
+   960,
+   1024
+  ],
+  "recipe/biter-egg": [
+   1024,
+   1024
+  ],
+  "recipe/burnt-spoilage": [
+   1088,
+   1024
+  ],
+  "recipe/carbon": [
+   1152,
+   1024
+  ],
+  "recipe/carbonic-asteroid-crushing": [
+   1216,
+   1024
+  ],
+  "recipe/carbonic-asteroid-reprocessing": [
+   1280,
+   1024
+  ],
+  "recipe/casting-copper": [
+   0,
+   1088
+  ],
+  "recipe/casting-copper-cable": [
+   64,
+   1088
+  ],
+  "recipe/casting-iron": [
+   128,
+   1088
+  ],
+  "recipe/casting-iron-gear-wheel": [
+   192,
+   1088
+  ],
+  "recipe/casting-iron-stick": [
+   256,
+   1088
+  ],
+  "recipe/casting-low-density-structure": [
+   320,
+   1088
+  ],
+  "recipe/casting-pipe": [
+   384,
+   1088
+  ],
+  "recipe/casting-pipe-to-ground": [
+   448,
+   1088
+  ],
+  "recipe/casting-steel": [
+   512,
+   1088
+  ],
+  "recipe/coal-liquefaction": [
+   576,
+   1088
+  ],
+  "recipe/coal-synthesis": [
+   640,
+   1088
+  ],
+  "recipe/concrete-from-molten-iron": [
+   704,
+   1088
+  ],
+  "recipe/copper-bacteria": [
+   768,
+   1088
+  ],
+  "recipe/copper-bacteria-cultivation": [
+   832,
+   1088
+  ],
+  "recipe/crude-oil-barrel": [
+   896,
+   1088
+  ],
+  "recipe/empty-crude-oil-barrel": [
+   960,
+   1088
+  ],
+  "recipe/empty-heavy-oil-barrel": [
+   1024,
+   1088
+  ],
+  "recipe/empty-light-oil-barrel": [
+   1088,
+   1088
+  ],
+  "recipe/empty-lubricant-barrel": [
+   1152,
+   1088
+  ],
+  "recipe/empty-petroleum-gas-barrel": [
+   1216,
+   1088
+  ],
+  "recipe/empty-sulfuric-acid-barrel": [
+   1280,
+   1088
+  ],
+  "recipe/empty-water-barrel": [
+   0,
+   1152
+  ],
+  "recipe/fish-breeding": [
+   64,
+   1152
+  ],
+  "recipe/fluoroketone-cooling": [
+   128,
+   1152
+  ],
+  "recipe/heavy-oil-barrel": [
+   192,
+   1152
+  ],
+  "recipe/heavy-oil-cracking": [
+   256,
+   1152
+  ],
+  "recipe/ice-melting": [
+   320,
+   1152
+  ],
+  "recipe/iron-bacteria": [
+   384,
+   1152
+  ],
+  "recipe/iron-bacteria-cultivation": [
+   448,
+   1152
+  ],
+  "recipe/jellynut-processing": [
+   512,
+   1152
+  ],
+  "recipe/kovarex-enrichment-process": [
+   576,
+   1152
+  ],
+  "recipe/light-oil-barrel": [
+   640,
+   1152
+  ],
+  "recipe/light-oil-cracking": [
+   704,
+   1152
+  ],
+  "recipe/lubricant-barrel": [
+   768,
+   1152
+  ],
+  "recipe/metallic-asteroid-crushing": [
+   832,
+   1152
+  ],
+  "recipe/metallic-asteroid-reprocessing": [
+   896,
+   1152
+  ],
+  "recipe/molten-copper-from-lava": [
+   960,
+   1152
+  ],
+  "recipe/molten-iron-from-lava": [
+   1024,
+   1152
+  ],
+  "recipe/nuclear-fuel-reprocessing": [
+   1088,
+   1152
+  ],
+  "recipe/nutrients-from-bioflux": [
+   1152,
+   1152
+  ],
+  "recipe/nutrients-from-biter-egg": [
+   1216,
+   1152
+  ],
+  "recipe/nutrients-from-fish": [
+   1280,
+   1152
+  ],
+  "recipe/nutrients-from-spoilage": [
+   0,
+   1216
+  ],
+  "recipe/nutrients-from-yumako-mash": [
+   64,
+   1216
+  ],
+  "recipe/overgrowth-jellynut-soil": [
+   128,
+   1216
+  ],
+  "recipe/overgrowth-yumako-soil": [
+   192,
+   1216
+  ],
+  "recipe/oxide-asteroid-crushing": [
+   256,
+   1216
+  ],
+  "recipe/oxide-asteroid-reprocessing": [
+   320,
+   1216
+  ],
+  "recipe/pentapod-egg": [
+   384,
+   1216
+  ],
+  "recipe/petroleum-gas-barrel": [
+   448,
+   1216
+  ],
+  "recipe/rocket-fuel-from-jelly": [
+   512,
+   1216
+  ],
+  "recipe/simple-coal-liquefaction": [
+   576,
+   1216
+  ],
+  "recipe/solid-fuel-from-ammonia": [
+   640,
+   1216
+  ],
+  "recipe/solid-fuel-from-heavy-oil": [
+   704,
+   1216
+  ],
+  "recipe/solid-fuel-from-light-oil": [
+   768,
+   1216
+  ],
+  "recipe/solid-fuel-from-petroleum-gas": [
+   832,
+   1216
+  ],
+  "recipe/space-science-pack": [
+   896,
+   1216
+  ],
+  "recipe/steam-condensation": [
+   960,
+   1216
+  ],
+  "recipe/sulfuric-acid-barrel": [
+   1024,
+   1216
+  ],
+  "recipe/uranium-processing": [
+   1088,
+   1216
+  ],
+  "recipe/water-barrel": [
+   1152,
+   1216
+  ],
+  "recipe/yumako-processing": [
+   1216,
+   1216
+  ]
+ }
+}

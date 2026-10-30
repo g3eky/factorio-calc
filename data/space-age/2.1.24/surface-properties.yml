@@ -1,0 +1,18 @@
+- id: day-night-cycle
+  name: Day night cycle
+  default_value: 300
+- id: gravity
+  name: Gravity
+  default_value: 10
+- id: magnetic-field
+  name: Magnetic field
+  default_value: 90
+- id: pressure
+  name: Pressure
+  default_value: 1000
+- id: robot-energy-usage
+  name: Robot energy usage
+  default_value: 1
+- id: solar-power
+  name: Solar power
+  default_value: 100

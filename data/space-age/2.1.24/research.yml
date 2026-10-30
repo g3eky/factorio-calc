@@ -1,0 +1,69 @@
+- id: asteroid-productivity
+  name: Asteroid productivity
+  kind: recipe-productivity
+  recipes:
+    - carbonic-asteroid-crushing
+    - oxide-asteroid-crushing
+    - metallic-asteroid-crushing
+    - advanced-carbonic-asteroid-crushing
+    - advanced-oxide-asteroid-crushing
+    - advanced-metallic-asteroid-crushing
+  change: 0.1
+- id: low-density-structure-productivity
+  name: Low density structure productivity
+  kind: recipe-productivity
+  recipes:
+    - low-density-structure
+    - casting-low-density-structure
+  change: 0.1
+- id: mining-productivity-1
+  name: Mining productivity 1
+  kind: mining-productivity
+  recipes: []
+  change: 0.1
+  max_level: 1
+- id: mining-productivity-2
+  name: Mining productivity 2
+  kind: mining-productivity
+  recipes: []
+  change: 0.1
+  max_level: 1
+- id: mining-productivity-3
+  name: Mining productivity 3
+  kind: mining-productivity
+  recipes: []
+  change: 0.1
+- id: plastic-bar-productivity
+  name: Plastic bar productivity
+  kind: recipe-productivity
+  recipes:
+    - plastic-bar
+    - bioplastic
+  change: 0.1
+- id: processing-unit-productivity
+  name: Processing unit productivity
+  kind: recipe-productivity
+  recipes:
+    - processing-unit
+  change: 0.1
+- id: rocket-fuel-productivity
+  name: Rocket fuel productivity
+  kind: recipe-productivity
+  recipes:
+    - rocket-fuel
+    - rocket-fuel-from-jelly
+    - ammonia-rocket-fuel
+  change: 0.1
+- id: scrap-recycling-productivity
+  name: Scrap recycling productivity
+  kind: recipe-productivity
+  recipes:
+    - scrap-recycling
+  change: 0.1
+- id: steel-plate-productivity
+  name: Steel plate productivity
+  kind: recipe-productivity
+  recipes:
+    - steel-plate
+    - casting-steel
+  change: 0.1

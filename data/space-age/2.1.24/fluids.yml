@@ -1,0 +1,112 @@
+- id: ammonia
+  name: Ammonia
+  subgroup: fluid
+  order: b[new-fluid]-e[aquilo]-b[ammonia]
+  default_temperature: -35
+- id: ammoniacal-solution
+  name: Ammoniacal solution
+  subgroup: fluid
+  order: b[new-fluid]-e[aquilo]-a[ammoniacal-solution]
+  default_temperature: -50
+- id: crude-oil
+  name: Crude oil
+  subgroup: fluid
+  order: a[fluid]-b[oil]-a[crude-oil]
+  default_temperature: 25
+- id: electrolyte
+  name: Electrolyte
+  subgroup: fluid
+  order: b[new-fluid]-c[fulgora]-b[electrolyte]
+  default_temperature: 15
+- id: fluorine
+  name: Fluorine
+  subgroup: fluid
+  order: b[new-fluid]-e[aquilo]-c[fluorine]
+  default_temperature: 25
+- id: fluoroketone-cold
+  name: Fluoroketone (cold)
+  subgroup: fluid
+  order: b[new-fluid]-e[aquilo]-e[fluoroketone-cold]
+  default_temperature: -150
+- id: fluoroketone-hot
+  name: Fluoroketone (hot)
+  subgroup: fluid
+  order: b[new-fluid]-e[aquilo]-d[fluoroketone-hot]
+  default_temperature: 180
+- id: fusion-plasma
+  name: Plasma
+  subgroup: fluid
+  order: b[new-fluid]-e[aquilo]-g[fusion-plasma]
+  default_temperature: 1000000
+- id: heavy-oil
+  name: Heavy oil
+  subgroup: fluid
+  order: a[fluid]-b[oil]-d[heavy-oil]
+  default_temperature: 25
+- id: holmium-solution
+  name: Holmium solution
+  subgroup: fluid
+  order: b[new-fluid]-c[fulgora]-a[holmium-solution]
+  default_temperature: 15
+- id: lava
+  name: Lava
+  subgroup: fluid
+  order: b[new-fluid]-b[vulcanus]-a[lava]
+  default_temperature: 1500
+- id: light-oil
+  name: Light oil
+  subgroup: fluid
+  order: a[fluid]-b[oil]-c[light-oil]
+  default_temperature: 25
+- id: lithium-brine
+  name: Lithium brine
+  subgroup: fluid
+  order: b[new-fluid]-e[aquilo]-f[lithium-brine]
+  default_temperature: 15
+- id: lubricant
+  name: Lubricant
+  subgroup: fluid
+  order: a[fluid]-b[oil]-e[lubricant]
+  default_temperature: 25
+- id: molten-copper
+  name: Molten copper
+  subgroup: fluid
+  order: b[new-fluid]-b[vulcanus]-b[molten-copper]
+  default_temperature: 1100
+- id: molten-iron
+  name: Molten iron
+  subgroup: fluid
+  order: b[new-fluid]-b[vulcanus]-a[molten-iron]
+  default_temperature: 1500
+- id: petroleum-gas
+  name: Petroleum gas
+  subgroup: fluid
+  order: a[fluid]-b[oil]-b[petroleum-gas]
+  default_temperature: 25
+- id: steam
+  name: Steam
+  subgroup: fluid
+  order: a[fluid]-a[water]-b[steam]
+  default_temperature: 15
+- id: sulfuric-acid
+  name: Sulfuric acid
+  subgroup: fluid
+  order: a[fluid]-b[oil]-f[sulfuric-acid]
+  default_temperature: 25
+- id: thruster-fuel
+  name: Thruster fuel
+  subgroup: fluid
+  order: b[new-fluid]-a[space]-a[thruster-fuel]
+  default_temperature: 25
+  fuel_value: 50000
+- id: thruster-oxidizer
+  name: Thruster oxidizer
+  subgroup: fluid
+  order: b[new-fluid]-a[space]-b[thruster-oxidizer]
+  default_temperature: 25
+  fuel_value: 50000
+- id: water
+  name: Water
+  subgroup: fluid
+  order: a[fluid]-a[water]-a[water]
+  default_temperature: 15

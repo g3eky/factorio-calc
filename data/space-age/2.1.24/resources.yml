@@ -1,0 +1,102 @@
+- id: calcite
+  name: Calcite
+  category: basic-solid
+  mining_time: 1
+  results:
+    - type: item
+      id: calcite
+      amount: 1
+- id: coal
+  name: Coal
+  category: basic-solid
+  mining_time: 1
+  results:
+    - type: item
+      id: coal
+      amount: 1
+- id: copper-ore
+  name: Copper ore
+  category: basic-solid
+  mining_time: 1
+  results:
+    - type: item
+      id: copper-ore
+      amount: 1
+- id: crude-oil
+  name: Crude oil
+  category: basic-fluid
+  mining_time: 1
+  results:
+    - type: fluid
+      id: crude-oil
+      amount: 10
+  infinite: true
+- id: fluorine-vent
+  name: Fluorine vent
+  category: basic-fluid
+  mining_time: 1
+  results:
+    - type: fluid
+      id: fluorine
+      amount: 1
+  infinite: true
+- id: iron-ore
+  name: Iron ore
+  category: basic-solid
+  mining_time: 1
+  results:
+    - type: item
+      id: iron-ore
+      amount: 1
+- id: lithium-brine
+  name: Lithium brine
+  category: basic-fluid
+  mining_time: 1
+  results:
+    - type: fluid
+      id: lithium-brine
+      amount: 1
+- id: scrap
+  name: Scrap
+  category: basic-solid
+  mining_time: 0.5
+  results:
+    - type: item
+      id: scrap
+      amount: 1
+- id: stone
+  name: Stone
+  category: basic-solid
+  mining_time: 1
+  results:
+    - type: item
+      id: stone
+      amount: 1
+- id: sulfuric-acid-geyser
+  name: Sulfuric acid geyser
+  category: basic-fluid
+  mining_time: 1
+  results:
+    - type: fluid
+      id: sulfuric-acid
+      amount: 10
+  infinite: true
+- id: tungsten-ore
+  name: Tungsten ore
+  category: hard-solid
+  mining_time: 5
+  results:
+    - type: item
+      id: tungsten-ore
+      amount: 1
+- id: uranium-ore
+  name: Uranium ore
+  category: basic-solid
+  mining_time: 2
+  results:
+    - type: item
+      id: uranium-ore
+      amount: 1
+  required_fluid:
+    id: sulfuric-acid
+    amount: 1

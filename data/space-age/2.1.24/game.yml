@@ -1,0 +1,9 @@
+name: Space Age
+version: 2.1.24
+mods:
+  - base
+  - elevated-rails
+  - recycler
+  - quality
+  - space-age
+source: wube/factorio-data 2.1.24; names and icons from wiki.factorio.com
