@@ -30,6 +30,13 @@ Out:
 
 ## Done when
 
-- Switching from Space Age to base and back restores both calculations.
-- Base game shows no planet or quality controls.
-- The second switch to a dataset loads from the browser cache (no network request for the database).
+- Switching from Space Age to base and back restores both calculations. ✔ Checked in Chrome: each version keeps its own targets.
+- Base game shows no planet or quality controls. ✔ They hide when a dataset has one planet or no quality tiers.
+- The second switch to a dataset makes no network request for the database. ✔ Loaded datasets stay in memory; across four switches each database was downloaded once.
+
+## Decisions
+
+- **Base game import:** `./run import` now imports both Space Age and the base game (2.1.24: 199 items, 202 recipes, 16 machines). Feature flags (quality, space travel, spoiling, …) are worked out from the loaded mods' `info.json`, as the game does, instead of always on.
+- **Default version:** the newest Space Age, else the newest dataset. The choice is saved in `localStorage`.
+- **Smooth switch:** the previous version stays on screen with a "Loading…" note until the next one is ready.
+- Calculations and settings were already stored per dataset (05, 06), so nothing is dropped when switching.
