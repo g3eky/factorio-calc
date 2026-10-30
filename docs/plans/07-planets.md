@@ -45,7 +45,7 @@ The planet select switches results without a reload. ✔ Checked in Chrome: agri
 ## Decisions
 
 - **Data:** planets gained `fluids` (from their tiles, for offshore pumps) and `gathered` (plant harvests whose soil tiles are on the planet, fish, and asteroid chunks on platforms). The importer keeps `autoplace` to work these out.
-- **Imports:** only items that can't be made on the planet can be imported, at 10× the cost of a local raw resource, so local production always wins when it's possible.
+- **Imports:** only items that can't be made on the planet can be imported, at 1000× the cost of a local raw resource, so they're a last resort. (At 10× the solver imported calcite to Nauvis because foundry productivity outweighed it.)
 - **Scrap recycling** is on by default: recycling of mined resources isn't a reverse recipe. Other recycling stays off.
 - **Burner fuel:** the preferred fuel where a burner accepts it, else the first fuel it does (nutrients for biochambers).
 - **Spoilage:** shown as a list of spoiling items with their spoil times; not modelled as a loss.
