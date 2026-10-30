@@ -1,4 +1,10 @@
-.status {
-  max-width: 420px;
-  margin: 80px auto;
+.detail {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  overflow-wrap: anywhere;
+}
+
+.retry {
+  align-self: flex-start;
 }

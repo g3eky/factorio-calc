@@ -43,6 +43,10 @@
   font-weight: 600;
 }
 
+.skeletonTargets {
+  grid-area: targets;
+}
+
 .main {
   grid-area: main;
   display: flex;

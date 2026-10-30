@@ -200,7 +200,7 @@ const Row = memo(
               amount={Math.ceil(p.machines - 1e-9)}
               title={machine?.name}
               details={editable ? 'Click to change the machine.' : undefined}
-              aria-label={`${machine?.name}: ${long(p.machines)}`}
+              aria-label={`${machine?.name}: ${Math.ceil(p.machines - 1e-9)} (${long(p.machines)} running)`}
               className={editable ? undefined : styles.plain}
               onClick={editable ? (e) => onEdit({ type: 'machine', key: p.key, anchor: e.currentTarget }) : undefined}
             />
@@ -213,7 +213,9 @@ const Row = memo(
               type="button"
               className={cx(styles.modules, override?.setup && styles.custom)}
               title={override?.setup ? 'Set for this calculation' : undefined}
-              aria-label={`Modules for ${name}`} onClick={(e) => onEdit({ type: 'modules', key: p.key, anchor: e.currentTarget })}>
+              aria-label={`Modules for ${name}: ${
+                setup?.modules.length ? `${setup.modules.slice(0, machine.module_slots).length} ${game.data.modules.find((m) => m.id === setup.modules[0])?.name ?? ''}` : 'none'
+              }${setup?.beacons.map((b) => `, +${b.count} beacons`).join('') ?? ''}`} onClick={(e) => onEdit({ type: 'modules', key: p.key, anchor: e.currentTarget })}>
               {setup?.modules.length ? (
                 setup.modules.slice(0, machine.module_slots).map((m, i) => <Icon key={i} kind="item" id={m} size={20} />)
               ) : (

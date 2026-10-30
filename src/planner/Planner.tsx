@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import type { SolveResult } from '../calculator/types.ts'
 import { useSolver } from '../calculator/useSolver.ts'
 import { useGame } from '../db/GameProvider.tsx'
@@ -8,8 +8,10 @@ import { Button } from '../ui/Button/Button.tsx'
 import { Icon } from '../ui/Icon/Icon.tsx'
 import { Panel } from '../ui/Panel/Panel.tsx'
 import { Select } from '../ui/Select/Select.tsx'
+import { Window } from '../ui/Window/Window.tsx'
 import { UNIT_LABELS, type RateUnit } from './format.ts'
 import { Results } from './Results.tsx'
+import { About } from './About.tsx'
 import { Settings } from './Settings.tsx'
 import { emptyCalculation, isCalculation, toRequest, type Calculation } from './state.ts'
 import { Targets } from './Targets.tsx'
@@ -17,6 +19,22 @@ import { Totals } from './Totals.tsx'
 import styles from './Planner.module.css'
 
 export type Update = (change: (calc: Calculation) => Calculation) => void
+
+// The planner's layout with a message, shown while the game data loads (or failed to), so
+// nothing moves when the real planner replaces it.
+export function PlannerSkeleton({ children }: { children: ReactNode }) {
+  return (
+    <div className={styles.planner}>
+      <header className={styles.header}>
+        <h1 className={styles.title}>Factorio calculator</h1>
+      </header>
+      <Window title="Make" className={styles.skeletonTargets}>
+        <span />
+      </Window>
+      <main className={styles.main}>{children}</main>
+    </div>
+  )
+}
 
 // The calculator screen: targets on the left, the production chain on the right.
 export function Planner({ onDataset, switching }: { onDataset: (id: string) => void; switching: boolean }) {
@@ -26,6 +44,8 @@ export function Planner({ onDataset, switching }: { onDataset: (id: string) => v
   )
   const [prefs, setPrefs] = usePersistentState(`factorio-calc:v1:preferences:${game.dataset.id}`, defaultPreferences, migrate)
   const [settingsOpen, setSettingsOpen] = useState(false)
+  const [aboutOpen, setAboutOpen] = useState(false)
+  const closeAbout = useCallback(() => setAboutOpen(false), [])
   const request = useMemo(() => toRequest(game, calc, prefs), [game, calc, prefs])
   const { response, solving } = useSolver(game.data, request)
 
@@ -85,7 +105,9 @@ export function Planner({ onDataset, switching }: { onDataset: (id: string) => v
           />
         </label>
         <Button onClick={() => setSettingsOpen(true)}>Settings</Button>
+        <Button onClick={() => setAboutOpen(true)}>About</Button>
       </header>
+      {aboutOpen && <About onClose={closeAbout} />}
       {settingsOpen && <Settings prefs={prefs} setPrefs={setPrefs} onClose={closeSettings} />}
       <Targets calc={calc} update={setCalc} />
       <main className={styles.main}>

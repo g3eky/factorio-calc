@@ -38,12 +38,13 @@ export function defaultDataset(datasets: Manifest['datasets']): Manifest['datase
   return newest(datasets.filter((d) => d.id.startsWith('space-age-'))) ?? newest(datasets)
 }
 
-// Datasets stay in memory once loaded, so switching back is instant.
+// Datasets stay in memory once loaded, so switching back is instant. Failures aren't kept.
 const loaded = new Map<string, Promise<Game>>()
 let manifest: Promise<Manifest> | undefined
 
 export async function loadGame(datasetId?: string): Promise<Game> {
   manifest ??= loadManifest()
+  manifest.catch(() => (manifest = undefined))
   const { datasets } = await manifest
   const dataset = datasets.find((d) => d.id === datasetId) ?? defaultDataset(datasets)
   if (!dataset) throw new Error('No datasets in the manifest')
@@ -80,7 +81,7 @@ export interface LoadState {
   error?: string
 }
 
-export function useLoadGame(datasetId?: string): LoadState {
+export function useLoadGame(datasetId?: string, attempt = 0): LoadState {
   const [state, setState] = useState<LoadState>({ loading: true })
   useEffect(() => {
     let cancelled = false
@@ -92,6 +93,6 @@ export function useLoadGame(datasetId?: string): LoadState {
     return () => {
       cancelled = true
     }
-  }, [datasetId])
+  }, [datasetId, attempt])
   return state
 }
