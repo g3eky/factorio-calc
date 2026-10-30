@@ -21,3 +21,4 @@
   spoil: { time: 60, result: iron-ore }
 - { id: speed-module, name: Speed module, subgroup: module, order: a, stack_size: 50 }
 - { id: productivity-module, name: Productivity module, subgroup: module, order: b, stack_size: 50 }
+- { id: quality-module, name: Quality module, subgroup: module, order: c, stack_size: 50 }

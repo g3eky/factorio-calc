@@ -290,7 +290,9 @@ export function convert(raw: Raw, game: GameData['game'], names: Map<string, str
       if (q.next) {
         quality.next = q.next
         quality.next_probability = q.next_probability
+        if (q.chain_probability !== undefined) quality.chain_probability = round(q.chain_probability)
       }
+      if (q.beacon_power_usage_multiplier !== undefined) quality.beacon_power_multiplier = round(q.beacon_power_usage_multiplier)
       return quality
     })
 

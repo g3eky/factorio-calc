@@ -4,3 +4,4 @@
   category: productivity
   tier: 1
   effects: { productivity: 0.04, consumption: 0.4, pollution: 0.05, speed: -0.05 }
+- { id: quality-module, name: Quality module, category: quality, tier: 1, effects: { quality: 0.025, speed: -0.05 } }

@@ -154,7 +154,9 @@ export const SCHEMAS: Record<keyof GameData, Check> = {
     object({ id, name: text, kind: oneOf('planet', 'platform'), surface_properties: record(number), resources: list(id), fluids: list(id), gathered: list(id) }),
   ),
   surface_properties: list(object({ id, name: text, default_value: number })),
-  qualities: list(object({ id, name: text, level: nonNegative, 'next?': id, 'next_probability?': nonNegative })),
+  qualities: list(
+    object({ id, name: text, level: nonNegative, 'next?': id, 'next_probability?': nonNegative, 'chain_probability?': nonNegative, 'beacon_power_multiplier?': nonNegative }),
+  ),
   research: list(
     object({
       id,

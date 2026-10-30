@@ -140,7 +140,9 @@ CREATE TABLE quality (
   name TEXT NOT NULL,
   level INTEGER NOT NULL,
   next TEXT,
-  next_probability REAL
+  next_probability REAL,
+  chain_probability REAL,
+  beacon_power_multiplier REAL
 );
 
 CREATE TABLE research (

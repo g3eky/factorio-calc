@@ -162,9 +162,15 @@ export interface SurfaceProperty {
 export interface Quality {
   id: Id
   name: string
+  // Bonuses scale with level: +30% crafting speed and module strength per level.
   level: number
   next?: Id
+  // Chance of the first step up, times the quality effect.
   next_probability?: number
+  // Chance of going one tier further after reaching this one.
+  chain_probability?: number
+  // Beacon power use at this quality.
+  beacon_power_multiplier?: number
 }
 
 export interface Research {

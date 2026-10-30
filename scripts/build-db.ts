@@ -208,7 +208,15 @@ export function writeDatabase(db: Database, data: GameData): void {
   }
   for (const s of data.surface_properties) insert(db, 'surface_property', { id: s.id, name: s.name, default_value: s.default_value })
   for (const q of data.qualities) {
-    insert(db, 'quality', { id: q.id, name: q.name, level: q.level, next: nullable(q.next), next_probability: nullable(q.next_probability) })
+    insert(db, 'quality', {
+      id: q.id,
+      name: q.name,
+      level: q.level,
+      next: nullable(q.next),
+      next_probability: nullable(q.next_probability),
+      chain_probability: nullable(q.chain_probability),
+      beacon_power_multiplier: nullable(q.beacon_power_multiplier),
+    })
   }
   for (const r of data.research) {
     insert(db, 'research', { id: r.id, name: r.name, kind: r.kind, recipes: json(r.recipes), change: r.change, max_level: nullable(r.max_level) })
