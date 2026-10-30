@@ -76,13 +76,14 @@ test('select works by keyboard', () => {
     return <Select label="Choice" value={value} options={options} onChange={setValue} />
   }
   render(<Example />)
-  const button = screen.getByRole('button', { name: 'Choice' })
+  const button = screen.getByRole('button', { name: /^Choice/ })
   fireEvent.keyDown(button, { key: 'ArrowDown' })
   expect(screen.getByRole('listbox')).toBeTruthy()
   fireEvent.keyDown(button, { key: 'ArrowDown' })
   fireEvent.keyDown(button, { key: 'Enter' })
   expect(screen.queryByRole('listbox')).toBeNull()
-  expect(button.textContent).toBe('Option c')
+  expect(button.textContent).toBe('ChoiceOption c')
+  expect(screen.getByRole('button', { name: 'Choice Option c' })).toBe(button)
   fireEvent.keyDown(button, { key: 'ArrowDown' })
   fireEvent.keyDown(button, { key: 'Escape' })
   expect(screen.queryByRole('listbox')).toBeNull()

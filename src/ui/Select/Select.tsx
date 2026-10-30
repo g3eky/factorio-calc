@@ -64,7 +64,7 @@ export function Select<T extends string>({ value, options, onChange, label, clas
         ref={button}
         type="button"
         className={styles.button}
-        aria-label={label}
+        aria-labelledby={`${id}-label ${id}-value`}
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={id}
@@ -72,7 +72,12 @@ export function Select<T extends string>({ value, options, onChange, label, clas
         onClick={() => (open ? setOpen(false) : openList())}
         onKeyDown={onKeyDown}
       >
-        <span className={styles.value}>{options[selectedIndex]?.label}</span>
+        <span id={`${id}-label`} className={styles.hidden}>
+          {label}
+        </span>
+        <span id={`${id}-value`} className={styles.value}>
+          {options[selectedIndex]?.label}
+        </span>
         <span className={styles.arrow} aria-hidden />
       </button>
       {open && (

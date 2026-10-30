@@ -37,6 +37,16 @@
   white-space: nowrap;
 }
 
+/* Read by screen readers as part of the button's name, not shown. */
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .arrow {
   width: 0;
   height: 0;
