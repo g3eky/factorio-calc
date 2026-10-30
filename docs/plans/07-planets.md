@@ -32,14 +32,21 @@ Out:
 
 ## Done when
 
-Tests show:
-- Vulcanus: iron plates via lava → molten iron in foundries.
-- Fulgora: scrap recycling solves with its byproducts.
-- Space platform: crushing from collected asteroid chunks.
-- A recipe whose surface conditions fail on the chosen planet is never used.
+Tests show (real Space Age 2.1.24 data): ✔
+- Vulcanus: iron plates from pumped lava → molten iron in foundries, no iron ore, no imports.
+- Fulgora: holmium from mined scrap through scrap recycling, with its byproducts as surplus.
+- Space platform: iron from crushed metallic asteroid chunks.
+- Gleba: bioflux from gathered yumako and jellynut; biochambers burn nutrients.
+- Tungsten on Nauvis is imported, not invented.
+- Building all 12 science packs on each planet never uses a recipe or machine whose surface conditions fail there.
 
-The planet select switches results without a reload.
+The planet select switches results without a reload. ✔ Checked in Chrome: agricultural science on Nauvis shows as an import (biochambers need Gleba's pressure); on Gleba it's built from gathered fruit with spoil times listed.
 
-## Open questions
+## Decisions
 
-- Should spoilage be modelled as a loss in the calculation, or only shown as a warning? Recommendation: warning only for now.
+- **Data:** planets gained `fluids` (from their tiles, for offshore pumps) and `gathered` (plant harvests whose soil tiles are on the planet, fish, and asteroid chunks on platforms). The importer keeps `autoplace` to work these out.
+- **Imports:** only items that can't be made on the planet can be imported, at 10× the cost of a local raw resource, so local production always wins when it's possible.
+- **Scrap recycling** is on by default: recycling of mined resources isn't a reverse recipe. Other recycling stays off.
+- **Burner fuel:** the preferred fuel where a burner accepts it, else the first fuel it does (nutrients for biochambers).
+- **Spoilage:** shown as a list of spoiling items with their spoil times; not modelled as a loss.
+- Machine preferences are global; machines that don't work on the chosen planet are skipped in favour of the planet's default.

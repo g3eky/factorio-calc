@@ -128,6 +128,8 @@ Things mined from the map.
 | `kind` | `planet` or `platform`. |
 | `surface_properties` | Property id → value. Missing properties use their default. |
 | `resources` | Resource ids found there. |
+| `fluids` | Fluids offshore pumps can pump there (from its tiles). |
+| `gathered` | Items gathered without a recipe: plant harvests, fish, asteroid chunks on platforms. |
 
 ### `surface-properties.yml`
 
