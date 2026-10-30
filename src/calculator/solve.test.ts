@@ -1,8 +1,9 @@
 import { join } from 'node:path'
 import highsLoader from 'highs'
-import { beforeAll, expect, test } from 'vitest'
+import { beforeAll, describe, expect, test } from 'vitest'
 import { readDataset } from '../../scripts/build-db.ts'
 import type { GameData } from '../db/types.ts'
+import { onSurface } from './processes.ts'
 import { defaultDisabled, solve, type LpSolver } from './solve.ts'
 import type { SolveRequest, SolveResult } from './types.ts'
 
@@ -142,4 +143,62 @@ test('Space Age: every science pack at once, quickly', () => {
   for (const pack of packs) expect(rate(result.processes.flatMap((p) => p.outputs), pack.id)).toBeGreaterThanOrEqual(1 - 1e-9)
   expect(result.processes.length).toBeGreaterThan(30)
   expect(elapsed).toBeLessThan(50)
+})
+
+describe('planets', () => {
+  const on = (planet: string, id: string, rate = 1) => solved(spaceAge, { planet, targets: [{ kind: 'item', id, rate }] })
+  const keys = (result: SolveResult) => result.processes.map((p) => p.key)
+
+  test('Vulcanus: iron plates from pumped lava, no iron ore', () => {
+    const result = on('vulcanus', 'iron-plate')
+    expect(keys(result)).toContain('pump/offshore-pump/lava')
+    expect(keys(result)).toContain('recipe/molten-iron-from-lava')
+    expect(keys(result)).not.toContain('resource/iron-ore')
+    expect(result.imports).toEqual([])
+  })
+
+  test('Fulgora: holmium from mined and recycled scrap, with byproducts', () => {
+    const result = on('fulgora', 'holmium-plate')
+    expect(keys(result)).toContain('resource/scrap')
+    expect(keys(result)).toContain('recipe/scrap-recycling')
+    expect(result.surplus.length).toBeGreaterThan(0)
+    expect(result.imports).toEqual([])
+  })
+
+  test('Space platform: iron from crushed asteroid chunks', () => {
+    const result = on('space-platform', 'iron-plate')
+    expect(keys(result)).toContain('recipe/metallic-asteroid-crushing')
+    expect(rate(result.raw, 'metallic-asteroid-chunk')).toBeGreaterThan(0)
+    expect(result.imports).toEqual([])
+  })
+
+  test('Gleba: bioflux from gathered fruit', () => {
+    const result = on('gleba', 'bioflux')
+    expect(result.raw.map((r) => r.id).sort()).toEqual(expect.arrayContaining(['jellynut', 'yumako']))
+    expect(result.imports).toEqual([])
+  })
+
+  test('burners use a fuel they accept: biochambers burn nutrients', () => {
+    const result = on('gleba', 'bioflux')
+    const biochambers = result.processes.filter((p) => p.machine === 'biochamber')
+    expect(biochambers.length).toBeGreaterThan(0)
+    for (const p of biochambers) expect(p.inputs.map((i) => i.id)).toContain('nutrients')
+  })
+
+  test('what a planet lacks is imported, not invented', () => {
+    const result = on('nauvis', 'tungsten-plate')
+    expect(result.imports.length).toBeGreaterThan(0)
+    expect(keys(result)).not.toContain('resource/tungsten-ore')
+  })
+
+  test('recipes and machines whose surface conditions fail are never used', () => {
+    const packs = spaceAge.items.filter((i) => i.id.endsWith('-science-pack')).map((i) => ({ kind: 'item' as const, id: i.id, rate: 1 }))
+    for (const planet of spaceAge.planets) {
+      const result = solved(spaceAge, { planet: planet.id, targets: packs })
+      for (const p of result.processes) {
+        if (p.kind === 'recipe') expect(onSurface(spaceAge, planet, spaceAge.recipes.find((r) => r.id === p.id)!.surface_conditions), `${p.id} on ${planet.id}`).toBe(true)
+        expect(onSurface(spaceAge, planet, spaceAge.machines.find((m) => m.id === p.machine)!.surface_conditions), `${p.machine} on ${planet.id}`).toBe(true)
+      }
+    }
+  })
 })

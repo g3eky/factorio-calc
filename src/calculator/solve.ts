@@ -12,23 +12,27 @@ import type { Amount, Kind, ProcessResult, SolveRequest, SolveResponse } from '.
 export type LpSolver = (lp: string) => { Status: string; Columns: Record<string, object> }
 
 // Cost of using one unit of a raw resource. Fluids come in bigger numbers, so weigh less.
+// Imports cost more, so local production wins whenever it's possible.
 const RAW_COST = { item: 1, fluid: 0.1 }
+const IMPORT_COST = { item: 10, fluid: 1 }
 const PUMP_COST = 0.001
 const MACHINE_COST = 1e-4
 const EPSILON = 1e-9
 
 const itemKey = (a: { kind: Kind; id: string }) => `${a.kind}/${a.id}`
 
-// Recipes that would surprise people if the solver used them unasked. Cached per dataset.
+// Recipes that would surprise people if the solver used them unasked: recycling (except of
+// mined resources, like Fulgora's scrap) and barrel filling and emptying. Cached per dataset.
 const disabledCache = new WeakMap<GameData, string[]>()
 export function defaultDisabled(data: GameData): string[] {
   const cached = disabledCache.get(data)
   if (cached) return cached
   const barrels = (ids: string[]) => ids.some((id) => id.endsWith('-barrel') || id === 'barrel')
+  const mined = new Set(data.resources.flatMap((r) => r.results.map((x) => x.id)))
   const result = data.recipes
     .filter(
       (r) =>
-        r.categories.includes('recycling') ||
+        (r.categories.includes('recycling') && !r.ingredients.every((i) => mined.has(i.id))) ||
         (r.ingredients.some((i) => i.type === 'fluid') && barrels(r.results.map((x) => x.id))) ||
         (r.results.some((x) => x.type === 'fluid') && barrels(r.ingredients.map((i) => i.id))),
     )
@@ -58,7 +62,9 @@ const term = (coefficient: number, variable: string) => `${coefficient < 0 ? '-'
 export function solve(data: GameData, request: SolveRequest, lp: LpSolver): SolveResponse {
   const warnings: string[] = []
   const processes = buildProcesses(data, request, warnings)
-  const raw = rawItems(data)
+  const planet = data.planets.find((p) => p.id === request.planet)
+  // On a planet, raw means gathered there; anything else that can't be made is imported.
+  const raw = planet ? new Set(planet.gathered.map((id) => `item/${id}`)) : rawItems(data)
   const names = new Map<string, string>([...data.items.map((i) => [`item/${i.id}`, i.name]), ...data.fluids.map((f) => [`fluid/${f.id}`, f.name])] as [string, string][])
   const name = (key: string) => names.get(key) ?? key
 
@@ -77,7 +83,7 @@ export function solve(data: GameData, request: SolveRequest, lp: LpSolver): Solv
   // Walk back from the targets to every item and process they need.
   const demand = new Map<string, number>()
   for (const t of request.targets) if (t.rate > 0) demand.set(itemKey(t), (demand.get(itemKey(t)) ?? 0) + t.rate)
-  if (!demand.size) return { ok: true, result: { processes: [], raw: [], surplus: [], power: 0, machines: {}, warnings } }
+  if (!demand.size) return { ok: true, result: { processes: [], raw: [], imports: [], surplus: [], power: 0, machines: {}, warnings } }
 
   // `explored`: items whose producers we've followed. `items`: every item a used process
   // touches, each of which gets a constraint (byproducts too).
@@ -100,7 +106,7 @@ export function solve(data: GameData, request: SolveRequest, lp: LpSolver): Solv
       for (const o of p.outputs) items.add(itemKey(o))
     }
   }
-  if (missing.length) {
+  if (missing.length && !planet) {
     const disabled = new Set(request.disabled)
     const offByDefault = new Set(defaultDisabled(data))
     const reasons = missing.map((key) => {
@@ -134,6 +140,11 @@ export function solve(data: GameData, request: SolveRequest, lp: LpSolver): Solv
   rawNeeded.forEach((key, i) => {
     rows.get(key)!.push(term(1, `s${i}`))
     objective.push(term(RAW_COST[key.split('/')[0] as Kind], `s${i}`))
+  })
+  const importsNeeded = planet ? missing : []
+  importsNeeded.forEach((key, i) => {
+    rows.get(key)!.push(term(1, `m${i}`))
+    objective.push(term(IMPORT_COST[key.split('/')[0] as Kind], `m${i}`))
   })
   const constraints = [...rows].filter(([, terms]) => terms.length).map(([key, terms], i) => ` c${i}: ${terms.join(' ')} >= ${(demand.get(key) ?? 0).toPrecision(15)}`)
   const model = `Minimize\n obj: ${objective.join(' ')}\nSubject To\n${constraints.join('\n')}\nEnd\n`
@@ -179,6 +190,13 @@ export function solve(data: GameData, request: SolveRequest, lp: LpSolver): Solv
     rawRates.set(key, (rawRates.get(key) ?? 0) + n)
     net.set(key, (net.get(key) ?? 0) + n)
   })
+  const importRates = new Map<string, number>()
+  importsNeeded.forEach((key, i) => {
+    const n = value(`m${i}`)
+    if (n < EPSILON) return
+    importRates.set(key, n)
+    net.set(key, (net.get(key) ?? 0) + n)
+  })
 
   const toAmount = ([key, rate]: [string, number]): Amount => {
     const [kind, ...id] = key.split('/')
@@ -193,6 +211,7 @@ export function solve(data: GameData, request: SolveRequest, lp: LpSolver): Solv
     result: {
       processes: results,
       raw: [...rawRates].filter(([, rate]) => rate > EPSILON).map(toAmount),
+      imports: [...importRates].map(toAmount),
       surplus,
       power,
       machines: machineCounts,

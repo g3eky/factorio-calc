@@ -1,7 +1,7 @@
 // Turns game data and settings into processes: every way of making something, with the
 // per-machine rates after modules, beacons, research and the game's limits.
 
-import type { EffectName, Effects, GameData, Machine, Recipe, Result } from '../db/types.ts'
+import type { EffectName, Effects, GameData, Machine, Planet, Recipe, Result, SurfaceCondition } from '../db/types.ts'
 import type { Amount, ModuleSetup, SolveRequest } from './types.ts'
 
 export interface Process {
@@ -71,11 +71,22 @@ export function expected(result: Result): { base: number; productive: number } {
   return { base, productive }
 }
 
-// The fastest electric machine without surface restrictions, else the fastest.
-export function defaultMachines(data: GameData): Record<string, string> {
+// Whether something with these surface conditions works on the planet. Without a planet: yes.
+export function onSurface(data: GameData, planet: Planet | undefined, conditions: SurfaceCondition[] | undefined): boolean {
+  if (!planet || !conditions) return true
+  return conditions.every((c) => {
+    const value = planet.surface_properties[c.property] ?? data.surface_properties.find((p) => p.id === c.property)?.default_value ?? 0
+    return (c.min === undefined || value >= c.min) && (c.max === undefined || value <= c.max)
+  })
+}
+
+// The fastest electric machine without surface restrictions, else the fastest; only machines
+// that work on the planet, when there is one.
+export function defaultMachines(data: GameData, planet?: Planet): Record<string, string> {
   const choice: Record<string, Machine> = {}
   const rank = (m: Machine) => [m.energy.type === 'electric' && !m.surface_conditions ? 1 : 0, m.speed]
   for (const machine of data.machines) {
+    if (!onSurface(data, planet, machine.surface_conditions)) continue
     for (const category of machine.categories) {
       const current = choice[category]
       const [a1, a2] = rank(machine)
@@ -100,10 +111,17 @@ export function researchBonuses(data: GameData, levels: Record<string, number>) 
 }
 
 export function buildProcesses(data: GameData, request: SolveRequest, warnings: string[]): Process[] {
-  const machines = new Map(data.machines.map((m) => [m.id, m]))
-  const defaults = { ...defaultMachines(data), ...request.machines }
+  const planet = data.planets.find((p) => p.id === request.planet)
+  const machines = new Map(data.machines.filter((m) => onSurface(data, planet, m.surface_conditions)).map((m) => [m.id, m]))
+  const defaults = { ...defaultMachines(data, planet), ...request.machines }
   const research = researchBonuses(data, request.research)
-  const fuel = data.items.find((i) => i.id === request.fuel)?.fuel
+  // The preferred fuel where a burner accepts it; otherwise the first fuel it does accept
+  // (biochambers burn nutrients, not coal).
+  const fuels = data.items.filter((i) => i.fuel)
+  const fuelFor = (machine: Machine) => {
+    const accepts = (id: string) => fuels.find((i) => i.id === id && machine.energy.fuel_categories?.includes(i.fuel!.category))
+    return accepts(request.fuel) ?? fuels.find((i) => machine.energy.fuel_categories?.includes(i.fuel!.category))
+  }
   const disabled = new Set(request.disabled)
   const processes: Process[] = []
 
@@ -121,14 +139,13 @@ export function buildProcesses(data: GameData, request: SolveRequest, warnings: 
   const energy = (machine: Machine, consumption: number, inputs: Amount[]) => {
     const usage = machine.energy.usage * Math.max(MIN_MULTIPLIER, 1 + consumption)
     if (machine.energy.type === 'electric') return usage + (machine.energy.drain ?? 0)
-    if (machine.energy.type === 'burner' && fuel && machine.energy.fuel_categories?.includes(fuel.category)) {
-      inputs.push({ kind: 'item', id: request.fuel, rate: usage / fuel.value })
-    }
+    const fuel = machine.energy.type === 'burner' ? fuelFor(machine) : undefined
+    if (fuel) inputs.push({ kind: 'item', id: fuel.id, rate: usage / fuel.fuel!.value })
     return 0
   }
 
   for (const recipe of data.recipes) {
-    if (disabled.has(recipe.id)) continue
+    if (disabled.has(recipe.id) || !onSurface(data, planet, recipe.surface_conditions)) continue
     const key = `recipe/${recipe.id}`
     const machine = pickMachine(key, recipe.categories)
     if (!machine) continue
@@ -136,6 +153,7 @@ export function buildProcesses(data: GameData, request: SolveRequest, warnings: 
   }
 
   for (const resource of data.resources) {
+    if (planet && !planet.resources.includes(resource.id)) continue
     const key = `resource/${resource.id}`
     const machine = pickMachine(key, [resource.category])
     if (!machine) continue
@@ -155,22 +173,22 @@ export function buildProcesses(data: GameData, request: SolveRequest, warnings: 
     processes.push({ key, kind: 'resource', id: resource.id, machine, inputs, outputs, power, speed: speed - 1, productivity, consumption: effects.consumption ?? 0 })
   }
 
-  // Offshore pumps pump water. (Other fluids per planet come with planet support.)
-  for (const machine of data.machines.filter((m) => m.kind === 'offshore-pump')) {
-    if (!data.fluids.some((f) => f.id === 'water')) break
+  // Offshore pumps pump the planet's fluids; without a planet, water.
+  const pump = [...machines.values()].find((m) => m.kind === 'offshore-pump')
+  const pumped = planet ? planet.fluids : data.fluids.some((f) => f.id === 'water') ? ['water'] : []
+  for (const fluid of pump ? pumped : []) {
     processes.push({
-      key: `pump/${machine.id}/water`,
+      key: `pump/${pump!.id}/${fluid}`,
       kind: 'pump',
-      id: 'water',
-      machine,
+      id: fluid,
+      machine: pump!,
       inputs: [],
-      outputs: [{ kind: 'fluid', id: 'water', rate: machine.speed }],
-      power: energy(machine, 0, []),
+      outputs: [{ kind: 'fluid', id: fluid, rate: pump!.speed }],
+      power: energy(pump!, 0, []),
       speed: 0,
       productivity: 0,
       consumption: 0,
     })
-    break
   }
   return processes
 }

@@ -34,6 +34,8 @@ export interface SolveRequest {
   research: Record<string, number>
   // Fuel item for burner machines.
   fuel: string
+  // Planet or platform to build on. Without one, everything everywhere is allowed.
+  planet?: string
 }
 
 export interface ProcessResult {
@@ -55,8 +57,10 @@ export interface ProcessResult {
 
 export interface SolveResult {
   processes: ProcessResult[]
-  // Raw resources: mined, pumped, or with no way to make them.
+  // Raw resources: mined, pumped or gathered (or, without a planet, with no way to make them).
   raw: Amount[]
+  // Things that can't be made on the chosen planet and have to be brought in.
+  imports: Amount[]
   // Produced beyond what's needed.
   surplus: Amount[]
   power: number
