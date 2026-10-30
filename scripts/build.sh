@@ -4,4 +4,5 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 tsc --noEmit -p src
 tsc --noEmit -p scripts
+tsc --noEmit -p src/test
 vite build --config scripts/vite.config.ts "$@"

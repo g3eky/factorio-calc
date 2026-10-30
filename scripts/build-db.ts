@@ -4,7 +4,7 @@
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import initSqlJs, { type Database, type SqlValue } from 'sql.js'
 import { LineCounter, parseDocument, type Document } from 'yaml'
@@ -37,7 +37,7 @@ export interface Manifest {
   datasets: { id: string; name: string; version: string; file: string; icons?: string }[]
 }
 
-const SCHEMA = readFileSync(new URL('schema.sql', import.meta.url), 'utf8')
+const SCHEMA = readFileSync(join(dirname(fileURLToPath(import.meta.url)), 'schema.sql'), 'utf8')
 
 // Reads and validates every YAML file of a dataset. Throws one error listing every problem.
 export async function readDataset(dir: string): Promise<GameData> {
