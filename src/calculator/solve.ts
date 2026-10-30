@@ -19,10 +19,13 @@ const EPSILON = 1e-9
 
 const itemKey = (a: { kind: Kind; id: string }) => `${a.kind}/${a.id}`
 
-// Recipes that would surprise people if the solver used them unasked.
+// Recipes that would surprise people if the solver used them unasked. Cached per dataset.
+const disabledCache = new WeakMap<GameData, string[]>()
 export function defaultDisabled(data: GameData): string[] {
+  const cached = disabledCache.get(data)
+  if (cached) return cached
   const barrels = (ids: string[]) => ids.some((id) => id.endsWith('-barrel') || id === 'barrel')
-  return data.recipes
+  const result = data.recipes
     .filter(
       (r) =>
         r.categories.includes('recycling') ||
@@ -30,6 +33,8 @@ export function defaultDisabled(data: GameData): string[] {
         (r.results.some((x) => x.type === 'fluid') && barrels(r.ingredients.map((i) => i.id))),
     )
     .map((r) => r.id)
+  disabledCache.set(data, result)
+  return result
 }
 
 // Raw items: nothing makes them except recipes disabled by default (recycling, barrels).

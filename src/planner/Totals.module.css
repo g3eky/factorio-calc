@@ -1,0 +1,46 @@
+.totals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2);
+}
+
+.section h3 {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: var(--font-size);
+  font-weight: 700;
+}
+
+.slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.power {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.solving {
+  color: var(--color-text-muted);
+  opacity: 0;
+  transition: opacity var(--duration) var(--ease);
+}
+
+.solving[data-visible='true'] {
+  opacity: 1;
+  transition-delay: 200ms;
+}
+
+.warnings {
+  color: var(--color-button-hover);
+  font-size: var(--font-size-small);
+}

@@ -30,7 +30,7 @@ const add = (a: Effects, b: Effects, scale = 1): Effects => {
 
 // A module fits if every effect it improves is allowed; unwanted side effects (such as a
 // speed module's quality penalty where quality isn't allowed) simply don't apply.
-function fits(effects: Effects, allowed: EffectName[]): boolean {
+export function fits(effects: Effects, allowed: EffectName[]): boolean {
   return EFFECTS.every((e) => !(effects[e]! > 0) || allowed.includes(e))
 }
 

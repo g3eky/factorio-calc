@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { GameProvider, useLoadGame } from '../db/GameProvider.tsx'
+import { Planner } from '../planner/Planner.tsx'
 import { Panel } from '../ui/Panel/Panel.tsx'
 import { Window } from '../ui/Window/Window.tsx'
 import styles from './App.module.css'
@@ -26,11 +27,7 @@ export function App() {
           <Gallery />
         </Suspense>
       ) : (
-        <Window title="Factorio calculator" className={styles.status}>
-          <Panel>
-            {game.dataset.name} {game.dataset.version}: {game.data.items.length} items loaded
-          </Panel>
-        </Window>
+        <Planner />
       )}
     </GameProvider>
   )

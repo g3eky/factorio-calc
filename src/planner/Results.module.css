@@ -1,0 +1,170 @@
+.results {
+  flex: 1;
+  min-height: 0;
+}
+
+.scroll {
+  min-height: 0;
+  background: var(--color-panel-deep);
+  box-shadow: var(--bevel-inset);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-panel);
+  color: var(--color-heading);
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 3px var(--space-2);
+  border-top: 1px solid rgb(255 255 255 / 0.05);
+  vertical-align: middle;
+}
+
+.row {
+  animation: appear var(--duration) var(--ease);
+}
+
+.row:hover {
+  background: rgb(255 255 255 / 0.04);
+}
+
+.recipe,
+.machine,
+.amounts {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.recipe {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.amounts {
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.machine {
+  white-space: nowrap;
+}
+
+.plain {
+  cursor: default;
+}
+
+.modules {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 32px;
+  padding: 2px var(--space-1);
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--color-slot);
+  box-shadow: var(--bevel-slot);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.modules:hover,
+.modules:focus-visible {
+  outline: none;
+  box-shadow: var(--bevel-slot), 0 0 0 2px var(--color-slot-hover);
+}
+
+.beacon {
+  display: inline-flex;
+  align-items: center;
+  margin-left: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.none {
+  color: var(--color-text-muted);
+}
+
+.power {
+  white-space: nowrap;
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.beaconRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.effects {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.recipeList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.recipeChoice {
+  justify-content: flex-start;
+}
+
+.recipeName {
+  flex: 1;
+  text-align: left;
+}
+
+.ingredients {
+  display: inline-flex;
+  gap: var(--space-1);
+  font-size: var(--font-size-small);
+}
+
+/* A value that just changed glows briefly. Only opacity animates. */
+.changed {
+  position: relative;
+}
+
+.changed::after {
+  content: '';
+  position: absolute;
+  inset: -2px -4px;
+  border-radius: var(--radius);
+  background: var(--color-selected);
+  opacity: 0;
+  animation: flash var(--duration-slow) var(--ease);
+  pointer-events: none;
+}
+
+@keyframes flash {
+  from {
+    opacity: 0.35;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+}
