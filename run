@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Entry point for every project command: ./run <command> [args]
+# Each command is scripts/<command>.sh; its second line is the help text.
+set -euo pipefail
+cd "$(dirname "$0")"
+export PATH="$PWD/node_modules/.bin:$PATH"
+
+usage() {
+  echo "Usage: ./run <command> [args]"
+  echo
+  echo "Commands:"
+  for f in scripts/*.sh; do
+    printf "  %-10s %s\n" "$(basename "$f" .sh)" "$(sed -n '2s/^# //p' "$f")"
+  done
+}
+
+cmd=${1:-help}
+case $cmd in
+  help | -h | --help) usage; exit 0 ;;
+esac
+if ! [[ $cmd =~ ^[a-z-]+$ ]] || [ ! -f "scripts/$cmd.sh" ]; then
+  echo "Unknown command: $cmd" >&2
+  echo >&2
+  usage >&2
+  exit 1
+fi
+shift
+exec bash "scripts/$cmd.sh" "$@"
