@@ -2,6 +2,7 @@
 // Run directly to write the databases to dist/db/: node scripts/build-db.ts
 
 import { createHash } from 'node:crypto'
+import { gzipSync } from 'node:zlib'
 import { readFileSync } from 'node:fs'
 import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
@@ -284,8 +285,10 @@ export function outputFiles(datasets: Dataset[]): OutputFile[] {
   const files: OutputFile[] = []
   const manifest: Manifest = { datasets: [] }
   for (const dataset of datasets) {
-    const fileName = `${dataset.id}.${hash(dataset.bytes)}.sqlite`
-    files.push({ fileName, source: dataset.bytes })
+    // Gzipped: the browser unpacks it (DecompressionStream), since static hosts like GitHub
+    // Pages don't compress .sqlite files themselves. About 5x smaller.
+    const fileName = `${dataset.id}.${hash(dataset.bytes)}.sqlite.gz`
+    files.push({ fileName, source: gzipSync(dataset.bytes, { level: 9 }) })
     const entry: Manifest['datasets'][number] = { id: dataset.id, name: dataset.name, version: dataset.version, file: fileName }
     if (dataset.icons) {
       entry.icons = `${dataset.id}.${hash(dataset.icons)}.webp`

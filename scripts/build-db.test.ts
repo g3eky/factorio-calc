@@ -65,5 +65,5 @@ test('builds every dataset folder and a manifest', async () => {
   const files = outputFiles(datasets)
   const manifest: Manifest = JSON.parse(files.find((f) => f.fileName === 'manifest.json')!.source as string)
   expect(manifest.datasets[0]).toMatchObject({ id: 'test-game-1.0', name: 'Fixture', version: '0' })
-  expect(manifest.datasets[0].file).toMatch(/^test-game-1\.0\.[0-9a-f]{8}\.sqlite$/)
+  expect(manifest.datasets[0].file).toMatch(/^test-game-1\.0\.[0-9a-f]{8}\.sqlite\.gz$/)
 })

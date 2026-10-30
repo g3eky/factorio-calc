@@ -1,9 +1,9 @@
 // Serves the game databases from memory in dev and emits them into dist/db/ on build.
 
 import type { Plugin } from 'vite'
-import { buildDatabases, outputFiles, type OutputFile } from './build-db.ts'
+import { buildDatabases, outputFiles, type Manifest, type OutputFile } from './build-db.ts'
 
-const CONTENT_TYPES: Record<string, string> = { json: 'application/json', sqlite: 'application/vnd.sqlite3', webp: 'image/webp' }
+const CONTENT_TYPES: Record<string, string> = { json: 'application/json', gz: 'application/gzip', webp: 'image/webp' }
 
 export function dbPlugin({ dataDir }: { dataDir: string }): Plugin {
   return {
@@ -40,6 +40,26 @@ export function dbPlugin({ dataDir }: { dataDir: string }): Plugin {
       for (const file of outputFiles(await buildDatabases(dataDir))) {
         this.emitFile({ type: 'asset', fileName: `db/${file.fileName}`, source: file.source })
       }
+    },
+
+    // Start downloading the default database and SQLite itself while the app's JavaScript loads.
+    transformIndexHtml: {
+      order: 'post',
+      async handler(_html, ctx) {
+        if (!ctx.bundle) return
+        const base = ctx.server?.config.base ?? '/factorio-calc/'
+        const manifest = JSON.parse(String((ctx.bundle['db/manifest.json'] as { source: string }).source)) as Manifest
+        const newest = manifest.datasets
+          .filter((d) => d.id.startsWith('space-age-'))
+          .sort((a, b) => b.version.localeCompare(a.version, 'en', { numeric: true }))[0]
+        const sqlWasm = Object.keys(ctx.bundle).find((f) => /sql-wasm.*\.wasm$/.test(f))
+        const preload = (href: string) => ({ tag: 'link', attrs: { rel: 'preload', href, as: 'fetch', crossorigin: 'anonymous' }, injectTo: 'head' as const })
+        return [
+          preload(`${base}db/manifest.json`),
+          ...(newest ? [preload(`${base}db/${newest.file}`)] : []),
+          ...(sqlWasm ? [preload(`${base}${sqlWasm}`)] : []),
+        ]
+      },
     },
   }
 }
