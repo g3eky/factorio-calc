@@ -30,29 +30,30 @@ Out:
 | `items.yml` | Items: group, order, stack size, fuel value and category, spoil time and result. |
 | `fluids.yml` | Fluids: default temperature, group, order. |
 | `recipes.yml` | Category, time, ingredients, results (amounts, ranges, probabilities, productivity exclusions), productivity allowed and its cap, allowed module effects, surface conditions. |
-| `machines.yml` | Crafting machines: crafting categories, speed, power use and energy source (electric or burner + fuel categories), module slots, built-in effects (e.g. foundry productivity), surface conditions. |
+| `machines.yml` | Everything that makes or extracts things: crafting machines, mining drills, pumpjacks, offshore pumps, boilers. Categories, speed, power use and energy source, module slots, built-in effects (e.g. foundry productivity), surface conditions. |
 | `resources.yml` | Mineable resources and fluids: mining time, results, required fluid, resource category. |
-| `extraction.yml` | Mining drills, pumpjacks, offshore pumps, boilers and other non-recipe producers. |
 | `modules.yml` | Modules and their effects. |
 | `beacons.yml` | Beacons: slots, distribution effectivity, profile. |
-| `logistics.yml` | Belts (and later pipes/inserters) with throughput, for showing results as "belts needed". |
+| `belts.yml` | Belts with throughput, for showing results as "belts needed". |
 | `planets.yml` | Planets and space platforms with their surface properties. |
+| `surface-properties.yml` | Surface properties (pressure, gravity, …) and their defaults. |
+| `qualities.yml` | Quality tiers. |
 | `research.yml` | Productivity research: mining productivity and per-recipe productivity techs, bonus per level. |
 
-**SQLite schema** mirrors the YAML. One table per kind, plus child tables for lists (recipe ingredients, recipe results, machine categories, …). Every table has the id as primary key and foreign keys between them. The schema lives in one `schema.sql` in `scripts/` and is documented in `docs/data-model.md`.
+**SQLite schema** mirrors the YAML. One table per kind, plus child tables for lists (recipe ingredients, recipe results, machine categories, …). Every table has the id as primary key and foreign keys between them. The schema lives in `scripts/schema.sql` and is documented in `docs/data-model.md`. Small nested values (effects, surface conditions) are stored as JSON text instead of extra tables.
 
 **Validation** runs in `build-db.ts` before writing:
 - Each file matches its shape (required fields, types, allowed values).
 - Every reference resolves (ingredient → item/fluid, recipe category → at least one machine, …).
 - Errors name the file, line and field; all errors are reported at once, not just the first.
 
-**Loading in the browser:** `src/db/` opens the database, reads all tables once, and builds a typed `GameData` object (maps by id, recipes by product, machines by category). The calculator only uses `GameData`, never SQL directly. SQL stays available for search and future features.
+**Loading in the browser:** `src/db/` opens the database, reads all tables once, and builds a typed `GameData` object with the same shape as the YAML (`src/db/types.ts` defines it once for the build and the browser). The calculator only uses `GameData`, never SQL directly. SQL stays available for search and future features.
 
 ## Steps
 
 1. Write `docs/data-model.md`: every file, field, unit and default.
 2. Write `scripts/schema.sql`.
-3. Write the fixture in `data/fixture/0/`: the iron/copper → electronic circuit chain, basic oil processing (a cycle) and one drill, module, beacon and planet. Exclude it from production builds.
+3. Write the fixture in `scripts/fixtures/basic/` (test-only, so it's never shipped): the iron/copper → electronic circuit chain, advanced oil processing with cracking, Kovarex (a cycle), probabilistic results, and drills, modules, a beacon and planets.
 4. Extend `build-db.ts` with validation and the full schema.
 5. Write the `GameData` types and loader in `src/db/`.
 6. Tests: the fixture builds; broken fixtures (missing ref, wrong type, bad YAML) fail with the right file, line and message; the loader returns the expected `GameData`.
