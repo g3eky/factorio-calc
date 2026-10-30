@@ -5,6 +5,7 @@ import { useGame } from '../db/GameProvider.tsx'
 import { defaultPreferences, migrate } from '../settings/preferences.ts'
 import { usePersistentState } from '../settings/storage.ts'
 import { Button } from '../ui/Button/Button.tsx'
+import { Icon } from '../ui/Icon/Icon.tsx'
 import { Panel } from '../ui/Panel/Panel.tsx'
 import { Select } from '../ui/Select/Select.tsx'
 import { UNIT_LABELS, type RateUnit } from './format.ts'
@@ -20,7 +21,9 @@ export type Update = (change: (calc: Calculation) => Calculation) => void
 // The calculator screen: targets on the left, the production chain on the right.
 export function Planner() {
   const game = useGame()
-  const [calc, setCalc] = usePersistentState(`factorio-calc:v1:calculation:${game.dataset.id}`, () => emptyCalculation(game), (v) => (isCalculation(v) ? v : undefined))
+  const [calc, setCalc] = usePersistentState(`factorio-calc:v1:calculation:${game.dataset.id}`, () => emptyCalculation(game), (v) =>
+    isCalculation(v) ? { ...emptyCalculation(game), ...v } : undefined,
+  )
   const [prefs, setPrefs] = usePersistentState(`factorio-calc:v1:preferences:${game.dataset.id}`, defaultPreferences, migrate)
   const [settingsOpen, setSettingsOpen] = useState(false)
   const request = useMemo(() => toRequest(game, calc, prefs), [game, calc, prefs])
@@ -42,6 +45,17 @@ export function Planner() {
           {game.dataset.name} {game.dataset.version}
         </span>
         <span className={styles.spacer} />
+        {game.data.planets.length > 0 && (
+          <label className={styles.setting}>
+            Build on
+            <Select
+              label="Planet"
+              value={calc.planet}
+              onChange={(planet) => setCalc((c) => ({ ...c, planet }))}
+              options={game.data.planets.map((p) => ({ value: p.id, label: <><Icon kind="planet" id={p.id} size={20} /> {p.name}</> }))}
+            />
+          </label>
+        )}
         <label className={styles.setting}>
           Rates
           <Select

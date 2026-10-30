@@ -23,6 +23,13 @@ export function long(n: number): string {
 
 const trim = (n: number, digits: number) => String(Number(n.toFixed(digits)))
 
+// 90 -> "1.5 min", 18000 -> "5 h".
+export function duration(seconds: number): string {
+  if (seconds < 60) return `${long(seconds)} s`
+  if (seconds < 3600) return `${long(Number((seconds / 60).toPrecision(3)))} min`
+  return `${long(Number((seconds / 3600).toPrecision(3)))} h`
+}
+
 export function power(watts: number): string {
   const units = ['W', 'kW', 'MW', 'GW', 'TW']
   let i = 0

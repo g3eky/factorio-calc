@@ -27,6 +27,8 @@ export interface Calculation {
   unit: RateUnit
   // Belt used for "belts" targets and belt counts.
   belt: string
+  // Planet or space platform to build on.
+  planet: string
 }
 
 export const emptyCalculation = (game: Game): Calculation => ({
@@ -35,11 +37,13 @@ export const emptyCalculation = (game: Game): Calculation => ({
   recipes: {},
   unit: 'min',
   belt: game.data.belts[0]?.id ?? '',
+  planet: game.data.planets.find((p) => p.id === 'nauvis')?.id ?? game.data.planets[0]?.id ?? '',
 })
 
 const isObject = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v)
 
-// Checks a stored calculation's shape. Items the dataset no longer has are dropped when it's used.
+// Checks a stored calculation's shape. Items the dataset no longer has are dropped when it's used;
+// fields added later (like `planet`) are filled in from emptyCalculation by the caller.
 export function isCalculation(value: unknown): value is Calculation {
   return (
     isObject(value) &&
@@ -94,6 +98,7 @@ export function toRequest(game: Game, calc: Calculation, prefs: Preferences): So
     disabled: [...disabled],
     research: prefs.research,
     fuel: prefs.fuel,
+    planet: game.data.planets.some((p) => p.id === calc.planet) ? calc.planet : undefined,
   }
   const beltSpeed = game.data.belts.find((b) => b.id === calc.belt)?.speed ?? 15
   // For "machines" targets: output of one machine of the recipe that would make the item.

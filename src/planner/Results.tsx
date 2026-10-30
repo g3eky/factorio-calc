@@ -1,4 +1,5 @@
 import { memo, useMemo, useState, type ReactNode } from 'react'
+import { onSurface } from '../calculator/processes.ts'
 import type { Amount, ModuleSetup, ProcessResult, ProcessSettings, SolveResult } from '../calculator/types.ts'
 import { useGame, type Game } from '../db/GameProvider.tsx'
 import type { EffectName } from '../db/types.ts'
@@ -51,8 +52,8 @@ function inOrder(result: SolveResult, calc: Calculation): ProcessResult[] {
 
 export function processName(game: Game, p: ProcessResult): string {
   if (p.kind === 'recipe') return game.recipes.get(p.id)?.name ?? p.id
-  if (p.kind === 'resource') return `Mining ${game.data.resources.find((r) => r.id === p.id)?.name ?? p.id}`
-  return `Pumping ${game.fluids.get(p.id)?.name ?? p.id}`
+  if (p.kind === 'resource') return `Mining ${(game.data.resources.find((r) => r.id === p.id)?.name ?? p.id).toLowerCase()}`
+  return `Pumping ${(game.fluids.get(p.id)?.name ?? p.id).toLowerCase()}`
 }
 
 export const amountName = (game: Game, a: { kind: string; id: string }) => (a.kind === 'fluid' ? game.fluids : game.items).get(a.id)?.name ?? a.id
@@ -238,7 +239,8 @@ const Row = memo(
 function MachineChooser({ process, calc, update, done }: { process: ProcessResult; calc: Calculation; update: Update; done: () => void }) {
   const game = useGame()
   const categories = process.kind === 'recipe' ? game.recipes.get(process.id)!.categories : [game.data.resources.find((r) => r.id === process.id)!.category]
-  const machines = game.data.machines.filter((m) => m.categories.some((c) => categories.includes(c)))
+  const planet = game.data.planets.find((p) => p.id === calc.planet)
+  const machines = game.data.machines.filter((m) => m.categories.some((c) => categories.includes(c)) && onSurface(game.data, planet, m.surface_conditions))
   const choose = (machine: string | undefined) => {
     update((c) => ({ ...c, overrides: { ...c.overrides, [process.key]: { ...c.overrides[process.key], machine } } }))
     done()
