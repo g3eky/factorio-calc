@@ -1,0 +1,37 @@
+.window {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--space-1) var(--space-3) var(--space-3);
+  background: var(--color-frame);
+  box-shadow: var(--bevel-outset);
+}
+
+.titleBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 32px;
+}
+
+.title {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: var(--font-size-heading);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.filler {
+  flex: 1;
+  align-self: stretch;
+  margin: 8px 0;
+  background: repeating-linear-gradient(180deg, rgb(255 255 255 / 0.08) 0 1px, rgb(0 0 0 / 0.35) 1px 2px, transparent 2px 4px);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 0;
+}

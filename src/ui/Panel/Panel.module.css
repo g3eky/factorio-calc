@@ -1,0 +1,10 @@
+.panel {
+  padding: var(--space-3);
+  background: var(--color-panel);
+  box-shadow: var(--bevel-inset);
+}
+
+.deep {
+  padding: var(--space-1);
+  background: var(--color-panel-deep);
+}
