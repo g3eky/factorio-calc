@@ -1,0 +1,30 @@
+.popover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 500;
+  min-width: 200px;
+  max-width: min(480px, calc(100vw - 8px));
+  padding: var(--space-1) var(--space-2) var(--space-2);
+  background: var(--color-frame);
+  box-shadow: var(--bevel-outset), 0 0 0 1px #000, 0 6px 18px rgb(0 0 0 / 0.6);
+  animation: appear var(--duration) var(--ease);
+}
+
+.title {
+  padding: 2px 0 var(--space-1);
+  color: var(--color-heading);
+  font-weight: 700;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+}
