@@ -1,0 +1,96 @@
+- id: logistics
+  name: Logistics
+  order: a
+  subgroups:
+    - id: belt
+      order: b
+    - id: circuit-network
+      order: h
+    - id: energy-pipe-distribution
+      order: d
+    - id: inserter
+      order: c
+    - id: logistic-network
+      order: g
+    - id: storage
+      order: a
+    - id: terrain
+      order: i
+    - id: train-transport
+      order: e
+    - id: transport
+      order: f
+- id: production
+  name: Production
+  order: b
+  subgroups:
+    - id: energy
+      order: b
+    - id: extraction-machine
+      order: c
+    - id: module
+      order: f
+    - id: production-machine
+      order: e
+    - id: smelting-machine
+      order: d
+    - id: space-related
+      order: g
+    - id: tool
+      order: a
+- id: intermediate-products
+  name: Intermediate products
+  order: c
+  subgroups:
+    - id: barrel
+      order: d
+    - id: empty-barrel
+      order: f
+    - id: fill-barrel
+      order: e
+    - id: fluid-recipes
+      order: a
+    - id: intermediate-product
+      order: g
+    - id: raw-material
+      order: c
+    - id: raw-resource
+      order: b
+    - id: science-pack
+      order: y
+    - id: uranium-processing
+      order: i
+- id: combat
+  name: Combat
+  order: e
+  subgroups:
+    - id: ammo
+      order: b
+    - id: armor
+      order: d
+    - id: capsule
+      order: c
+    - id: defensive-structure
+      order: h
+    - id: equipment
+      order: e
+    - id: gun
+      order: a
+    - id: military-equipment
+      order: g
+    - id: turret
+      order: i
+    - id: utility-equipment
+      order: f
+- id: fluids
+  name: Fluids
+  order: f
+  subgroups:
+    - id: fluid
+      order: a
+- id: other
+  name: Other
+  order: z
+  subgroups:
+    - id: spawnables
+      order: c

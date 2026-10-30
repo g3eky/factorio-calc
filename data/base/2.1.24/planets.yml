@@ -1,0 +1,16 @@
+- id: nauvis
+  name: Nauvis
+  kind: planet
+  surface_properties:
+    day-night-cycle: 25200
+  resources:
+    - coal
+    - copper-ore
+    - crude-oil
+    - iron-ore
+    - stone
+    - uranium-ore
+  fluids:
+    - water
+  gathered:
+    - raw-fish

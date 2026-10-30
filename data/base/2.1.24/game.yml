@@ -1,0 +1,5 @@
+name: Base game
+version: 2.1.24
+mods:
+  - base
+source: wube/factorio-data 2.1.24; names and icons from wiki.factorio.com

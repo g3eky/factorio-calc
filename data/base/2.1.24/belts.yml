@@ -1,0 +1,9 @@
+- id: transport-belt
+  name: Transport belt
+  speed: 15
+- id: fast-transport-belt
+  name: Fast transport belt
+  speed: 30
+- id: express-transport-belt
+  name: Express transport belt
+  speed: 45

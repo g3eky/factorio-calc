@@ -1,0 +1,249 @@
+- id: assembling-machine-1
+  name: Assembling machine 1
+  kind: crafting
+  categories:
+    - crafting
+    - advanced-crafting
+  speed: 0.5
+  energy:
+    type: electric
+    usage: 75000
+    drain: 2500
+  module_slots: 0
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+- id: assembling-machine-2
+  name: Assembling machine 2
+  kind: crafting
+  categories:
+    - crafting
+    - advanced-crafting
+    - crafting-with-fluid
+  speed: 0.75
+  energy:
+    type: electric
+    usage: 150000
+    drain: 5000
+  module_slots: 2
+  allowed_effects:
+    - consumption
+    - speed
+    - productivity
+    - pollution
+    - quality
+- id: assembling-machine-3
+  name: Assembling machine 3
+  kind: crafting
+  categories:
+    - crafting
+    - advanced-crafting
+    - crafting-with-fluid
+  speed: 1.25
+  energy:
+    type: electric
+    usage: 375000
+    drain: 12500
+  module_slots: 4
+  allowed_effects:
+    - consumption
+    - speed
+    - productivity
+    - pollution
+    - quality
+- id: boiler
+  name: Boiler
+  kind: boiler
+  categories: []
+  speed: 1
+  energy:
+    type: burner
+    usage: 1800000
+    fuel_categories:
+      - chemical
+  module_slots: 0
+  allowed_effects: []
+  boiler:
+    input_fluid: water
+    output_fluid: steam
+    target_temperature: 165
+- id: burner-mining-drill
+  name: Burner mining drill
+  kind: mining
+  categories:
+    - basic-solid
+  speed: 0.25
+  energy:
+    type: burner
+    usage: 150000
+    fuel_categories:
+      - chemical
+  module_slots: 0
+  allowed_effects: []
+- id: centrifuge
+  name: Centrifuge
+  kind: crafting
+  categories:
+    - centrifuging
+  speed: 1
+  energy:
+    type: electric
+    usage: 350000
+    drain: 11666.6666667
+  module_slots: 2
+  allowed_effects:
+    - consumption
+    - speed
+    - productivity
+    - pollution
+    - quality
+- id: chemical-plant
+  name: Chemical plant
+  kind: crafting
+  categories:
+    - chemistry
+  speed: 1
+  energy:
+    type: electric
+    usage: 210000
+    drain: 7000
+  module_slots: 3
+  allowed_effects:
+    - consumption
+    - speed
+    - productivity
+    - pollution
+    - quality
+- id: electric-furnace
+  name: Electric furnace
+  kind: crafting
+  categories:
+    - smelting
+  speed: 2
+  energy:
+    type: electric
+    usage: 180000
+    drain: 6000
+  module_slots: 2
+  allowed_effects:
+    - consumption
+    - speed
+    - productivity
+    - pollution
+    - quality
+- id: electric-mining-drill
+  name: Electric mining drill
+  kind: mining
+  categories:
+    - basic-solid
+  speed: 0.5
+  energy:
+    type: electric
+    usage: 90000
+  module_slots: 3
+  allowed_effects: &a1
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+- id: heat-exchanger
+  name: Heat exchanger
+  kind: boiler
+  categories: []
+  speed: 1
+  energy:
+    type: heat
+    usage: 10000000
+  module_slots: 0
+  allowed_effects: []
+  boiler:
+    input_fluid: water
+    output_fluid: steam
+    target_temperature: 500
+- id: offshore-pump
+  name: Offshore pump
+  kind: offshore-pump
+  categories: []
+  speed: 1200
+  energy:
+    type: void
+    usage: 0
+  module_slots: 0
+  allowed_effects: []
+- id: oil-refinery
+  name: Oil refinery
+  kind: crafting
+  categories:
+    - oil-processing
+  speed: 1
+  energy:
+    type: electric
+    usage: 420000
+    drain: 14000
+  module_slots: 3
+  allowed_effects:
+    - consumption
+    - speed
+    - productivity
+    - pollution
+- id: pumpjack
+  name: Pumpjack
+  kind: mining
+  categories:
+    - basic-fluid
+  speed: 1
+  energy:
+    type: electric
+    usage: 90000
+  module_slots: 2
+  allowed_effects: *a1
+- id: rocket-silo
+  name: Rocket silo
+  kind: crafting
+  categories:
+    - rocket-building
+  speed: 1
+  energy:
+    type: electric
+    usage: 250000
+    drain: 8333.33333333
+  module_slots: 4
+  allowed_effects:
+    - consumption
+    - speed
+    - productivity
+    - pollution
+- id: steel-furnace
+  name: Steel furnace
+  kind: crafting
+  categories:
+    - smelting
+  speed: 2
+  energy:
+    type: burner
+    usage: 90000
+    fuel_categories:
+      - chemical
+  module_slots: 0
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+- id: stone-furnace
+  name: Stone furnace
+  kind: crafting
+  categories:
+    - smelting
+  speed: 1
+  energy:
+    type: burner
+    usage: 90000
+    fuel_categories:
+      - chemical
+  module_slots: 0
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution

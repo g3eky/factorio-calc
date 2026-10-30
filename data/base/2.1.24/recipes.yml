@@ -1,0 +1,5259 @@
+- id: accumulator
+  name: Accumulator
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 2
+    - type: item
+      id: battery
+      amount: 5
+  results:
+    - type: item
+      id: accumulator
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: accumulator
+- id: active-provider-chest
+  name: Active provider chest
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: steel-chest
+      amount: 1
+    - type: item
+      id: electronic-circuit
+      amount: 3
+    - type: item
+      id: advanced-circuit
+      amount: 1
+  results:
+    - type: item
+      id: active-provider-chest
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: active-provider-chest
+- id: advanced-circuit
+  name: Advanced circuit
+  categories:
+    - crafting
+  time: 6
+  ingredients:
+    - type: item
+      id: electronic-circuit
+      amount: 2
+    - type: item
+      id: plastic-bar
+      amount: 2
+    - type: item
+      id: copper-cable
+      amount: 4
+  results:
+    - type: item
+      id: advanced-circuit
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: advanced-circuit
+- id: advanced-oil-processing
+  name: Advanced oil processing
+  categories:
+    - oil-processing
+  time: 5
+  ingredients:
+    - type: fluid
+      id: water
+      amount: 50
+    - type: fluid
+      id: crude-oil
+      amount: 100
+  results:
+    - type: fluid
+      id: heavy-oil
+      amount: 25
+    - type: fluid
+      id: light-oil
+      amount: 45
+    - type: fluid
+      id: petroleum-gas
+      amount: 55
+  order: a[oil-processing]-b[advanced-oil-processing]
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  subgroup: fluid-recipes
+- id: arithmetic-combinator
+  name: Arithmetic combinator
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: copper-cable
+      amount: 5
+    - type: item
+      id: electronic-circuit
+      amount: 5
+  results:
+    - type: item
+      id: arithmetic-combinator
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: arithmetic-combinator
+- id: artillery-shell
+  name: Artillery shell
+  categories:
+    - crafting
+  time: 15
+  ingredients:
+    - type: item
+      id: explosive-cannon-shell
+      amount: 4
+    - type: item
+      id: radar
+      amount: 1
+    - type: item
+      id: explosives
+      amount: 8
+  results:
+    - type: item
+      id: artillery-shell
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: artillery-shell
+- id: artillery-turret
+  name: Artillery turret
+  categories:
+    - crafting
+  time: 40
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 60
+    - type: item
+      id: concrete
+      amount: 60
+    - type: item
+      id: iron-gear-wheel
+      amount: 40
+    - type: item
+      id: advanced-circuit
+      amount: 20
+  results:
+    - type: item
+      id: artillery-turret
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: artillery-turret
+- id: artillery-wagon
+  name: Artillery wagon
+  categories:
+    - crafting
+  time: 4
+  ingredients:
+    - type: item
+      id: engine-unit
+      amount: 64
+    - type: item
+      id: iron-gear-wheel
+      amount: 10
+    - type: item
+      id: steel-plate
+      amount: 40
+    - type: item
+      id: pipe
+      amount: 16
+    - type: item
+      id: advanced-circuit
+      amount: 20
+  results:
+    - type: item
+      id: artillery-wagon
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: artillery-wagon
+- id: assembling-machine-1
+  name: Assembling machine 1
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: electronic-circuit
+      amount: 3
+    - type: item
+      id: iron-gear-wheel
+      amount: 5
+    - type: item
+      id: iron-plate
+      amount: 9
+  results:
+    - type: item
+      id: assembling-machine-1
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: assembling-machine-1
+- id: assembling-machine-2
+  name: Assembling machine 2
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 2
+    - type: item
+      id: electronic-circuit
+      amount: 3
+    - type: item
+      id: iron-gear-wheel
+      amount: 5
+    - type: item
+      id: assembling-machine-1
+      amount: 1
+  results:
+    - type: item
+      id: assembling-machine-2
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: assembling-machine-2
+- id: assembling-machine-3
+  name: Assembling machine 3
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: speed-module
+      amount: 4
+    - type: item
+      id: assembling-machine-2
+      amount: 2
+  results:
+    - type: item
+      id: assembling-machine-3
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: assembling-machine-3
+- id: atomic-bomb
+  name: Atomic bomb
+  categories:
+    - crafting
+  time: 50
+  ingredients:
+    - type: item
+      id: processing-unit
+      amount: 10
+    - type: item
+      id: explosives
+      amount: 10
+    - type: item
+      id: uranium-235
+      amount: 30
+  results:
+    - type: item
+      id: atomic-bomb
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: atomic-bomb
+- id: automation-science-pack
+  name: Automation science pack
+  categories:
+    - crafting
+  time: 5
+  ingredients:
+    - type: item
+      id: copper-plate
+      amount: 1
+    - type: item
+      id: iron-gear-wheel
+      amount: 1
+  results:
+    - type: item
+      id: automation-science-pack
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: automation-science-pack
+- id: barrel
+  name: Barrel
+  categories:
+    - crafting
+  time: 1
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 1
+  results:
+    - type: item
+      id: barrel
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: barrel
+  subgroup: intermediate-product
+- id: basic-oil-processing
+  name: Basic oil processing
+  categories:
+    - oil-processing
+  time: 5
+  ingredients:
+    - type: fluid
+      id: crude-oil
+      amount: 100
+  results:
+    - type: fluid
+      id: petroleum-gas
+      amount: 45
+  order: a[oil-processing]-a[basic-oil-processing]
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: petroleum-gas
+  subgroup: fluid-recipes
+- id: battery
+  name: Battery
+  categories:
+    - chemistry
+  time: 4
+  ingredients:
+    - type: fluid
+      id: sulfuric-acid
+      amount: 20
+    - type: item
+      id: iron-plate
+      amount: 1
+    - type: item
+      id: copper-plate
+      amount: 1
+  results:
+    - type: item
+      id: battery
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: battery
+- id: battery-equipment
+  name: Personal battery
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: battery
+      amount: 5
+    - type: item
+      id: steel-plate
+      amount: 10
+  results:
+    - type: item
+      id: battery-equipment
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: battery-equipment
+- id: battery-mk2-equipment
+  name: Personal battery MK2
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: battery-equipment
+      amount: 10
+    - type: item
+      id: processing-unit
+      amount: 15
+    - type: item
+      id: low-density-structure
+      amount: 5
+  results:
+    - type: item
+      id: battery-mk2-equipment
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: battery-mk2-equipment
+- id: beacon
+  name: Beacon
+  categories:
+    - crafting
+  time: 15
+  ingredients:
+    - type: item
+      id: electronic-circuit
+      amount: 20
+    - type: item
+      id: advanced-circuit
+      amount: 20
+    - type: item
+      id: steel-plate
+      amount: 10
+    - type: item
+      id: copper-cable
+      amount: 10
+  results:
+    - type: item
+      id: beacon
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: beacon
+- id: belt-immunity-equipment
+  name: Belt immunity equipment
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: advanced-circuit
+      amount: 5
+    - type: item
+      id: steel-plate
+      amount: 10
+  results:
+    - type: item
+      id: belt-immunity-equipment
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: belt-immunity-equipment
+- id: big-electric-pole
+  name: Big electric pole
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: iron-stick
+      amount: 8
+    - type: item
+      id: steel-plate
+      amount: 5
+    - type: item
+      id: copper-cable
+      amount: 4
+  results:
+    - type: item
+      id: big-electric-pole
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: big-electric-pole
+- id: boiler
+  name: Boiler
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: stone-furnace
+      amount: 1
+    - type: item
+      id: pipe
+      amount: 4
+  results:
+    - type: item
+      id: boiler
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: boiler
+- id: buffer-chest
+  name: Buffer chest
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: steel-chest
+      amount: 1
+    - type: item
+      id: electronic-circuit
+      amount: 3
+    - type: item
+      id: advanced-circuit
+      amount: 1
+  results:
+    - type: item
+      id: buffer-chest
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: buffer-chest
+- id: bulk-inserter
+  name: Bulk inserter
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: iron-gear-wheel
+      amount: 15
+    - type: item
+      id: electronic-circuit
+      amount: 15
+    - type: item
+      id: advanced-circuit
+      amount: 1
+    - type: item
+      id: fast-inserter
+      amount: 1
+  results:
+    - type: item
+      id: bulk-inserter
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: bulk-inserter
+- id: burner-inserter
+  name: Burner inserter
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 1
+    - type: item
+      id: iron-gear-wheel
+      amount: 1
+  results:
+    - type: item
+      id: burner-inserter
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: burner-inserter
+- id: burner-mining-drill
+  name: Burner mining drill
+  categories:
+    - crafting
+  time: 2
+  ingredients:
+    - type: item
+      id: iron-gear-wheel
+      amount: 3
+    - type: item
+      id: stone-furnace
+      amount: 1
+    - type: item
+      id: iron-plate
+      amount: 3
+  results:
+    - type: item
+      id: burner-mining-drill
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: burner-mining-drill
+- id: cannon-shell
+  name: Cannon shell
+  categories:
+    - crafting
+  time: 8
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 2
+    - type: item
+      id: plastic-bar
+      amount: 2
+    - type: item
+      id: explosives
+      amount: 1
+  results:
+    - type: item
+      id: cannon-shell
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: cannon-shell
+- id: car
+  name: Zippy/workbench
+  categories:
+    - crafting
+  time: 2
+  ingredients:
+    - type: item
+      id: engine-unit
+      amount: 8
+    - type: item
+      id: iron-plate
+      amount: 20
+    - type: item
+      id: steel-plate
+      amount: 5
+  results:
+    - type: item
+      id: car
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: car
+- id: cargo-landing-pad
+  name: Cargo landing pad
+  categories:
+    - crafting
+  time: 30
+  ingredients:
+    - type: item
+      id: concrete
+      amount: 200
+    - type: item
+      id: steel-plate
+      amount: 25
+    - type: item
+      id: processing-unit
+      amount: 10
+  results:
+    - type: item
+      id: cargo-landing-pad
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: cargo-landing-pad
+- id: cargo-wagon
+  name: Cargo wagon
+  categories:
+    - crafting
+  time: 1
+  ingredients:
+    - type: item
+      id: iron-gear-wheel
+      amount: 10
+    - type: item
+      id: iron-plate
+      amount: 20
+    - type: item
+      id: steel-plate
+      amount: 20
+  results:
+    - type: item
+      id: cargo-wagon
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: cargo-wagon
+- id: centrifuge
+  name: Centrifuge
+  categories:
+    - crafting
+  time: 4
+  ingredients:
+    - type: item
+      id: concrete
+      amount: 100
+    - type: item
+      id: steel-plate
+      amount: 50
+    - type: item
+      id: advanced-circuit
+      amount: 100
+    - type: item
+      id: iron-gear-wheel
+      amount: 100
+  results:
+    - type: item
+      id: centrifuge
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: centrifuge
+- id: chemical-plant
+  name: Chemical plant
+  categories:
+    - crafting
+  time: 5
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 5
+    - type: item
+      id: iron-gear-wheel
+      amount: 5
+    - type: item
+      id: electronic-circuit
+      amount: 5
+    - type: item
+      id: pipe
+      amount: 5
+  results:
+    - type: item
+      id: chemical-plant
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: chemical-plant
+- id: chemical-science-pack
+  name: Chemical science pack
+  categories:
+    - crafting
+  time: 24
+  ingredients:
+    - type: item
+      id: engine-unit
+      amount: 2
+    - type: item
+      id: advanced-circuit
+      amount: 3
+    - type: item
+      id: sulfur
+      amount: 1
+  results:
+    - type: item
+      id: chemical-science-pack
+      amount: 2
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: chemical-science-pack
+- id: cliff-explosives
+  name: Cliff explosives
+  categories:
+    - crafting
+  time: 8
+  ingredients:
+    - type: item
+      id: explosives
+      amount: 10
+    - type: item
+      id: grenade
+      amount: 1
+    - type: item
+      id: barrel
+      amount: 1
+  results:
+    - type: item
+      id: cliff-explosives
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: cliff-explosives
+- id: cluster-grenade
+  name: Cluster grenade
+  categories:
+    - crafting
+  time: 8
+  ingredients:
+    - type: item
+      id: grenade
+      amount: 7
+    - type: item
+      id: explosives
+      amount: 5
+    - type: item
+      id: steel-plate
+      amount: 5
+  results:
+    - type: item
+      id: cluster-grenade
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: cluster-grenade
+- id: coal-liquefaction
+  name: Coal liquefaction
+  categories:
+    - oil-processing
+  time: 5
+  ingredients:
+    - type: item
+      id: coal
+      amount: 10
+    - type: fluid
+      id: heavy-oil
+      amount: 25
+    - type: fluid
+      id: steam
+      amount: 50
+  results:
+    - type: fluid
+      id: heavy-oil
+      amount: 90
+      ignored_by_productivity: 25
+    - type: fluid
+      id: light-oil
+      amount: 20
+    - type: fluid
+      id: petroleum-gas
+      amount: 10
+  order: a[oil-processing]-c[coal-liquefaction]
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  subgroup: fluid-recipes
+- id: combat-shotgun
+  name: Combat shotgun
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 15
+    - type: item
+      id: iron-gear-wheel
+      amount: 5
+    - type: item
+      id: copper-plate
+      amount: 10
+    - type: item
+      id: wood
+      amount: 10
+  results:
+    - type: item
+      id: combat-shotgun
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: combat-shotgun
+- id: concrete
+  name: Concrete
+  categories:
+    - crafting-with-fluid
+  time: 10
+  ingredients:
+    - type: item
+      id: stone-brick
+      amount: 5
+    - type: item
+      id: iron-ore
+      amount: 1
+    - type: fluid
+      id: water
+      amount: 100
+  results:
+    - type: item
+      id: concrete
+      amount: 10
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: concrete
+- id: constant-combinator
+  name: Constant combinator
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: copper-cable
+      amount: 5
+    - type: item
+      id: electronic-circuit
+      amount: 2
+  results:
+    - type: item
+      id: constant-combinator
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: constant-combinator
+- id: construction-robot
+  name: Construction robot
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: flying-robot-frame
+      amount: 1
+    - type: item
+      id: electronic-circuit
+      amount: 2
+  results:
+    - type: item
+      id: construction-robot
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: construction-robot
+- id: copper-cable
+  name: Copper cable
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: copper-plate
+      amount: 1
+  results:
+    - type: item
+      id: copper-cable
+      amount: 2
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: copper-cable
+- id: copper-plate
+  name: Copper plate
+  categories:
+    - smelting
+  time: 3.2
+  ingredients:
+    - type: item
+      id: copper-ore
+      amount: 1
+  results:
+    - type: item
+      id: copper-plate
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: copper-plate
+- id: crude-oil-barrel
+  name: Crude oil barrel
+  categories:
+    - crafting-with-fluid
+  time: 0.2
+  ingredients:
+    - type: fluid
+      id: crude-oil
+      amount: 50
+    - type: item
+      id: barrel
+      amount: 1
+  results:
+    - type: item
+      id: crude-oil-barrel
+      amount: 1
+  order: a[fluid]-b[oil]-a[crude-oil]
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+  max_productivity: 3
+  main_product: crude-oil-barrel
+  subgroup: fill-barrel
+- id: decider-combinator
+  name: Decider combinator
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: copper-cable
+      amount: 5
+    - type: item
+      id: electronic-circuit
+      amount: 5
+  results:
+    - type: item
+      id: decider-combinator
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: decider-combinator
+- id: defender-capsule
+  name: Defender capsule
+  categories:
+    - crafting
+  time: 8
+  ingredients:
+    - type: item
+      id: piercing-rounds-magazine
+      amount: 3
+    - type: item
+      id: electronic-circuit
+      amount: 3
+    - type: item
+      id: iron-gear-wheel
+      amount: 3
+  results:
+    - type: item
+      id: defender-capsule
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: defender-capsule
+- id: destroyer-capsule
+  name: Destroyer capsule
+  categories:
+    - crafting
+  time: 15
+  ingredients:
+    - type: item
+      id: distractor-capsule
+      amount: 4
+    - type: item
+      id: speed-module
+      amount: 1
+  results:
+    - type: item
+      id: destroyer-capsule
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: destroyer-capsule
+- id: discharge-defense-equipment
+  name: Discharge defense
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: processing-unit
+      amount: 5
+    - type: item
+      id: steel-plate
+      amount: 20
+    - type: item
+      id: laser-turret
+      amount: 10
+  results:
+    - type: item
+      id: discharge-defense-equipment
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: discharge-defense-equipment
+- id: display-panel
+  name: Display panel
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 1
+    - type: item
+      id: electronic-circuit
+      amount: 1
+  results:
+    - type: item
+      id: display-panel
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: display-panel
+- id: distractor-capsule
+  name: Distractor capsule
+  categories:
+    - crafting
+  time: 15
+  ingredients:
+    - type: item
+      id: defender-capsule
+      amount: 4
+    - type: item
+      id: advanced-circuit
+      amount: 3
+  results:
+    - type: item
+      id: distractor-capsule
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: distractor-capsule
+- id: efficiency-module
+  name: Efficiency module
+  categories:
+    - crafting
+  time: 15
+  ingredients:
+    - type: item
+      id: advanced-circuit
+      amount: 5
+    - type: item
+      id: electronic-circuit
+      amount: 5
+  results:
+    - type: item
+      id: efficiency-module
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: efficiency-module
+- id: efficiency-module-2
+  name: Efficiency module 2
+  categories:
+    - crafting
+  time: 30
+  ingredients:
+    - type: item
+      id: efficiency-module
+      amount: 4
+    - type: item
+      id: advanced-circuit
+      amount: 5
+    - type: item
+      id: processing-unit
+      amount: 5
+  results:
+    - type: item
+      id: efficiency-module-2
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: efficiency-module-2
+- id: efficiency-module-3
+  name: Efficiency module 3
+  categories:
+    - crafting
+  time: 60
+  ingredients:
+    - type: item
+      id: efficiency-module-2
+      amount: 4
+    - type: item
+      id: advanced-circuit
+      amount: 5
+    - type: item
+      id: processing-unit
+      amount: 5
+  results:
+    - type: item
+      id: efficiency-module-3
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: efficiency-module-3
+- id: electric-engine-unit
+  name: Electric engine unit
+  categories:
+    - crafting-with-fluid
+  time: 10
+  ingredients:
+    - type: item
+      id: engine-unit
+      amount: 1
+    - type: fluid
+      id: lubricant
+      amount: 15
+    - type: item
+      id: electronic-circuit
+      amount: 2
+  results:
+    - type: item
+      id: electric-engine-unit
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: electric-engine-unit
+- id: electric-furnace
+  name: Electric furnace
+  categories:
+    - crafting
+  time: 5
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 10
+    - type: item
+      id: advanced-circuit
+      amount: 5
+    - type: item
+      id: stone-brick
+      amount: 10
+  results:
+    - type: item
+      id: electric-furnace
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: electric-furnace
+- id: electric-mining-drill
+  name: Electric mining drill
+  categories:
+    - crafting
+  time: 2
+  ingredients:
+    - type: item
+      id: electronic-circuit
+      amount: 3
+    - type: item
+      id: iron-gear-wheel
+      amount: 5
+    - type: item
+      id: iron-plate
+      amount: 10
+  results:
+    - type: item
+      id: electric-mining-drill
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: electric-mining-drill
+- id: electronic-circuit
+  name: Electronic circuit
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 1
+    - type: item
+      id: copper-cable
+      amount: 3
+  results:
+    - type: item
+      id: electronic-circuit
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: electronic-circuit
+- id: empty-crude-oil-barrel
+  name: Empty crude oil barrel
+  categories:
+    - crafting-with-fluid
+  time: 0.2
+  ingredients:
+    - type: item
+      id: crude-oil-barrel
+      amount: 1
+  results:
+    - type: fluid
+      id: crude-oil
+      amount: 50
+    - type: item
+      id: barrel
+      amount: 1
+  order: a[fluid]-b[oil]-a[crude-oil]
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+  max_productivity: 3
+  subgroup: empty-barrel
+- id: empty-heavy-oil-barrel
+  name: Empty heavy oil barrel
+  categories:
+    - crafting-with-fluid
+  time: 0.2
+  ingredients:
+    - type: item
+      id: heavy-oil-barrel
+      amount: 1
+  results:
+    - type: fluid
+      id: heavy-oil
+      amount: 50
+    - type: item
+      id: barrel
+      amount: 1
+  order: a[fluid]-b[oil]-d[heavy-oil]
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+  max_productivity: 3
+  subgroup: empty-barrel
+- id: empty-light-oil-barrel
+  name: Empty light oil barrel
+  categories:
+    - crafting-with-fluid
+  time: 0.2
+  ingredients:
+    - type: item
+      id: light-oil-barrel
+      amount: 1
+  results:
+    - type: fluid
+      id: light-oil
+      amount: 50
+    - type: item
+      id: barrel
+      amount: 1
+  order: a[fluid]-b[oil]-c[light-oil]
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+  max_productivity: 3
+  subgroup: empty-barrel
+- id: empty-lubricant-barrel
+  name: Empty lubricant barrel
+  categories:
+    - crafting-with-fluid
+  time: 0.2
+  ingredients:
+    - type: item
+      id: lubricant-barrel
+      amount: 1
+  results:
+    - type: fluid
+      id: lubricant
+      amount: 50
+    - type: item
+      id: barrel
+      amount: 1
+  order: a[fluid]-b[oil]-e[lubricant]
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+  max_productivity: 3
+  subgroup: empty-barrel
+- id: empty-petroleum-gas-barrel
+  name: Empty petroleum gas barrel
+  categories:
+    - crafting-with-fluid
+  time: 0.2
+  ingredients:
+    - type: item
+      id: petroleum-gas-barrel
+      amount: 1
+  results:
+    - type: fluid
+      id: petroleum-gas
+      amount: 50
+    - type: item
+      id: barrel
+      amount: 1
+  order: a[fluid]-b[oil]-b[petroleum-gas]
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+  max_productivity: 3
+  subgroup: empty-barrel
+- id: empty-sulfuric-acid-barrel
+  name: Empty sulfuric acid barrel
+  categories:
+    - crafting-with-fluid
+  time: 0.2
+  ingredients:
+    - type: item
+      id: sulfuric-acid-barrel
+      amount: 1
+  results:
+    - type: fluid
+      id: sulfuric-acid
+      amount: 50
+    - type: item
+      id: barrel
+      amount: 1
+  order: a[fluid]-b[oil]-f[sulfuric-acid]
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+  max_productivity: 3
+  subgroup: empty-barrel
+- id: empty-water-barrel
+  name: Empty water barrel
+  categories:
+    - crafting-with-fluid
+  time: 0.2
+  ingredients:
+    - type: item
+      id: water-barrel
+      amount: 1
+  results:
+    - type: fluid
+      id: water
+      amount: 50
+    - type: item
+      id: barrel
+      amount: 1
+  order: a[fluid]-a[water]-a[water]
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+  max_productivity: 3
+  subgroup: empty-barrel
+- id: energy-shield-equipment
+  name: Energy shield
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: advanced-circuit
+      amount: 5
+    - type: item
+      id: steel-plate
+      amount: 10
+  results:
+    - type: item
+      id: energy-shield-equipment
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: energy-shield-equipment
+- id: energy-shield-mk2-equipment
+  name: Energy shield MK2
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: energy-shield-equipment
+      amount: 10
+    - type: item
+      id: processing-unit
+      amount: 5
+    - type: item
+      id: low-density-structure
+      amount: 5
+  results:
+    - type: item
+      id: energy-shield-mk2-equipment
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: energy-shield-mk2-equipment
+- id: engine-unit
+  name: Engine unit
+  categories:
+    - advanced-crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 1
+    - type: item
+      id: iron-gear-wheel
+      amount: 1
+    - type: item
+      id: pipe
+      amount: 2
+  results:
+    - type: item
+      id: engine-unit
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: engine-unit
+- id: exoskeleton-equipment
+  name: Exoskeleton
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: processing-unit
+      amount: 10
+    - type: item
+      id: electric-engine-unit
+      amount: 30
+    - type: item
+      id: steel-plate
+      amount: 20
+  results:
+    - type: item
+      id: exoskeleton-equipment
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: exoskeleton-equipment
+- id: explosive-cannon-shell
+  name: Explosive cannon shell
+  categories:
+    - crafting
+  time: 8
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 2
+    - type: item
+      id: plastic-bar
+      amount: 2
+    - type: item
+      id: explosives
+      amount: 2
+  results:
+    - type: item
+      id: explosive-cannon-shell
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: explosive-cannon-shell
+- id: explosive-rocket
+  name: Explosive rocket
+  categories:
+    - crafting
+  time: 8
+  ingredients:
+    - type: item
+      id: rocket
+      amount: 1
+    - type: item
+      id: explosives
+      amount: 2
+  results:
+    - type: item
+      id: explosive-rocket
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: explosive-rocket
+- id: explosive-uranium-cannon-shell
+  name: Explosive uranium cannon shell
+  categories:
+    - crafting
+  time: 12
+  ingredients:
+    - type: item
+      id: explosive-cannon-shell
+      amount: 1
+    - type: item
+      id: uranium-238
+      amount: 1
+  results:
+    - type: item
+      id: explosive-uranium-cannon-shell
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: explosive-uranium-cannon-shell
+- id: explosives
+  name: Explosives
+  categories:
+    - chemistry
+  time: 4
+  ingredients:
+    - type: item
+      id: sulfur
+      amount: 1
+    - type: item
+      id: coal
+      amount: 1
+    - type: fluid
+      id: water
+      amount: 10
+  results:
+    - type: item
+      id: explosives
+      amount: 2
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: explosives
+- id: express-splitter
+  name: Express splitter
+  categories:
+    - crafting-with-fluid
+  time: 2
+  ingredients:
+    - type: item
+      id: fast-splitter
+      amount: 1
+    - type: item
+      id: iron-gear-wheel
+      amount: 10
+    - type: item
+      id: advanced-circuit
+      amount: 10
+    - type: fluid
+      id: lubricant
+      amount: 80
+  results:
+    - type: item
+      id: express-splitter
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: express-splitter
+- id: express-transport-belt
+  name: Express transport belt
+  categories:
+    - crafting-with-fluid
+  time: 0.5
+  ingredients:
+    - type: item
+      id: iron-gear-wheel
+      amount: 10
+    - type: item
+      id: fast-transport-belt
+      amount: 1
+    - type: fluid
+      id: lubricant
+      amount: 20
+  results:
+    - type: item
+      id: express-transport-belt
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: express-transport-belt
+- id: express-underground-belt
+  name: Express underground belt
+  categories:
+    - crafting-with-fluid
+  time: 2
+  ingredients:
+    - type: item
+      id: iron-gear-wheel
+      amount: 80
+    - type: item
+      id: fast-underground-belt
+      amount: 2
+    - type: fluid
+      id: lubricant
+      amount: 40
+  results:
+    - type: item
+      id: express-underground-belt
+      amount: 2
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: express-underground-belt
+- id: fast-inserter
+  name: Fast inserter
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: electronic-circuit
+      amount: 2
+    - type: item
+      id: iron-plate
+      amount: 2
+    - type: item
+      id: inserter
+      amount: 1
+  results:
+    - type: item
+      id: fast-inserter
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: fast-inserter
+- id: fast-splitter
+  name: Fast splitter
+  categories:
+    - crafting
+  time: 2
+  ingredients:
+    - type: item
+      id: splitter
+      amount: 1
+    - type: item
+      id: iron-gear-wheel
+      amount: 10
+    - type: item
+      id: electronic-circuit
+      amount: 10
+  results:
+    - type: item
+      id: fast-splitter
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: fast-splitter
+- id: fast-transport-belt
+  name: Fast transport belt
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: iron-gear-wheel
+      amount: 5
+    - type: item
+      id: transport-belt
+      amount: 1
+  results:
+    - type: item
+      id: fast-transport-belt
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: fast-transport-belt
+- id: fast-underground-belt
+  name: Fast underground belt
+  categories:
+    - crafting
+  time: 2
+  ingredients:
+    - type: item
+      id: iron-gear-wheel
+      amount: 40
+    - type: item
+      id: underground-belt
+      amount: 2
+  results:
+    - type: item
+      id: fast-underground-belt
+      amount: 2
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: fast-underground-belt
+- id: firearm-magazine
+  name: Firearm magazine
+  categories:
+    - crafting
+  time: 1
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 4
+  results:
+    - type: item
+      id: firearm-magazine
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: firearm-magazine
+- id: fission-reactor-equipment
+  name: Portable fission reactor
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: processing-unit
+      amount: 200
+    - type: item
+      id: low-density-structure
+      amount: 50
+    - type: item
+      id: uranium-fuel-cell
+      amount: 4
+  results:
+    - type: item
+      id: fission-reactor-equipment
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: fission-reactor-equipment
+- id: flamethrower
+  name: Flamethrower
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 5
+    - type: item
+      id: iron-gear-wheel
+      amount: 10
+  results:
+    - type: item
+      id: flamethrower
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: flamethrower
+- id: flamethrower-ammo
+  name: Flamethrower ammo
+  categories:
+    - chemistry
+  time: 6
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 5
+    - type: fluid
+      id: crude-oil
+      amount: 100
+  results:
+    - type: item
+      id: flamethrower-ammo
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: flamethrower-ammo
+- id: flamethrower-turret
+  name: Flamethrower turret
+  categories:
+    - crafting
+  time: 20
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 30
+    - type: item
+      id: iron-gear-wheel
+      amount: 15
+    - type: item
+      id: pipe
+      amount: 10
+    - type: item
+      id: engine-unit
+      amount: 5
+  results:
+    - type: item
+      id: flamethrower-turret
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: flamethrower-turret
+- id: fluid-wagon
+  name: Fluid wagon
+  categories:
+    - crafting
+  time: 1.5
+  ingredients:
+    - type: item
+      id: iron-gear-wheel
+      amount: 10
+    - type: item
+      id: steel-plate
+      amount: 16
+    - type: item
+      id: pipe
+      amount: 8
+    - type: item
+      id: storage-tank
+      amount: 1
+  results:
+    - type: item
+      id: fluid-wagon
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: fluid-wagon
+- id: flying-robot-frame
+  name: Flying robot frame
+  categories:
+    - crafting
+  time: 20
+  ingredients:
+    - type: item
+      id: electric-engine-unit
+      amount: 1
+    - type: item
+      id: battery
+      amount: 2
+    - type: item
+      id: steel-plate
+      amount: 1
+    - type: item
+      id: electronic-circuit
+      amount: 3
+  results:
+    - type: item
+      id: flying-robot-frame
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: flying-robot-frame
+- id: gate
+  name: Gate
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: stone-wall
+      amount: 1
+    - type: item
+      id: steel-plate
+      amount: 2
+    - type: item
+      id: electronic-circuit
+      amount: 2
+  results:
+    - type: item
+      id: gate
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: gate
+- id: grenade
+  name: Grenade
+  categories:
+    - crafting
+  time: 8
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 5
+    - type: item
+      id: coal
+      amount: 10
+  results:
+    - type: item
+      id: grenade
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: grenade
+- id: gun-turret
+  name: Gun turret
+  categories:
+    - crafting
+  time: 8
+  ingredients:
+    - type: item
+      id: iron-gear-wheel
+      amount: 10
+    - type: item
+      id: copper-plate
+      amount: 10
+    - type: item
+      id: iron-plate
+      amount: 20
+  results:
+    - type: item
+      id: gun-turret
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: gun-turret
+- id: hazard-concrete
+  name: Hazard concrete
+  categories:
+    - crafting
+  time: 0.25
+  ingredients:
+    - type: item
+      id: concrete
+      amount: 10
+  results:
+    - type: item
+      id: hazard-concrete
+      amount: 10
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: hazard-concrete
+- id: heat-exchanger
+  name: Heat exchanger
+  categories:
+    - crafting
+  time: 3
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 10
+    - type: item
+      id: copper-plate
+      amount: 100
+    - type: item
+      id: pipe
+      amount: 10
+  results:
+    - type: item
+      id: heat-exchanger
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: heat-exchanger
+- id: heat-pipe
+  name: Heat pipe
+  categories:
+    - crafting
+  time: 1
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 10
+    - type: item
+      id: copper-plate
+      amount: 20
+  results:
+    - type: item
+      id: heat-pipe
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: heat-pipe
+- id: heavy-armor
+  name: Heavy armor
+  categories:
+    - crafting
+  time: 8
+  ingredients:
+    - type: item
+      id: copper-plate
+      amount: 100
+    - type: item
+      id: steel-plate
+      amount: 50
+  results:
+    - type: item
+      id: heavy-armor
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: heavy-armor
+- id: heavy-oil-barrel
+  name: Heavy oil barrel
+  categories:
+    - crafting-with-fluid
+  time: 0.2
+  ingredients:
+    - type: fluid
+      id: heavy-oil
+      amount: 50
+    - type: item
+      id: barrel
+      amount: 1
+  results:
+    - type: item
+      id: heavy-oil-barrel
+      amount: 1
+  order: a[fluid]-b[oil]-d[heavy-oil]
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+  max_productivity: 3
+  main_product: heavy-oil-barrel
+  subgroup: fill-barrel
+- id: heavy-oil-cracking
+  name: Heavy oil cracking
+  categories:
+    - chemistry
+  time: 2
+  ingredients:
+    - type: fluid
+      id: water
+      amount: 30
+    - type: fluid
+      id: heavy-oil
+      amount: 40
+  results:
+    - type: fluid
+      id: light-oil
+      amount: 30
+  order: b[fluid-chemistry]-a[heavy-oil-cracking]
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: light-oil
+  subgroup: fluid-recipes
+- id: inserter
+  name: Inserter
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: electronic-circuit
+      amount: 1
+    - type: item
+      id: iron-gear-wheel
+      amount: 1
+    - type: item
+      id: iron-plate
+      amount: 1
+  results:
+    - type: item
+      id: inserter
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: inserter
+- id: iron-chest
+  name: Iron chest
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 8
+  results:
+    - type: item
+      id: iron-chest
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: iron-chest
+- id: iron-gear-wheel
+  name: Iron gear wheel
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 2
+  results:
+    - type: item
+      id: iron-gear-wheel
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: iron-gear-wheel
+- id: iron-plate
+  name: Iron plate
+  categories:
+    - smelting
+  time: 3.2
+  ingredients:
+    - type: item
+      id: iron-ore
+      amount: 1
+  results:
+    - type: item
+      id: iron-plate
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: iron-plate
+- id: iron-stick
+  name: Iron stick
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 1
+  results:
+    - type: item
+      id: iron-stick
+      amount: 2
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: iron-stick
+- id: kovarex-enrichment-process
+  name: Kovarex enrichment process
+  categories:
+    - centrifuging
+  time: 60
+  ingredients:
+    - type: item
+      id: uranium-235
+      amount: 40
+    - type: item
+      id: uranium-238
+      amount: 5
+  results:
+    - type: item
+      id: uranium-235
+      amount: 41
+      ignored_by_productivity: 40
+    - type: item
+      id: uranium-238
+      amount: 2
+      ignored_by_productivity: 2
+  order: b[uranium-products]-c[kovarex-enrichment-process]
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+  max_productivity: 3
+  subgroup: uranium-processing
+- id: lab
+  name: Lab
+  categories:
+    - crafting
+  time: 2
+  ingredients:
+    - type: item
+      id: electronic-circuit
+      amount: 10
+    - type: item
+      id: iron-gear-wheel
+      amount: 10
+    - type: item
+      id: transport-belt
+      amount: 4
+  results:
+    - type: item
+      id: lab
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: lab
+- id: land-mine
+  name: Land mine
+  categories:
+    - crafting
+  time: 5
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 1
+    - type: item
+      id: explosives
+      amount: 2
+  results:
+    - type: item
+      id: land-mine
+      amount: 4
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: land-mine
+- id: landfill
+  name: Landfill
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: stone
+      amount: 50
+  results:
+    - type: item
+      id: landfill
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: landfill
+- id: laser-turret
+  name: Laser turret
+  categories:
+    - crafting
+  time: 20
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 20
+    - type: item
+      id: electronic-circuit
+      amount: 20
+    - type: item
+      id: battery
+      amount: 12
+  results:
+    - type: item
+      id: laser-turret
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: laser-turret
+- id: light-armor
+  name: Light armor
+  categories:
+    - crafting
+  time: 3
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 40
+  results:
+    - type: item
+      id: light-armor
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: light-armor
+- id: light-oil-barrel
+  name: Light oil barrel
+  categories:
+    - crafting-with-fluid
+  time: 0.2
+  ingredients:
+    - type: fluid
+      id: light-oil
+      amount: 50
+    - type: item
+      id: barrel
+      amount: 1
+  results:
+    - type: item
+      id: light-oil-barrel
+      amount: 1
+  order: a[fluid]-b[oil]-c[light-oil]
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+  max_productivity: 3
+  main_product: light-oil-barrel
+  subgroup: fill-barrel
+- id: light-oil-cracking
+  name: Light oil cracking
+  categories:
+    - chemistry
+  time: 2
+  ingredients:
+    - type: fluid
+      id: water
+      amount: 30
+    - type: fluid
+      id: light-oil
+      amount: 30
+  results:
+    - type: fluid
+      id: petroleum-gas
+      amount: 20
+  order: b[fluid-chemistry]-b[light-oil-cracking]
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: petroleum-gas
+  subgroup: fluid-recipes
+- id: locomotive
+  name: Locomotive
+  categories:
+    - crafting
+  time: 4
+  ingredients:
+    - type: item
+      id: engine-unit
+      amount: 20
+    - type: item
+      id: electronic-circuit
+      amount: 10
+    - type: item
+      id: steel-plate
+      amount: 30
+  results:
+    - type: item
+      id: locomotive
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: locomotive
+- id: logistic-robot
+  name: Logistic robot
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: flying-robot-frame
+      amount: 1
+    - type: item
+      id: advanced-circuit
+      amount: 2
+  results:
+    - type: item
+      id: logistic-robot
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: logistic-robot
+- id: logistic-science-pack
+  name: Logistic science pack
+  categories:
+    - crafting
+  time: 6
+  ingredients:
+    - type: item
+      id: inserter
+      amount: 1
+    - type: item
+      id: transport-belt
+      amount: 1
+  results:
+    - type: item
+      id: logistic-science-pack
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: logistic-science-pack
+- id: long-handed-inserter
+  name: Long-handed inserter
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: iron-gear-wheel
+      amount: 1
+    - type: item
+      id: iron-plate
+      amount: 1
+    - type: item
+      id: inserter
+      amount: 1
+  results:
+    - type: item
+      id: long-handed-inserter
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: long-handed-inserter
+- id: low-density-structure
+  name: Low density structure
+  categories:
+    - crafting
+  time: 15
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 2
+    - type: item
+      id: copper-plate
+      amount: 20
+    - type: item
+      id: plastic-bar
+      amount: 5
+  results:
+    - type: item
+      id: low-density-structure
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: low-density-structure
+- id: lubricant
+  name: Lubricant
+  categories:
+    - chemistry
+  time: 1
+  ingredients:
+    - type: fluid
+      id: heavy-oil
+      amount: 10
+  results:
+    - type: fluid
+      id: lubricant
+      amount: 10
+  order: c[oil-products]-a[lubricant]
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: lubricant
+  subgroup: fluid-recipes
+- id: lubricant-barrel
+  name: Lubricant barrel
+  categories:
+    - crafting-with-fluid
+  time: 0.2
+  ingredients:
+    - type: fluid
+      id: lubricant
+      amount: 50
+    - type: item
+      id: barrel
+      amount: 1
+  results:
+    - type: item
+      id: lubricant-barrel
+      amount: 1
+  order: a[fluid]-b[oil]-e[lubricant]
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+  max_productivity: 3
+  main_product: lubricant-barrel
+  subgroup: fill-barrel
+- id: medium-electric-pole
+  name: Medium electric pole
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: iron-stick
+      amount: 4
+    - type: item
+      id: steel-plate
+      amount: 2
+    - type: item
+      id: copper-cable
+      amount: 2
+  results:
+    - type: item
+      id: medium-electric-pole
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: medium-electric-pole
+- id: military-science-pack
+  name: Military science pack
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: piercing-rounds-magazine
+      amount: 1
+    - type: item
+      id: grenade
+      amount: 1
+    - type: item
+      id: stone-wall
+      amount: 2
+  results:
+    - type: item
+      id: military-science-pack
+      amount: 2
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: military-science-pack
+- id: modular-armor
+  name: Modular armor
+  categories:
+    - crafting
+  time: 15
+  ingredients:
+    - type: item
+      id: advanced-circuit
+      amount: 30
+    - type: item
+      id: steel-plate
+      amount: 50
+  results:
+    - type: item
+      id: modular-armor
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: modular-armor
+- id: night-vision-equipment
+  name: Nightvision
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: advanced-circuit
+      amount: 5
+    - type: item
+      id: steel-plate
+      amount: 10
+  results:
+    - type: item
+      id: night-vision-equipment
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: night-vision-equipment
+- id: nuclear-fuel
+  name: Nuclear fuel
+  categories:
+    - centrifuging
+  time: 90
+  ingredients:
+    - type: item
+      id: uranium-235
+      amount: 1
+    - type: item
+      id: rocket-fuel
+      amount: 1
+  results:
+    - type: item
+      id: nuclear-fuel
+      amount: 1
+  order: b[uranium-products]-d[nuclear-fuel]
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: nuclear-fuel
+  subgroup: uranium-processing
+- id: nuclear-fuel-reprocessing
+  name: Nuclear fuel reprocessing
+  categories:
+    - centrifuging
+  time: 60
+  ingredients:
+    - type: item
+      id: depleted-uranium-fuel-cell
+      amount: 5
+  results:
+    - type: item
+      id: uranium-238
+      amount: 3
+  order: b[uranium-products]-b[nuclear-fuel-reprocessing]
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: uranium-238
+  subgroup: uranium-processing
+- id: nuclear-reactor
+  name: Nuclear reactor
+  categories:
+    - crafting
+  time: 8
+  ingredients:
+    - type: item
+      id: concrete
+      amount: 500
+    - type: item
+      id: steel-plate
+      amount: 500
+    - type: item
+      id: advanced-circuit
+      amount: 500
+    - type: item
+      id: copper-plate
+      amount: 500
+  results:
+    - type: item
+      id: nuclear-reactor
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: nuclear-reactor
+- id: offshore-pump
+  name: Offshore pump
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: pipe
+      amount: 3
+    - type: item
+      id: iron-gear-wheel
+      amount: 2
+  results:
+    - type: item
+      id: offshore-pump
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: offshore-pump
+- id: oil-refinery
+  name: Oil refinery
+  categories:
+    - crafting
+  time: 8
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 15
+    - type: item
+      id: iron-gear-wheel
+      amount: 10
+    - type: item
+      id: stone-brick
+      amount: 10
+    - type: item
+      id: electronic-circuit
+      amount: 10
+    - type: item
+      id: pipe
+      amount: 10
+  results:
+    - type: item
+      id: oil-refinery
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: oil-refinery
+- id: passive-provider-chest
+  name: Passive provider chest
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: steel-chest
+      amount: 1
+    - type: item
+      id: electronic-circuit
+      amount: 3
+    - type: item
+      id: advanced-circuit
+      amount: 1
+  results:
+    - type: item
+      id: passive-provider-chest
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: passive-provider-chest
+- id: personal-laser-defense-equipment
+  name: Personal laser defense
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: processing-unit
+      amount: 20
+    - type: item
+      id: low-density-structure
+      amount: 5
+    - type: item
+      id: laser-turret
+      amount: 5
+  results:
+    - type: item
+      id: personal-laser-defense-equipment
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: personal-laser-defense-equipment
+- id: personal-roboport-equipment
+  name: Personal roboport
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: advanced-circuit
+      amount: 10
+    - type: item
+      id: iron-gear-wheel
+      amount: 40
+    - type: item
+      id: steel-plate
+      amount: 20
+    - type: item
+      id: battery
+      amount: 45
+  results:
+    - type: item
+      id: personal-roboport-equipment
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: personal-roboport-equipment
+- id: personal-roboport-mk2-equipment
+  name: Personal roboport MK2
+  categories:
+    - crafting
+  time: 20
+  ingredients:
+    - type: item
+      id: personal-roboport-equipment
+      amount: 5
+    - type: item
+      id: processing-unit
+      amount: 100
+    - type: item
+      id: low-density-structure
+      amount: 20
+  results:
+    - type: item
+      id: personal-roboport-mk2-equipment
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: personal-roboport-mk2-equipment
+- id: petroleum-gas-barrel
+  name: Petroleum gas barrel
+  categories:
+    - crafting-with-fluid
+  time: 0.2
+  ingredients:
+    - type: fluid
+      id: petroleum-gas
+      amount: 50
+    - type: item
+      id: barrel
+      amount: 1
+  results:
+    - type: item
+      id: petroleum-gas-barrel
+      amount: 1
+  order: a[fluid]-b[oil]-b[petroleum-gas]
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+  max_productivity: 3
+  main_product: petroleum-gas-barrel
+  subgroup: fill-barrel
+- id: piercing-rounds-magazine
+  name: Piercing rounds magazine
+  categories:
+    - crafting
+  time: 6
+  ingredients:
+    - type: item
+      id: firearm-magazine
+      amount: 2
+    - type: item
+      id: steel-plate
+      amount: 1
+    - type: item
+      id: copper-plate
+      amount: 2
+  results:
+    - type: item
+      id: piercing-rounds-magazine
+      amount: 2
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: piercing-rounds-magazine
+- id: piercing-shotgun-shell
+  name: Piercing shotgun shells
+  categories:
+    - crafting
+  time: 8
+  ingredients:
+    - type: item
+      id: shotgun-shell
+      amount: 2
+    - type: item
+      id: copper-plate
+      amount: 2
+    - type: item
+      id: steel-plate
+      amount: 1
+  results:
+    - type: item
+      id: piercing-shotgun-shell
+      amount: 2
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: piercing-shotgun-shell
+- id: pipe
+  name: Pipe
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 1
+  results:
+    - type: item
+      id: pipe
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: pipe
+- id: pipe-to-ground
+  name: Pipe to ground
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: pipe
+      amount: 10
+    - type: item
+      id: iron-plate
+      amount: 5
+  results:
+    - type: item
+      id: pipe-to-ground
+      amount: 2
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: pipe-to-ground
+- id: pistol
+  name: Pistol
+  categories:
+    - crafting
+  time: 5
+  ingredients:
+    - type: item
+      id: copper-plate
+      amount: 5
+    - type: item
+      id: iron-plate
+      amount: 5
+  results:
+    - type: item
+      id: pistol
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: pistol
+  hidden: true
+- id: plastic-bar
+  name: Plastic bar
+  categories:
+    - chemistry
+  time: 1
+  ingredients:
+    - type: fluid
+      id: petroleum-gas
+      amount: 20
+    - type: item
+      id: coal
+      amount: 1
+  results:
+    - type: item
+      id: plastic-bar
+      amount: 2
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: plastic-bar
+- id: poison-capsule
+  name: Poison capsule
+  categories:
+    - crafting
+  time: 8
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 3
+    - type: item
+      id: electronic-circuit
+      amount: 3
+    - type: item
+      id: coal
+      amount: 10
+  results:
+    - type: item
+      id: poison-capsule
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: poison-capsule
+- id: power-armor
+  name: Power armor
+  categories:
+    - crafting
+  time: 20
+  ingredients:
+    - type: item
+      id: processing-unit
+      amount: 40
+    - type: item
+      id: electric-engine-unit
+      amount: 20
+    - type: item
+      id: steel-plate
+      amount: 40
+  results:
+    - type: item
+      id: power-armor
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: power-armor
+- id: power-armor-mk2
+  name: Power armor MK2
+  categories:
+    - crafting
+  time: 25
+  ingredients:
+    - type: item
+      id: efficiency-module-2
+      amount: 25
+    - type: item
+      id: speed-module-2
+      amount: 25
+    - type: item
+      id: processing-unit
+      amount: 60
+    - type: item
+      id: electric-engine-unit
+      amount: 40
+    - type: item
+      id: low-density-structure
+      amount: 30
+  results:
+    - type: item
+      id: power-armor-mk2
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: power-armor-mk2
+- id: power-switch
+  name: Power switch
+  categories:
+    - crafting
+  time: 2
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 5
+    - type: item
+      id: copper-cable
+      amount: 5
+    - type: item
+      id: electronic-circuit
+      amount: 2
+  results:
+    - type: item
+      id: power-switch
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: power-switch
+- id: processing-unit
+  name: Processing unit
+  categories:
+    - crafting-with-fluid
+  time: 10
+  ingredients:
+    - type: item
+      id: electronic-circuit
+      amount: 20
+    - type: item
+      id: advanced-circuit
+      amount: 2
+    - type: fluid
+      id: sulfuric-acid
+      amount: 5
+  results:
+    - type: item
+      id: processing-unit
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: processing-unit
+- id: production-science-pack
+  name: Production science pack
+  categories:
+    - crafting
+  time: 21
+  ingredients:
+    - type: item
+      id: electric-furnace
+      amount: 1
+    - type: item
+      id: productivity-module
+      amount: 1
+    - type: item
+      id: rail
+      amount: 30
+  results:
+    - type: item
+      id: production-science-pack
+      amount: 3
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: production-science-pack
+- id: productivity-module
+  name: Productivity module
+  categories:
+    - crafting
+  time: 15
+  ingredients:
+    - type: item
+      id: advanced-circuit
+      amount: 5
+    - type: item
+      id: electronic-circuit
+      amount: 5
+  results:
+    - type: item
+      id: productivity-module
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: productivity-module
+- id: productivity-module-2
+  name: Productivity module 2
+  categories:
+    - crafting
+  time: 30
+  ingredients:
+    - type: item
+      id: productivity-module
+      amount: 4
+    - type: item
+      id: advanced-circuit
+      amount: 5
+    - type: item
+      id: processing-unit
+      amount: 5
+  results:
+    - type: item
+      id: productivity-module-2
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: productivity-module-2
+- id: productivity-module-3
+  name: Productivity module 3
+  categories:
+    - crafting
+  time: 60
+  ingredients:
+    - type: item
+      id: productivity-module-2
+      amount: 4
+    - type: item
+      id: advanced-circuit
+      amount: 5
+    - type: item
+      id: processing-unit
+      amount: 5
+  results:
+    - type: item
+      id: productivity-module-3
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: productivity-module-3
+- id: programmable-speaker
+  name: Programmable speaker
+  categories:
+    - crafting
+  time: 2
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 3
+    - type: item
+      id: iron-stick
+      amount: 4
+    - type: item
+      id: copper-cable
+      amount: 5
+    - type: item
+      id: electronic-circuit
+      amount: 4
+  results:
+    - type: item
+      id: programmable-speaker
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: programmable-speaker
+- id: pump
+  name: Pump
+  categories:
+    - crafting
+  time: 2
+  ingredients:
+    - type: item
+      id: engine-unit
+      amount: 1
+    - type: item
+      id: steel-plate
+      amount: 1
+    - type: item
+      id: pipe
+      amount: 1
+  results:
+    - type: item
+      id: pump
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: pump
+- id: pumpjack
+  name: Pumpjack
+  categories:
+    - crafting
+  time: 5
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 5
+    - type: item
+      id: iron-gear-wheel
+      amount: 10
+    - type: item
+      id: electronic-circuit
+      amount: 5
+    - type: item
+      id: pipe
+      amount: 10
+  results:
+    - type: item
+      id: pumpjack
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: pumpjack
+- id: radar
+  name: Radar
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: electronic-circuit
+      amount: 5
+    - type: item
+      id: iron-gear-wheel
+      amount: 5
+    - type: item
+      id: iron-plate
+      amount: 10
+  results:
+    - type: item
+      id: radar
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: radar
+- id: rail
+  name: Rail
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: stone
+      amount: 1
+    - type: item
+      id: iron-stick
+      amount: 1
+    - type: item
+      id: steel-plate
+      amount: 1
+  results:
+    - type: item
+      id: rail
+      amount: 2
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: rail
+- id: rail-chain-signal
+  name: Rail chain signal
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: electronic-circuit
+      amount: 1
+    - type: item
+      id: iron-plate
+      amount: 5
+  results:
+    - type: item
+      id: rail-chain-signal
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: rail-chain-signal
+- id: rail-signal
+  name: Rail signal
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: electronic-circuit
+      amount: 1
+    - type: item
+      id: iron-plate
+      amount: 5
+  results:
+    - type: item
+      id: rail-signal
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: rail-signal
+- id: refined-concrete
+  name: Refined concrete
+  categories:
+    - crafting-with-fluid
+  time: 15
+  ingredients:
+    - type: item
+      id: concrete
+      amount: 20
+    - type: item
+      id: iron-stick
+      amount: 8
+    - type: item
+      id: steel-plate
+      amount: 1
+    - type: fluid
+      id: water
+      amount: 100
+  results:
+    - type: item
+      id: refined-concrete
+      amount: 10
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: refined-concrete
+- id: refined-hazard-concrete
+  name: Refined hazard concrete
+  categories:
+    - crafting
+  time: 0.25
+  ingredients:
+    - type: item
+      id: refined-concrete
+      amount: 10
+  results:
+    - type: item
+      id: refined-hazard-concrete
+      amount: 10
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: refined-hazard-concrete
+- id: repair-pack
+  name: Repair pack
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: electronic-circuit
+      amount: 2
+    - type: item
+      id: iron-gear-wheel
+      amount: 2
+  results:
+    - type: item
+      id: repair-pack
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: repair-pack
+- id: requester-chest
+  name: Requester chest
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: steel-chest
+      amount: 1
+    - type: item
+      id: electronic-circuit
+      amount: 3
+    - type: item
+      id: advanced-circuit
+      amount: 1
+  results:
+    - type: item
+      id: requester-chest
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: requester-chest
+- id: roboport
+  name: Roboport
+  categories:
+    - crafting
+  time: 5
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 45
+    - type: item
+      id: iron-gear-wheel
+      amount: 45
+    - type: item
+      id: advanced-circuit
+      amount: 45
+  results:
+    - type: item
+      id: roboport
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: roboport
+- id: rocket
+  name: Rocket
+  categories:
+    - crafting
+  time: 4
+  ingredients:
+    - type: item
+      id: explosives
+      amount: 1
+    - type: item
+      id: iron-plate
+      amount: 2
+  results:
+    - type: item
+      id: rocket
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: rocket
+- id: rocket-fuel
+  name: Rocket fuel
+  categories:
+    - crafting-with-fluid
+  time: 15
+  ingredients:
+    - type: item
+      id: solid-fuel
+      amount: 10
+    - type: fluid
+      id: light-oil
+      amount: 10
+  results:
+    - type: item
+      id: rocket-fuel
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: rocket-fuel
+- id: rocket-launcher
+  name: Rocket launcher
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 5
+    - type: item
+      id: iron-gear-wheel
+      amount: 5
+    - type: item
+      id: electronic-circuit
+      amount: 5
+  results:
+    - type: item
+      id: rocket-launcher
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: rocket-launcher
+- id: rocket-silo
+  name: Rocket silo
+  categories:
+    - crafting
+  time: 30
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 1000
+    - type: item
+      id: concrete
+      amount: 1000
+    - type: item
+      id: pipe
+      amount: 100
+    - type: item
+      id: processing-unit
+      amount: 200
+    - type: item
+      id: electric-engine-unit
+      amount: 200
+  results:
+    - type: item
+      id: rocket-silo
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: rocket-silo
+- id: satellite
+  name: Satellite
+  categories:
+    - crafting
+  time: 5
+  ingredients:
+    - type: item
+      id: low-density-structure
+      amount: 100
+    - type: item
+      id: solar-panel
+      amount: 100
+    - type: item
+      id: accumulator
+      amount: 100
+    - type: item
+      id: radar
+      amount: 5
+    - type: item
+      id: processing-unit
+      amount: 100
+    - type: item
+      id: rocket-fuel
+      amount: 50
+  results:
+    - type: item
+      id: satellite
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: satellite
+- id: selector-combinator
+  name: Selector combinator
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: advanced-circuit
+      amount: 2
+    - type: item
+      id: decider-combinator
+      amount: 5
+  results:
+    - type: item
+      id: selector-combinator
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: selector-combinator
+- id: shotgun
+  name: Shotgun
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 15
+    - type: item
+      id: iron-gear-wheel
+      amount: 5
+    - type: item
+      id: copper-plate
+      amount: 10
+    - type: item
+      id: wood
+      amount: 5
+  results:
+    - type: item
+      id: shotgun
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: shotgun
+- id: shotgun-shell
+  name: Shotgun shells
+  categories:
+    - crafting
+  time: 3
+  ingredients:
+    - type: item
+      id: copper-plate
+      amount: 2
+    - type: item
+      id: iron-plate
+      amount: 2
+  results:
+    - type: item
+      id: shotgun-shell
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: shotgun-shell
+- id: slowdown-capsule
+  name: Slowdown capsule
+  categories:
+    - crafting
+  time: 8
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 2
+    - type: item
+      id: electronic-circuit
+      amount: 2
+    - type: item
+      id: coal
+      amount: 5
+  results:
+    - type: item
+      id: slowdown-capsule
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: slowdown-capsule
+- id: small-electric-pole
+  name: Small electric pole
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: wood
+      amount: 1
+    - type: item
+      id: copper-cable
+      amount: 2
+  results:
+    - type: item
+      id: small-electric-pole
+      amount: 2
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: small-electric-pole
+- id: small-lamp
+  name: Lamp
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: electronic-circuit
+      amount: 1
+    - type: item
+      id: copper-cable
+      amount: 3
+    - type: item
+      id: iron-plate
+      amount: 1
+  results:
+    - type: item
+      id: small-lamp
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: small-lamp
+- id: solar-panel
+  name: Solar panel
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 5
+    - type: item
+      id: electronic-circuit
+      amount: 15
+    - type: item
+      id: copper-plate
+      amount: 5
+  results:
+    - type: item
+      id: solar-panel
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: solar-panel
+- id: solar-panel-equipment
+  name: Portable solar panel
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: solar-panel
+      amount: 1
+    - type: item
+      id: advanced-circuit
+      amount: 2
+    - type: item
+      id: steel-plate
+      amount: 5
+  results:
+    - type: item
+      id: solar-panel-equipment
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: solar-panel-equipment
+- id: solid-fuel-from-heavy-oil
+  name: Solid fuel from heavy oil
+  categories:
+    - chemistry
+  time: 1
+  ingredients:
+    - type: fluid
+      id: heavy-oil
+      amount: 20
+  results:
+    - type: item
+      id: solid-fuel
+      amount: 1
+  order: b[fluid-chemistry]-e[solid-fuel-from-heavy-oil]
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: solid-fuel
+  subgroup: fluid-recipes
+- id: solid-fuel-from-light-oil
+  name: Solid fuel from light oil
+  categories:
+    - chemistry
+  time: 1
+  ingredients:
+    - type: fluid
+      id: light-oil
+      amount: 10
+  results:
+    - type: item
+      id: solid-fuel
+      amount: 1
+  order: b[fluid-chemistry]-d[solid-fuel-from-light-oil]
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: solid-fuel
+  subgroup: fluid-recipes
+- id: solid-fuel-from-petroleum-gas
+  name: Solid fuel from petroleum gas
+  categories:
+    - chemistry
+  time: 1
+  ingredients:
+    - type: fluid
+      id: petroleum-gas
+      amount: 20
+  results:
+    - type: item
+      id: solid-fuel
+      amount: 1
+  order: b[fluid-chemistry]-c[solid-fuel-from-petroleum-gas]
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: solid-fuel
+  subgroup: fluid-recipes
+- id: speed-module
+  name: Speed module
+  categories:
+    - crafting
+  time: 15
+  ingredients:
+    - type: item
+      id: advanced-circuit
+      amount: 5
+    - type: item
+      id: electronic-circuit
+      amount: 5
+  results:
+    - type: item
+      id: speed-module
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: speed-module
+- id: speed-module-2
+  name: Speed module 2
+  categories:
+    - crafting
+  time: 30
+  ingredients:
+    - type: item
+      id: speed-module
+      amount: 4
+    - type: item
+      id: advanced-circuit
+      amount: 5
+    - type: item
+      id: processing-unit
+      amount: 5
+  results:
+    - type: item
+      id: speed-module-2
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: speed-module-2
+- id: speed-module-3
+  name: Speed module 3
+  categories:
+    - crafting
+  time: 60
+  ingredients:
+    - type: item
+      id: speed-module-2
+      amount: 4
+    - type: item
+      id: advanced-circuit
+      amount: 5
+    - type: item
+      id: processing-unit
+      amount: 5
+  results:
+    - type: item
+      id: speed-module-3
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: speed-module-3
+- id: spidertron
+  name: Spidertron
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: exoskeleton-equipment
+      amount: 4
+    - type: item
+      id: fission-reactor-equipment
+      amount: 2
+    - type: item
+      id: rocket-launcher
+      amount: 4
+    - type: item
+      id: processing-unit
+      amount: 16
+    - type: item
+      id: low-density-structure
+      amount: 150
+    - type: item
+      id: radar
+      amount: 2
+    - type: item
+      id: efficiency-module-3
+      amount: 2
+    - type: item
+      id: raw-fish
+      amount: 1
+  results:
+    - type: item
+      id: spidertron
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: spidertron
+- id: splitter
+  name: Splitter
+  categories:
+    - crafting
+  time: 1
+  ingredients:
+    - type: item
+      id: electronic-circuit
+      amount: 5
+    - type: item
+      id: iron-plate
+      amount: 5
+    - type: item
+      id: transport-belt
+      amount: 4
+  results:
+    - type: item
+      id: splitter
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: splitter
+- id: steam-engine
+  name: Steam engine
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: iron-gear-wheel
+      amount: 8
+    - type: item
+      id: pipe
+      amount: 5
+    - type: item
+      id: iron-plate
+      amount: 10
+  results:
+    - type: item
+      id: steam-engine
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: steam-engine
+- id: steam-turbine
+  name: Steam turbine
+  categories:
+    - crafting
+  time: 3
+  ingredients:
+    - type: item
+      id: iron-gear-wheel
+      amount: 50
+    - type: item
+      id: copper-plate
+      amount: 50
+    - type: item
+      id: pipe
+      amount: 20
+  results:
+    - type: item
+      id: steam-turbine
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: steam-turbine
+- id: steel-chest
+  name: Steel chest
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 8
+  results:
+    - type: item
+      id: steel-chest
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: steel-chest
+- id: steel-furnace
+  name: Steel furnace
+  categories:
+    - crafting
+  time: 3
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 6
+    - type: item
+      id: stone-brick
+      amount: 10
+  results:
+    - type: item
+      id: steel-furnace
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: steel-furnace
+- id: steel-plate
+  name: Steel plate
+  categories:
+    - smelting
+  time: 16
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 5
+  results:
+    - type: item
+      id: steel-plate
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: steel-plate
+- id: stone-brick
+  name: Stone brick
+  categories:
+    - smelting
+  time: 3.2
+  ingredients:
+    - type: item
+      id: stone
+      amount: 2
+  results:
+    - type: item
+      id: stone-brick
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: stone-brick
+- id: stone-furnace
+  name: Stone furnace
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: stone
+      amount: 5
+  results:
+    - type: item
+      id: stone-furnace
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: stone-furnace
+- id: stone-wall
+  name: Wall
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: stone-brick
+      amount: 5
+  results:
+    - type: item
+      id: stone-wall
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: stone-wall
+- id: storage-chest
+  name: Storage chest
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: steel-chest
+      amount: 1
+    - type: item
+      id: electronic-circuit
+      amount: 3
+    - type: item
+      id: advanced-circuit
+      amount: 1
+  results:
+    - type: item
+      id: storage-chest
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: storage-chest
+- id: storage-tank
+  name: Storage tank
+  categories:
+    - crafting
+  time: 3
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 20
+    - type: item
+      id: steel-plate
+      amount: 5
+  results:
+    - type: item
+      id: storage-tank
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: storage-tank
+- id: submachine-gun
+  name: Submachine gun
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: iron-gear-wheel
+      amount: 10
+    - type: item
+      id: copper-plate
+      amount: 5
+    - type: item
+      id: iron-plate
+      amount: 10
+  results:
+    - type: item
+      id: submachine-gun
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: submachine-gun
+- id: substation
+  name: Substation
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: steel-plate
+      amount: 10
+    - type: item
+      id: advanced-circuit
+      amount: 5
+    - type: item
+      id: copper-cable
+      amount: 6
+  results:
+    - type: item
+      id: substation
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: substation
+- id: sulfur
+  name: Sulfur
+  categories:
+    - chemistry
+  time: 1
+  ingredients:
+    - type: fluid
+      id: water
+      amount: 30
+    - type: fluid
+      id: petroleum-gas
+      amount: 30
+  results:
+    - type: item
+      id: sulfur
+      amount: 2
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: sulfur
+- id: sulfuric-acid
+  name: Sulfuric acid
+  categories:
+    - chemistry
+  time: 1
+  ingredients:
+    - type: item
+      id: sulfur
+      amount: 5
+    - type: item
+      id: iron-plate
+      amount: 1
+    - type: fluid
+      id: water
+      amount: 100
+  results:
+    - type: fluid
+      id: sulfuric-acid
+      amount: 50
+  order: c[oil-products]-b[sulfuric-acid]
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: sulfuric-acid
+  subgroup: fluid-recipes
+- id: sulfuric-acid-barrel
+  name: Sulfuric acid barrel
+  categories:
+    - crafting-with-fluid
+  time: 0.2
+  ingredients:
+    - type: fluid
+      id: sulfuric-acid
+      amount: 50
+    - type: item
+      id: barrel
+      amount: 1
+  results:
+    - type: item
+      id: sulfuric-acid-barrel
+      amount: 1
+  order: a[fluid]-b[oil]-f[sulfuric-acid]
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+  max_productivity: 3
+  main_product: sulfuric-acid-barrel
+  subgroup: fill-barrel
+- id: tank
+  name: Tank
+  categories:
+    - crafting
+  time: 5
+  ingredients:
+    - type: item
+      id: engine-unit
+      amount: 32
+    - type: item
+      id: steel-plate
+      amount: 50
+    - type: item
+      id: iron-gear-wheel
+      amount: 15
+    - type: item
+      id: advanced-circuit
+      amount: 10
+  results:
+    - type: item
+      id: tank
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: tank
+- id: train-stop
+  name: Train stop
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: electronic-circuit
+      amount: 5
+    - type: item
+      id: iron-plate
+      amount: 6
+    - type: item
+      id: iron-stick
+      amount: 6
+    - type: item
+      id: steel-plate
+      amount: 3
+  results:
+    - type: item
+      id: train-stop
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: train-stop
+- id: transport-belt
+  name: Transport belt
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 1
+    - type: item
+      id: iron-gear-wheel
+      amount: 1
+  results:
+    - type: item
+      id: transport-belt
+      amount: 2
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: transport-belt
+- id: underground-belt
+  name: Underground belt
+  categories:
+    - crafting
+  time: 1
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 10
+    - type: item
+      id: transport-belt
+      amount: 5
+  results:
+    - type: item
+      id: underground-belt
+      amount: 2
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: underground-belt
+- id: uranium-cannon-shell
+  name: Uranium cannon shell
+  categories:
+    - crafting
+  time: 12
+  ingredients:
+    - type: item
+      id: cannon-shell
+      amount: 1
+    - type: item
+      id: uranium-238
+      amount: 1
+  results:
+    - type: item
+      id: uranium-cannon-shell
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: uranium-cannon-shell
+- id: uranium-fuel-cell
+  name: Uranium fuel cell
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: iron-plate
+      amount: 10
+    - type: item
+      id: uranium-235
+      amount: 1
+    - type: item
+      id: uranium-238
+      amount: 19
+  results:
+    - type: item
+      id: uranium-fuel-cell
+      amount: 10
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: uranium-fuel-cell
+  subgroup: uranium-processing
+- id: uranium-processing
+  name: Uranium processing
+  categories:
+    - centrifuging
+  time: 12
+  ingredients:
+    - type: item
+      id: uranium-ore
+      amount: 10
+  results:
+    - type: item
+      id: uranium-235
+      amount: 1
+      probability: 0.007
+    - type: item
+      id: uranium-238
+      amount: 1
+      probability: 0.993
+  order: a[uranium-processing]-a[uranium-processing]
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  subgroup: uranium-processing
+- id: uranium-rounds-magazine
+  name: Uranium rounds magazine
+  categories:
+    - crafting
+  time: 10
+  ingredients:
+    - type: item
+      id: piercing-rounds-magazine
+      amount: 1
+    - type: item
+      id: uranium-238
+      amount: 1
+  results:
+    - type: item
+      id: uranium-rounds-magazine
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: uranium-rounds-magazine
+- id: utility-science-pack
+  name: Utility science pack
+  categories:
+    - crafting
+  time: 21
+  ingredients:
+    - type: item
+      id: low-density-structure
+      amount: 3
+    - type: item
+      id: processing-unit
+      amount: 2
+    - type: item
+      id: flying-robot-frame
+      amount: 1
+  results:
+    - type: item
+      id: utility-science-pack
+      amount: 3
+  order: ""
+  allowed_effects:
+    - speed
+    - productivity
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: utility-science-pack
+- id: water-barrel
+  name: Water barrel
+  categories:
+    - crafting-with-fluid
+  time: 0.2
+  ingredients:
+    - type: fluid
+      id: water
+      amount: 50
+    - type: item
+      id: barrel
+      amount: 1
+  results:
+    - type: item
+      id: water-barrel
+      amount: 1
+  order: a[fluid]-a[water]-a[water]
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+  max_productivity: 3
+  main_product: water-barrel
+  subgroup: fill-barrel
+- id: wooden-chest
+  name: Wooden chest
+  categories:
+    - crafting
+  time: 0.5
+  ingredients:
+    - type: item
+      id: wood
+      amount: 2
+  results:
+    - type: item
+      id: wooden-chest
+      amount: 1
+  order: ""
+  allowed_effects:
+    - speed
+    - consumption
+    - pollution
+    - quality
+  max_productivity: 3
+  main_product: wooden-chest

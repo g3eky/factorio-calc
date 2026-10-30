@@ -17,6 +17,7 @@ const DEFAULT_VERSION = '2.1.24'
 const ICON_SIZE = 64
 const DATASETS = [
   { game: 'space-age', name: 'Space Age', mods: ['base', 'elevated-rails', 'recycler', 'quality', 'space-age'] },
+  { game: 'base', name: 'Base game', mods: ['base'] },
 ]
 
 const root = fileURLToPath(new URL('../..', import.meta.url))

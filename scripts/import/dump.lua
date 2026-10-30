@@ -32,10 +32,22 @@ for _, mod in ipairs(MODS) do
   if mod ~= "core" then env.mods[mod] = read_json_version(mod) end
 end
 
+-- Feature flags are on when a loaded mod requires them ("quality_required": true in info.json),
+-- as in the game: Space Age turns them on, the base game alone leaves them off.
 env.feature_flags = {
-  quality = true, space_travel = true, spoiling = true, freezing = true,
-  segmented_units = true, expansion_shaders = true, rail_bridges = true,
+  quality = false, space_travel = false, spoiling = false, freezing = false,
+  segmented_units = false, expansion_shaders = false, rail_bridges = false,
 }
+for _, mod in ipairs(MODS) do
+  local f = io.open(root .. "/" .. mod .. "/info.json")
+  if f then
+    local info = f:read("*a")
+    f:close()
+    for flag in info:gmatch('"([%w_]+)_required"%s*:%s*true') do
+      if env.feature_flags[flag] ~= nil then env.feature_flags[flag] = true end
+    end
+  end
+end
 
 -- defines.* is only used for constants in the data stage.
 local function lazy_defines(path)

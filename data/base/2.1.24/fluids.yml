@@ -1,0 +1,40 @@
+- id: crude-oil
+  name: Crude oil
+  subgroup: fluid
+  order: a[fluid]-b[oil]-a[crude-oil]
+  default_temperature: 25
+- id: heavy-oil
+  name: Heavy oil
+  subgroup: fluid
+  order: a[fluid]-b[oil]-d[heavy-oil]
+  default_temperature: 25
+- id: light-oil
+  name: Light oil
+  subgroup: fluid
+  order: a[fluid]-b[oil]-c[light-oil]
+  default_temperature: 25
+- id: lubricant
+  name: Lubricant
+  subgroup: fluid
+  order: a[fluid]-b[oil]-e[lubricant]
+  default_temperature: 25
+- id: petroleum-gas
+  name: Petroleum gas
+  subgroup: fluid
+  order: a[fluid]-b[oil]-b[petroleum-gas]
+  default_temperature: 25
+- id: steam
+  name: Steam
+  subgroup: fluid
+  order: a[fluid]-a[water]-b[steam]
+  default_temperature: 15
+- id: sulfuric-acid
+  name: Sulfuric acid
+  subgroup: fluid
+  order: a[fluid]-b[oil]-f[sulfuric-acid]
+  default_temperature: 25
+- id: water
+  name: Water
+  subgroup: fluid
+  order: a[fluid]-a[water]-a[water]
+  default_temperature: 15
