@@ -25,6 +25,7 @@ Needs Node.js 24 and bash.
 | `./run preview` | Serve the built site locally. |
 | `./run db` | Build only the SQLite databases into `dist/db/`. |
 | `./run test` | Run the tests. |
+| `./run import` | Re-import game data (needs [LuaJIT](https://luajit.org)); see `docs/plans/02-data-import.md`. |
 
 ## Repo layout
 
@@ -41,4 +42,4 @@ Start with [`AGENTS.md`](AGENTS.md) for how the project works, then the plan for
 
 ## Credits
 
-Factorio is a game by [Wube Software](https://factorio.com). This is an unofficial fan project and is not affiliated with Wube.
+Factorio is a game by [Wube Software](https://factorio.com). This is an unofficial fan project and is not affiliated with Wube. Game data comes from Wube's [factorio-data](https://github.com/wube/factorio-data); names and icons from the [official Factorio wiki](https://wiki.factorio.com). Factorio's names and art belong to Wube Software.

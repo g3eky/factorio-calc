@@ -154,6 +154,10 @@ Infinite and repeatable productivity research.
 | `change` | Productivity added per level. |
 | `max_level?` | Missing means unlimited. |
 
+### `icons.webp` and `icons.json`
+
+The icon atlas written by the importer: 64 px icons in one image, and their positions. Keys are `<kind>/<id>` with kind `item`, `fluid`, `recipe`, `machine` or `planet`. A recipe only has its own icon when the game gives it one; otherwise show its main product's.
+
 ## Validation
 
 `./run build`, `./run dev` and `./run db` validate every dataset before writing it (`scripts/validate.ts`):
@@ -166,7 +170,7 @@ All problems are reported at once as `file:line: path: message`.
 
 ## SQLite
 
-The schema is `scripts/schema.sql`. Each file is a table. Lists that are queried get their own tables (`recipe_category`, `recipe_ingredient`, `recipe_result`, `machine_category`, `item_subgroup`); other nested values are stored as JSON text. `src/db/gameData.ts` reads it back into `GameData`.
+The schema is `scripts/schema.sql`. Each file is a table; icon positions go in `icon_atlas` and `icon`. Lists that are queried get their own tables (`recipe_category`, `recipe_ingredient`, `recipe_result`, `machine_category`, `item_subgroup`); other nested values are stored as JSON text. `src/db/gameData.ts` reads it back into `GameData`.
 
 ## Test fixture
 
