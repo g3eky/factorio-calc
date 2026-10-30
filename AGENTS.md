@@ -1,0 +1,61 @@
+# AGENTS.md
+
+Factorio production calculator. A static website hosted on GitHub Pages: pick a game version, pick what you want to make, and see the machines, inputs and rates needed.
+
+## What this repo is
+
+- **Stateless static site.** The build produces plain HTML/JS/CSS plus data files. No server, no backend, no accounts.
+- **React source, static output.** Code is written in React under `src/` and compiled to a static site in `dist/`.
+- **Data as YAML, shipped as SQLite.** Game data lives as YAML in `data/`. The build turns it into one SQLite database per game version. The browser downloads that database and queries it locally.
+- **User state in the browser.** Preferences and anything else user-specific go to `localStorage`. Nothing leaves the browser.
+- **Multiple game versions.** A version select switches between base game and Space Age, and between game versions. For now, only one Space Age version is supported; keep the code ready for more but don't build them yet.
+
+## Layout
+
+```
+AGENTS.md           this file
+README.md
+run                 the only entry point: ./run <command>
+package.json        dependencies only (must be at the root for node_modules resolution)
+package-lock.json
+src/                site source code (React), grouped by area
+data/               game data as YAML, one folder per game and version
+scripts/            one script per ./run command, plus build code and tool config
+docs/               documentation
+docs/plans/         implementation plans, one per stage
+dist/               build output (git-ignored, deployed to GitHub Pages)
+```
+
+Keep the top level clean. Nothing new goes there; tool config lives in `scripts/` or `src/`. All commands go through `./run` (`./run help` lists them).
+
+See `docs/plans/00-repo-setup.md` for the tech stack and full folder structure.
+
+## Data flow
+
+```
+data/<game>/<version>/*.yml  --(build)-->  dist/db/<game>-<version>.<hash>.sqlite
+                                           dist/db/manifest.json
+browser: read manifest -> download chosen database -> query it with SQLite (WASM)
+```
+
+- `data/` is the single source of truth for game data. Never hand-edit generated databases.
+- The database file name contains a content hash, so browsers cache it safely and refetch only when the data changes.
+
+## UI
+
+- **Theme:** match Factorio's in-game menus: dark panels with beveled edges, inset slots for item icons, the game's button styles and colours, and the Titillium Web font.
+- **Smooth:** every part of the UI should feel smooth. Animate only `transform` and `opacity`, avoid layout shifts, keep interactions under one frame of work where possible, virtualise long lists, and load the database without blocking the UI. Respect `prefers-reduced-motion`.
+- Build reusable themed parts (panel, button, slot, tooltip, etc.) once, in their own area of `src/`, and use them everywhere.
+
+## Docs and plans
+
+- `docs/` holds all documentation except this file and the README.
+- `docs/plans/` holds one plan per implementation stage, numbered in order: `00-repo-setup.md`, `01-<stage-name>.md`, `02-<stage-name>.md`, …
+- Each plan states its goal, scope, decisions, steps, and a **Done when** section naming the checks that prove the stage is finished.
+- Work on one stage at a time. If a stage changes something an earlier plan describes, update that plan.
+
+## Working rules
+
+- Follow the plan for the current stage. Don't add features from later stages.
+- Keep the site static: no runtime calls to any server other than fetching this site's own files.
+- Before calling a change done, run `./run build` and `./run test`, and check it in the browser with `./run dev`.
