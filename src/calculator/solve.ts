@@ -12,14 +12,16 @@ import type { Amount, Kind, ProcessResult, SolveRequest, SolveResponse } from '.
 export type LpSolver = (lp: string) => { Status: string; Columns: Record<string, object> }
 
 // Cost of using one unit of a raw resource. Fluids come in bigger numbers, so weigh less.
-// Imports cost more, so local production wins whenever it's possible.
+// Imports are a last resort: they cost far more than any local way of making something, so
+// they're only used for what can't be made on the planet at all.
 const RAW_COST = { item: 1, fluid: 0.1 }
-const IMPORT_COST = { item: 10, fluid: 1 }
+const IMPORT_COST = { item: 1000, fluid: 100 }
 const PUMP_COST = 0.001
 const MACHINE_COST = 1e-4
 const EPSILON = 1e-9
 
-const itemKey = (a: { kind: Kind; id: string }) => `${a.kind}/${a.id}`
+// "item/iron-plate", or "item/iron-plate@rare" for a higher quality.
+const itemKey = (a: { kind: Kind; id: string; quality?: string }) => `${a.kind}/${a.id}${a.quality ? `@${a.quality}` : ''}`
 
 // Recipes that would surprise people if the solver used them unasked: recycling (except of
 // mined resources, like Fulgora's scrap) and barrel filling and emptying. Cached per dataset.
@@ -66,7 +68,14 @@ export function solve(data: GameData, request: SolveRequest, lp: LpSolver): Solv
   // On a planet, raw means gathered there; anything else that can't be made is imported.
   const raw = planet ? new Set(planet.gathered.map((id) => `item/${id}`)) : rawItems(data)
   const names = new Map<string, string>([...data.items.map((i) => [`item/${i.id}`, i.name]), ...data.fluids.map((f) => [`fluid/${f.id}`, f.name])] as [string, string][])
-  const name = (key: string) => names.get(key) ?? key
+  const name = (key: string) => {
+    const [base, quality] = key.split('@')
+    const tier = data.qualities.find((q) => q.id === quality)
+    return `${tier ? `${tier.name} ` : ''}${tier ? (names.get(base) ?? base).toLowerCase() : (names.get(base) ?? base)}`
+  }
+  const tiers = new Set(data.qualities.map((q) => q.id))
+  const normal = data.qualities.find((q) => q.level === 0)?.id
+  const targetKey = (t: { kind: Kind; id: string; quality?: string }) => itemKey({ ...t, quality: t.quality === normal || !tiers.has(t.quality ?? '') ? undefined : t.quality })
 
   const producers = new Map<string, Process[]>()
   for (const p of processes) {
@@ -82,7 +91,7 @@ export function solve(data: GameData, request: SolveRequest, lp: LpSolver): Solv
 
   // Walk back from the targets to every item and process they need.
   const demand = new Map<string, number>()
-  for (const t of request.targets) if (t.rate > 0) demand.set(itemKey(t), (demand.get(itemKey(t)) ?? 0) + t.rate)
+  for (const t of request.targets) if (t.rate > 0) demand.set(targetKey(t), (demand.get(targetKey(t)) ?? 0) + t.rate)
   if (!demand.size) return { ok: true, result: { processes: [], raw: [], imports: [], surplus: [], power: 0, machines: {}, warnings } }
 
   // `explored`: items whose producers we've followed. `items`: every item a used process
@@ -106,10 +115,14 @@ export function solve(data: GameData, request: SolveRequest, lp: LpSolver): Solv
       for (const o of p.outputs) items.add(itemKey(o))
     }
   }
-  if (missing.length && !planet) {
+  // Higher quality can't be imported or mined, only made with quality modules. Higher-tier
+  // ingredients nothing makes (like uncommon ore) simply get no supply, so the processes that need
+  // them don't run; only a target that can't be met is an error (after solving, below).
+  const missingNormal = missing.filter((key) => !key.includes('@'))
+  if (missingNormal.length && !planet) {
     const disabled = new Set(request.disabled)
     const offByDefault = new Set(defaultDisabled(data))
-    const reasons = missing.map((key) => {
+    const reasons = missingNormal.map((key) => {
       // Name what the user turned off; recipes that are off by default only if that's all.
       const all = data.recipes.filter((r) => disabled.has(r.id) && r.results.some((x) => `${x.type}/${x.id}` === key))
       const chosen = all.filter((r) => !offByDefault.has(r.id))
@@ -141,7 +154,7 @@ export function solve(data: GameData, request: SolveRequest, lp: LpSolver): Solv
     rows.get(key)!.push(term(1, `s${i}`))
     objective.push(term(RAW_COST[key.split('/')[0] as Kind], `s${i}`))
   })
-  const importsNeeded = planet ? missing : []
+  const importsNeeded = planet ? missingNormal : []
   importsNeeded.forEach((key, i) => {
     rows.get(key)!.push(term(1, `m${i}`))
     objective.push(term(IMPORT_COST[key.split('/')[0] as Kind], `m${i}`))
@@ -150,7 +163,12 @@ export function solve(data: GameData, request: SolveRequest, lp: LpSolver): Solv
   const model = `Minimize\n obj: ${objective.join(' ')}\nSubject To\n${constraints.join('\n')}\nEnd\n`
 
   const solution = lp(model)
-  if (solution.Status !== 'Optimal') return { ok: false, error: `No solution found (${solution.Status}).` }
+  if (solution.Status !== 'Optimal') {
+    const quality = [...demand.keys()].filter((key) => key.includes('@'))
+    if (quality.length && solution.Status === 'Infeasible')
+      return { ok: false, error: quality.map((key) => `Nothing can make ${name(key)}: add quality modules to the machines that make it or its ingredients.`).join(' ') }
+    return { ok: false, error: `No solution found (${solution.Status}).` }
+  }
   const value = (v: string) => Math.max(0, (solution.Columns[v] as { Primal?: number } | undefined)?.Primal ?? 0)
 
   // Read the answer back.
@@ -174,7 +192,9 @@ export function solve(data: GameData, request: SolveRequest, lp: LpSolver): Solv
       key: p.key,
       kind: p.kind,
       id: p.id,
+      quality: p.quality,
       machine: p.machine.id,
+      machineQuality: p.machineQuality,
       machines: n,
       power: p.power * n,
       inputs,
@@ -182,6 +202,7 @@ export function solve(data: GameData, request: SolveRequest, lp: LpSolver): Solv
       speed: p.speed,
       productivity: p.productivity,
       consumption: p.consumption,
+      qualityEffect: p.qualityEffect,
     })
   })
   rawNeeded.forEach((key, i) => {
@@ -199,8 +220,9 @@ export function solve(data: GameData, request: SolveRequest, lp: LpSolver): Solv
   })
 
   const toAmount = ([key, rate]: [string, number]): Amount => {
-    const [kind, ...id] = key.split('/')
-    return { kind: kind as Kind, id: id.join('/'), rate }
+    const [base, quality] = key.split('@')
+    const [kind, ...id] = base.split('/')
+    return quality ? { kind: kind as Kind, id: id.join('/'), rate, quality } : { kind: kind as Kind, id: id.join('/'), rate }
   }
   const surplus = [...net]
     .map(([key, rate]) => [key, rate - (demand.get(key) ?? 0)] as [string, number])

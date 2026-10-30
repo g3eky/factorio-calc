@@ -185,6 +185,11 @@ describe('planets', () => {
     for (const p of biochambers) expect(p.inputs.map((i) => i.id)).toContain('nutrients')
   })
 
+  test('nothing is imported that could be made locally', () => {
+    const result = on('nauvis', 'electronic-circuit')
+    expect(result.imports).toEqual([])
+  })
+
   test('what a planet lacks is imported, not invented', () => {
     const result = on('nauvis', 'tungsten-plate')
     expect(result.imports.length).toBeGreaterThan(0)
@@ -200,5 +205,69 @@ describe('planets', () => {
         expect(onSurface(spaceAge, planet, spaceAge.machines.find((m) => m.id === p.machine)!.surface_conditions), `${p.machine} on ${planet.id}`).toBe(true)
       }
     }
+  })
+})
+
+describe('quality', () => {
+  test('08a: legendary assembling machine 3 with legendary speed module 3s crafts at the in-game speed', () => {
+    const legendary = { modules: Array(4).fill('speed-module-3'), quality: 'legendary', beacons: [] }
+    const result = solved(spaceAge, {
+      targets: [{ kind: 'item', id: 'iron-gear-wheel', rate: 37.5 }],
+      machines: { crafting: 'assembling-machine-3' },
+      overrides: { 'recipe/iron-gear-wheel': { quality: 'legendary', setup: legendary } },
+      disabled: [...defaultDisabled(spaceAge), 'casting-iron-gear-wheel'],
+    })
+    // Crafting speed 1.25 x 2.5 = 3.125; four speed modules at +50% x 2.5 = +500%: 18.75.
+    // A gear takes 0.5 s, so one machine makes 37.5 gears/s.
+    expect(machinesFor(result, 'recipe/iron-gear-wheel')).toBeCloseTo(1, 9)
+  })
+
+  test('08a: beacon and beacon module quality', () => {
+    const speed = (quality?: string, moduleQuality?: string) =>
+      solved(fixture, {
+        targets: [{ kind: 'item', id: 'copper-cable', rate: 1 }],
+        machines: { crafting: 'assembling-machine-2' },
+        setups: { 'assembling-machine-2': { modules: [], beacons: [{ id: 'beacon', count: 1, modules: ['speed-module', 'speed-module'], quality, moduleQuality }] } },
+      }).processes.find((p) => p.key === 'recipe/copper-cable')!.speed
+    expect(speed()).toBeCloseTo(2 * 0.2 * 1.5, 9)
+    // Uncommon beacon: effectivity 1.5 + 0.2. Rare modules: 0.2 x (1 + 2 x 0.3).
+    expect(speed('uncommon')).toBeCloseTo(2 * 0.2 * 1.7, 9)
+    expect(speed(undefined, 'rare')).toBeCloseTo(2 * 0.2 * 1.6 * 1.5, 9)
+  })
+
+  const qualityCircuits = { modules: ['quality-module', 'quality-module'], beacons: [] }
+
+  test('08b: quality modules make a share of output better, chaining to further tiers', () => {
+    const result = solved(fixture, {
+      targets: [{ kind: 'item', id: 'copper-cable', rate: 1, quality: 'uncommon' }],
+      machines: { crafting: 'assembling-machine-2' },
+      overrides: { 'recipe/copper-cable': { setup: qualityCircuits } },
+    })
+    // Quality 2 x 2.5% = 5%: 5% x (1 - 0.1) uncommon, 5% x 0.1 rare. 2 cables per craft.
+    const crafts = 1 / (2 * 0.05 * 0.9)
+    expect(machinesFor(result, 'recipe/copper-cable')).toBeCloseTo(crafts / ((0.75 * 0.9) / 0.5), 6)
+    expect(rate(result.surplus.filter((a) => !a.quality), 'copper-cable')).toBeCloseTo(crafts * 2 * 0.95, 6)
+    expect(result.surplus.find((a) => a.quality === 'rare')?.rate).toBeCloseTo(crafts * 2 * 0.05 * 0.1, 6)
+  })
+
+  test('08b: an upcycling loop recycles the normal output back into ingredients', () => {
+    const result = solved(fixture, {
+      targets: [{ kind: 'item', id: 'electronic-circuit', rate: 1, quality: 'uncommon' }],
+      machines: { crafting: 'assembling-machine-2', smelting: 'stone-furnace' },
+      overrides: { 'recipe/electronic-circuit': { setup: qualityCircuits } },
+      disabled: defaultDisabled(fixture).filter((id) => id !== 'electronic-circuit-recycling'),
+    })
+    // c circuits/s, 4.5% uncommon: c = 1 / 0.045. The 95% normal ones are recycled into
+    // 0.25 iron plate and 0.75 cable each, so less ore is needed.
+    const c = 1 / 0.045
+    const recycled = c * 0.95
+    expect(rate(result.raw, 'iron-ore')).toBeCloseTo(c - 0.25 * recycled, 3)
+    expect(rate(result.raw, 'copper-ore')).toBeCloseTo((3 * c - 0.75 * recycled) / 2, 3)
+  })
+
+  test('08b: without quality modules, higher quality has no source', () => {
+    const response = solve(fixture, request(fixture, { targets: [{ kind: 'item', id: 'iron-plate', rate: 1, quality: 'uncommon' }] }), lp)
+    expect(response.ok).toBe(false)
+    expect(!response.ok && response.error).toMatch(/Nothing can make Uncommon iron plate: add quality modules/)
   })
 })

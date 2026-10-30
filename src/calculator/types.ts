@@ -6,17 +6,24 @@ export interface Amount {
   kind: Kind
   id: string
   rate: number
+  // Quality tier of an item; missing means normal. Fluids have no quality.
+  quality?: string
 }
 
 export interface ModuleSetup {
   // Module ids in the machine's slots (extra ones beyond the slot count are ignored).
   modules: string[]
-  beacons: { id: string; count: number; modules: string[] }[]
+  // Quality of those modules; missing means normal.
+  quality?: string
+  // Beacons, with their own quality and their modules' quality.
+  beacons: { id: string; count: number; modules: string[]; quality?: string; moduleQuality?: string }[]
 }
 
 // Settings for one process: which machine, and its modules and beacons.
 export interface ProcessSettings {
   machine?: string
+  // Quality of the machine.
+  quality?: string
   setup?: ModuleSetup
 }
 
@@ -36,6 +43,8 @@ export interface SolveRequest {
   fuel: string
   // Planet or platform to build on. Without one, everything everywhere is allowed.
   planet?: string
+  // Default quality of machines.
+  machineQuality?: string
 }
 
 export interface ProcessResult {
@@ -43,7 +52,10 @@ export interface ProcessResult {
   kind: 'recipe' | 'resource' | 'pump'
   // Recipe or resource id; for pumps, the fluid.
   id: string
+  // Quality the recipe runs at; missing means normal.
+  quality?: string
   machine: string
+  machineQuality?: string
   machines: number
   // Electric power in watts, including idle drain.
   power: number
@@ -53,6 +65,8 @@ export interface ProcessResult {
   speed: number
   productivity: number
   consumption: number
+  // Chance of an upgrade per craft (the quality effect).
+  qualityEffect: number
 }
 
 export interface SolveResult {

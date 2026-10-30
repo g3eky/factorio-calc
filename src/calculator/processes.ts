@@ -8,7 +8,10 @@ export interface Process {
   key: string
   kind: 'recipe' | 'resource' | 'pump'
   id: string
+  // Quality the recipe runs at; missing means normal.
+  quality?: string
   machine: Machine
+  machineQuality?: string
   // Per machine, per second.
   inputs: Amount[]
   outputs: Amount[]
@@ -16,6 +19,7 @@ export interface Process {
   speed: number
   productivity: number
   consumption: number
+  qualityEffect: number
 }
 
 // The game never lets speed or consumption drop below -80%.
@@ -34,6 +38,33 @@ export function fits(effects: Effects, allowed: EffectName[]): boolean {
   return EFFECTS.every((e) => !(effects[e]! > 0) || allowed.includes(e))
 }
 
+// Quality level of a tier id (0 for normal or unknown).
+export const qualityLevel = (data: GameData, id: string | undefined) => data.qualities.find((q) => q.id === id)?.level ?? 0
+
+// Higher quality makes positive effects stronger, by 30% per level; penalties stay the same.
+const QUALITY_BONUS = 0.3
+const strengthen = (effects: Effects, level: number): Effects =>
+  Object.fromEntries(Object.entries(effects).map(([e, v]) => [e, v! > 0 ? v! * (1 + QUALITY_BONUS * level) : v]))
+
+// Where one craft's output ends up, by tier, when it's made at `from` with quality effect `chance`:
+// one step up with that chance, then each further step with the tier's chain probability.
+export function upgrades(data: GameData, from: number, chance: number): { tier: number; share: number }[] {
+  const tiers = qualityTiers(data)
+  const start = tiers[from]
+  const up = Math.min(1, Math.max(0, chance)) * (start?.next_probability ?? 1)
+  if (up <= 0 || from >= tiers.length - 1) return [{ tier: from, share: 1 }]
+  const out = [{ tier: from, share: 1 - up }]
+  let reach = up
+  for (let tier = from + 1; tier < tiers.length; tier++) {
+    const further = tier < tiers.length - 1 ? (tiers[tier].chain_probability ?? 0) : 0
+    out.push({ tier, share: reach * (1 - further) })
+    reach *= further
+  }
+  return out
+}
+
+export const qualityTiers = (data: GameData) => [...data.qualities].sort((a, b) => a.level - b.level)
+
 export function moduleEffects(data: GameData, setup: ModuleSetup | undefined, machine: Machine, allowed: EffectName[], warnings: string[]): Effects {
   if (!setup) return {}
   const modules = new Map(data.modules.map((m) => [m.id, m]))
@@ -43,7 +74,7 @@ export function moduleEffects(data: GameData, setup: ModuleSetup | undefined, ma
     const module = modules.get(id)
     if (!module) warnings.push(`Unknown module "${id}"`)
     else if (!fits(module.effects, allowed)) warnings.push(`${module.name} can't be used in ${machine.name} for this`)
-    else total = add(total, module.effects)
+    else total = add(total, strengthen(module.effects, qualityLevel(data, setup.quality)))
   }
   const beaconCount = setup.beacons.reduce((n, b) => n + b.count, 0)
   for (const placed of setup.beacons) {
@@ -52,10 +83,11 @@ export function moduleEffects(data: GameData, setup: ModuleSetup | undefined, ma
     // Each beacon passes on its modules at its effectivity, weakened by how many beacons
     // affect the machine (the 2.x beacon profile).
     const profile = beacon.profile[Math.min(beaconCount, beacon.profile.length) - 1] ?? 0
+    const effectivity = beacon.distribution_effectivity + beacon.distribution_effectivity_per_quality * qualityLevel(data, placed.quality)
     for (const id of placed.modules.slice(0, beacon.module_slots)) {
       const module = modules.get(id)
       if (!module || !fits(module.effects, beacon.allowed_effects) || !fits(module.effects, allowed)) continue
-      total = add(total, module.effects, placed.count * beacon.distribution_effectivity * profile)
+      total = add(total, strengthen(module.effects, qualityLevel(data, placed.moduleQuality)), placed.count * effectivity * profile)
     }
   }
   // Only effects the machine and recipe allow apply at all.
@@ -170,7 +202,19 @@ export function buildProcesses(data: GameData, request: SolveRequest, warnings: 
       return { kind: r.type, id: r.id, rate: ops * (base + productive * productivity) }
     })
     const power = energy(machine, effects.consumption ?? 0, inputs)
-    processes.push({ key, kind: 'resource', id: resource.id, machine, inputs, outputs, power, speed: speed - 1, productivity, consumption: effects.consumption ?? 0 })
+    processes.push({
+      key,
+      kind: 'resource',
+      id: resource.id,
+      machine,
+      inputs,
+      outputs,
+      power,
+      speed: speed - 1,
+      productivity,
+      consumption: effects.consumption ?? 0,
+      qualityEffect: Math.max(0, effects.quality ?? 0),
+    })
   }
 
   // Offshore pumps pump the planet's fluids; without a planet, water.
@@ -188,9 +232,50 @@ export function buildProcesses(data: GameData, request: SolveRequest, warnings: 
       speed: 0,
       productivity: 0,
       consumption: 0,
+      qualityEffect: 0,
     })
   }
-  return processes
+  return withQuality(data, request, processes)
+}
+
+// Spreads item outputs over quality tiers by each process's quality effect. When a target asks
+// for a higher tier, also runs every item recipe at the higher tiers, with ingredients of that
+// tier. Fluids have no quality.
+function withQuality(data: GameData, request: SolveRequest, processes: Process[]): Process[] {
+  const tiers = qualityTiers(data)
+  if (tiers.length < 2) return processes
+  const expand = request.targets.some((t) => t.quality && t.quality !== tiers[0].id)
+  const recipes = new Map(data.recipes.map((r) => [r.id, r]))
+  const out: Process[] = []
+  for (const p of processes) {
+    const recipe = p.kind === 'recipe' ? recipes.get(p.id) : undefined
+    const ingredients = new Set(recipe?.ingredients.filter((i) => i.type === 'item').map((i) => i.id))
+    const hasItems = !!recipe && (ingredients.size > 0 || recipe.results.some((r) => r.type === 'item'))
+    const levels = expand && hasItems ? tiers.length : 1
+    for (let tier = 0; tier < levels; tier++) {
+      if (tier === 0 && p.qualityEffect <= 0) {
+        out.push(p)
+        continue
+      }
+      const quality = tier > 0 ? tiers[tier].id : undefined
+      const split = upgrades(data, tier, p.qualityEffect)
+      out.push({
+        ...p,
+        key: quality ? `${p.key}@${quality}` : p.key,
+        quality,
+        // Only the recipe's own ingredients take its quality; fuel stays normal.
+        inputs: p.inputs.map((i) => (i.kind === 'item' && quality && ingredients.has(i.id) ? { ...i, quality } : i)),
+        outputs: p.outputs.flatMap((o) =>
+          o.kind === 'fluid'
+            ? [o]
+            : split
+                .filter((s) => s.share > 0)
+                .map((s) => (s.tier > 0 ? { ...o, rate: o.rate * s.share, quality: tiers[s.tier].id } : { ...o, rate: o.rate * s.share })),
+        ),
+      })
+    }
+  }
+  return out
 }
 
 function recipeProcess(
@@ -213,12 +298,27 @@ function recipeProcess(
   if (recipe.allowed_effects.includes('productivity')) effects = add(effects, { productivity: researchProductivity })
   const speed = Math.max(MIN_MULTIPLIER, 1 + (effects.speed ?? 0))
   const productivity = Math.min(recipe.max_productivity, Math.max(0, effects.productivity ?? 0))
-  const crafts = (machine.speed * speed) / recipe.time
+  // Higher quality crafting machines craft faster: +30% per level.
+  const machineQuality = request.overrides[key]?.quality ?? request.machineQuality
+  const crafts = (machine.speed * (1 + QUALITY_BONUS * qualityLevel(data, machineQuality)) * speed) / recipe.time
   const inputs: Amount[] = recipe.ingredients.map((i) => ({ kind: i.type, id: i.id, rate: crafts * i.amount }))
   const outputs = recipe.results.map((r) => {
     const { base, productive } = expected(r)
     return { kind: r.type, id: r.id, rate: crafts * (base + productive * productivity) }
   })
   const power = energy(machine, effects.consumption ?? 0, inputs)
-  return { key, kind: 'recipe', id: recipe.id, machine, inputs, outputs, power, speed: speed - 1, productivity, consumption: effects.consumption ?? 0 }
+  return {
+    key,
+    kind: 'recipe',
+    id: recipe.id,
+    machine,
+    machineQuality: machineQuality && machineQuality !== data.qualities[0]?.id ? machineQuality : undefined,
+    inputs,
+    outputs,
+    power,
+    speed: speed - 1,
+    productivity,
+    consumption: effects.consumption ?? 0,
+    qualityEffect: Math.max(0, effects.quality ?? 0),
+  }
 }
