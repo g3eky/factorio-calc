@@ -1,0 +1,19 @@
+/* Titillium Web, self-hosted. Licensed under the SIL Open Font License (fonts/OFL.txt). */
+@font-face {
+  font-family: 'Titillium Web';
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/titillium-web-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Titillium Web';
+  font-weight: 600;
+  font-display: swap;
+  src: url('./fonts/titillium-web-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Titillium Web';
+  font-weight: 700;
+  font-display: swap;
+  src: url('./fonts/titillium-web-700.woff2') format('woff2');
+}

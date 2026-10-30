@@ -1,0 +1,24 @@
+/* Colours and sizes taken from Factorio's in-game menus. */
+:root {
+  --font: 'Titillium Web', sans-serif;
+  --font-size: 15px;
+
+  --color-text: #ffffff;
+  --color-text-muted: #a8a8a8;
+  --color-heading: #ffe6c0;
+  --color-background: #1b1a1b;
+
+  --color-frame: #313031;
+  --color-frame-light: #4a4a4a;
+  --color-frame-dark: #141314;
+  --color-panel: #242324;
+  --color-panel-deep: #1f1e1f;
+
+  --bevel-outset: inset 0 1px 0 var(--color-frame-light), inset 0 -1px 0 var(--color-frame-dark), 0 2px 6px rgb(0 0 0 / 0.5);
+  --bevel-inset: inset 0 2px 3px rgb(0 0 0 / 0.6), inset 0 -1px 0 rgb(255 255 255 / 0.06);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+}
