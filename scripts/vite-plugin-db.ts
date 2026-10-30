@@ -3,6 +3,8 @@
 import type { Plugin } from 'vite'
 import { buildDatabases, outputFiles, type OutputFile } from './build-db.ts'
 
+const CONTENT_TYPES: Record<string, string> = { json: 'application/json', sqlite: 'application/vnd.sqlite3', webp: 'image/webp' }
+
 export function dbPlugin({ dataDir }: { dataDir: string }): Plugin {
   return {
     name: 'factorio-db',
@@ -22,7 +24,7 @@ export function dbPlugin({ dataDir }: { dataDir: string }): Plugin {
           files ??= buildDatabases(dataDir).then(outputFiles)
           const file = (await files).find((f) => f.fileName === name)
           if (!file) return next()
-          res.setHeader('Content-Type', name.endsWith('.json') ? 'application/json' : 'application/vnd.sqlite3')
+          res.setHeader('Content-Type', CONTENT_TYPES[name.split('.').pop()!] ?? 'application/octet-stream')
           res.setHeader('Cache-Control', 'no-cache')
           res.end(file.source)
         } catch (error) {

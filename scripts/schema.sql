@@ -149,3 +149,8 @@ CREATE TABLE research (
   change REAL NOT NULL,
   max_level INTEGER
 );
+
+-- Icon positions in the dataset's sprite atlas (icons.webp). Keys are "<kind>/<id>",
+-- e.g. "item/iron-plate"; kinds are item, fluid, recipe, machine and planet.
+CREATE TABLE icon_atlas (size INTEGER NOT NULL, width INTEGER NOT NULL, height INTEGER NOT NULL);
+CREATE TABLE icon (key TEXT PRIMARY KEY, x INTEGER NOT NULL, y INTEGER NOT NULL);

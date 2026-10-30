@@ -106,3 +106,22 @@ export function loadGameData(db: Database): GameData {
     research: rows(db, 'SELECT * FROM research ORDER BY rowid').map((r) => ({ ...present(r), recipes: parse(r.recipes) })),
   } as GameData
 }
+
+export interface IconAtlas {
+  size: number
+  width: number
+  height: number
+  // Icon key ("item/iron-plate") -> [x, y] in pixels.
+  positions: Map<string, [number, number]>
+}
+
+export function loadIcons(db: Database): IconAtlas | undefined {
+  const [atlas] = rows(db, 'SELECT * FROM icon_atlas')
+  if (!atlas) return undefined
+  return {
+    size: atlas.size as number,
+    width: atlas.width as number,
+    height: atlas.height as number,
+    positions: new Map(rows(db, 'SELECT * FROM icon').map((r) => [r.key as string, [r.x as number, r.y as number]])),
+  }
+}

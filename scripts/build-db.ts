@@ -16,6 +16,16 @@ export interface Dataset {
   name: string
   version: string
   bytes: Uint8Array
+  // The icon atlas image (icons.webp), if the dataset has one.
+  icons?: Uint8Array
+}
+
+// icons.json, written by the importer next to icons.webp.
+export interface IconIndex {
+  size: number
+  width: number
+  height: number
+  icons: Record<string, [number, number]>
 }
 
 export interface OutputFile {
@@ -24,7 +34,7 @@ export interface OutputFile {
 }
 
 export interface Manifest {
-  datasets: { id: string; name: string; version: string; file: string }[]
+  datasets: { id: string; name: string; version: string; file: string; icons?: string }[]
 }
 
 const SCHEMA = readFileSync(new URL('schema.sql', import.meta.url), 'utf8')
@@ -209,16 +219,39 @@ async function datasetDirs(dataDir: string): Promise<{ id: string; dir: string }
   return result.sort((a, b) => a.id.localeCompare(b.id))
 }
 
+// Reads icons.json and checks every key names something in the dataset.
+async function readIcons(dir: string, data: GameData): Promise<IconIndex | undefined> {
+  const path = join(dir, 'icons.json')
+  const source = await readFile(path, 'utf8').catch(() => undefined)
+  if (source === undefined) return undefined
+  const index: IconIndex = JSON.parse(source)
+  const known = new Set(
+    (['items', 'fluids', 'recipes', 'machines', 'planets'] as const).flatMap((key) =>
+      data[key].map((x) => `${key.slice(0, -1)}/${x.id}`),
+    ),
+  )
+  const unknown = Object.keys(index.icons).filter((key) => !known.has(key))
+  if (unknown.length) throw new Error(`${path}: icons for unknown things: ${unknown.join(', ')}`)
+  return index
+}
+
 export async function buildDataset(id: string, dir: string): Promise<Dataset> {
   const data = await readDataset(dir)
+  const icons = await readIcons(dir, data)
   const SQL = await initSqlJs()
   const db = new SQL.Database()
   db.run('BEGIN')
   writeDatabase(db, data)
+  if (icons) {
+    insert(db, 'icon_atlas', { size: icons.size, width: icons.width, height: icons.height })
+    for (const [key, [x, y]] of Object.entries(icons.icons)) insert(db, 'icon', { key, x, y })
+  }
   db.run('COMMIT')
   const bytes = db.export()
   db.close()
-  return { id, name: data.game.name, version: data.game.version, bytes }
+  const dataset: Dataset = { id, name: data.game.name, version: data.game.version, bytes }
+  if (icons) dataset.icons = await readFile(join(dir, 'icons.webp'))
+  return dataset
 }
 
 export async function buildDatabases(dataDir: string): Promise<Dataset[]> {
@@ -237,7 +270,12 @@ export function outputFiles(datasets: Dataset[]): OutputFile[] {
   for (const dataset of datasets) {
     const fileName = `${dataset.id}.${hash(dataset.bytes)}.sqlite`
     files.push({ fileName, source: dataset.bytes })
-    manifest.datasets.push({ id: dataset.id, name: dataset.name, version: dataset.version, file: fileName })
+    const entry: Manifest['datasets'][number] = { id: dataset.id, name: dataset.name, version: dataset.version, file: fileName }
+    if (dataset.icons) {
+      entry.icons = `${dataset.id}.${hash(dataset.icons)}.webp`
+      files.push({ fileName: entry.icons, source: dataset.icons })
+    }
+    manifest.datasets.push(entry)
   }
   files.push({ fileName: 'manifest.json', source: JSON.stringify(manifest, null, 2) })
   return files
