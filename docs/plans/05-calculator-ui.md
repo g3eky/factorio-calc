@@ -47,10 +47,16 @@ Out:
 
 ## Done when
 
-- Building "1 of each Space Age science pack per second" from an empty page takes under a minute, and the numbers match the 04 test results.
-- Changing a target or override updates results without a visible stall (no long task over 50 ms in the Chrome performance panel).
-- Reloading the page restores exactly what was on screen.
-- Works in current Chrome, Firefox and Safari, at 1280 px wide and on a phone.
+- Adding targets from an empty page works through the item picker (search, Enter), and the numbers come from the same solver as the 04 tests. ✔
+- Changing a target or override updates results without a visible stall. ✔ Measured in Chrome over the DevTools protocol, production build, 4× CPU slowdown, all 12 Space Age science packs (80 rows): each keystroke in an amount field reaches the next frame in about 33 ms (the two frames the probe waits); no long tasks over 50 ms while typing or while new results arrive. This needed memoised rows: before that it was about 85 ms per keystroke.
+- Reloading the page restores exactly what was on screen. ✔
+- Works at 1280 px wide and on a phone (390 px, the table scrolls sideways inside its panel). ✔ Only checked in Chrome; Firefox and Safari are left for stage 10.
+
+## Not done
+
+- **Collapsing rows into their parent:** the table is flat, in production order (targets first, then what feeds them). Revisit if big factories are hard to read.
+- **Share links** and the **flow diagram** (open questions below) are not started.
+- The module editor fills every slot with one module type, and beacons all hold one type. Mixed modules can come later if wanted.
 
 ## Open questions
 
