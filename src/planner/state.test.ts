@@ -1,6 +1,7 @@
 import { beforeAll, expect, test } from 'vitest'
 import type { Game } from '../db/GameProvider.tsx'
 import { fixtureGame } from '../test/fixtureGame.tsx'
+import { defaultPreferences } from '../settings/preferences.ts'
 import { long, power, short } from './format.ts'
 import { emptyCalculation, isCalculation, recipesFor, toRequest, type Calculation } from './state.ts'
 
@@ -10,6 +11,7 @@ beforeAll(async () => {
 })
 
 const calc = (patch: Partial<Calculation>): Calculation => ({ ...emptyCalculation(game), ...patch })
+const prefs = defaultPreferences()
 
 test('targets in any unit become rates per second', () => {
   const request = toRequest(
@@ -23,6 +25,7 @@ test('targets in any unit become rates per second', () => {
         { kind: 'item', id: 'no-such-item', amount: 1, unit: 's' },
       ],
     }),
+    prefs,
   )
   expect(request.targets).toEqual([
     { kind: 'item', id: 'iron-plate', rate: 2 },
@@ -35,11 +38,25 @@ test('targets in any unit become rates per second', () => {
 
 test('choosing a recipe turns off the other recipes for that item', () => {
   expect(recipesFor(game, 'item', 'uranium-235').map((r) => r.id)).toEqual(['uranium-processing', 'kovarex-enrichment-process'])
-  const request = toRequest(game, calc({ recipes: { 'item/uranium-235': 'uranium-processing' } }))
+  const request = toRequest(game, calc({ recipes: { 'item/uranium-235': 'uranium-processing' } }), prefs)
   expect(request.disabled).toContain('kovarex-enrichment-process')
   expect(request.disabled).not.toContain('uranium-processing')
   // Recycling stays off by default.
   expect(request.disabled).toContain('electronic-circuit-recycling')
+})
+
+test('preferences set machines, modules, research and fuel, and turn recipes on or off', () => {
+  const setup = { modules: ['speed-module', 'speed-module'], beacons: [] }
+  const request = toRequest(
+    game,
+    calc({}),
+    { ...prefs, machines: { crafting: 'assembling-machine-2' }, setups: { 'assembling-machine-2': setup }, research: { 'mining-productivity-1': 1 }, fuel: 'coal', enabled: ['electronic-circuit-recycling'], disabled: ['heavy-oil-cracking'] },
+  )
+  expect(request.machines).toEqual({ crafting: 'assembling-machine-2' })
+  expect(request.setups['assembling-machine-2']).toBe(setup)
+  expect(request.research).toEqual({ 'mining-productivity-1': 1 })
+  expect(request.disabled).not.toContain('electronic-circuit-recycling')
+  expect(request.disabled).toContain('heavy-oil-cracking')
 })
 
 test('stored calculations are checked before use', () => {

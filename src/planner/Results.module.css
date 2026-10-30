@@ -66,6 +66,22 @@
   cursor: default;
 }
 
+/* Set for this calculation rather than taken from the settings: an orange corner mark. */
+.custom {
+  position: relative;
+}
+
+.custom::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  z-index: 1;
+  border: 5px solid transparent;
+  border-top-color: var(--color-selected);
+  border-left-color: var(--color-selected);
+}
+
 .modules {
   display: inline-flex;
   align-items: center;
@@ -107,12 +123,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 2px;
-}
-
-.beaconRow {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
 }
 
 .effects {

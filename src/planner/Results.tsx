@@ -1,16 +1,17 @@
 import { memo, useMemo, useState, type ReactNode } from 'react'
-import { fits } from '../calculator/processes.ts'
-import type { Amount, ModuleSetup, ProcessResult, SolveResult } from '../calculator/types.ts'
+import type { Amount, ModuleSetup, ProcessResult, ProcessSettings, SolveResult } from '../calculator/types.ts'
 import { useGame, type Game } from '../db/GameProvider.tsx'
 import type { EffectName } from '../db/types.ts'
+import type { Preferences } from '../settings/preferences.ts'
 import { Button } from '../ui/Button/Button.tsx'
 import { Icon } from '../ui/Icon/Icon.tsx'
-import { NumberInput } from '../ui/Input/Input.tsx'
 import { Popover } from '../ui/Popover/Popover.tsx'
 import { ScrollPane } from '../ui/ScrollPane/ScrollPane.tsx'
 import { Slot } from '../ui/Slot/Slot.tsx'
+import { cx } from '../ui/cx.ts'
 import { Window } from '../ui/Window/Window.tsx'
 import { long, power, short, UNIT_LABELS, UNIT_SECONDS } from './format.ts'
+import { ModuleSetupEditor } from './ModuleSetupEditor.tsx'
 import type { Update } from './Planner.tsx'
 import { recipesFor, type Calculation } from './state.ts'
 import styles from './Results.module.css'
@@ -59,6 +60,7 @@ export const amountName = (game: Game, a: { kind: string; id: string }) => (a.ki
 interface Props {
   result: SolveResult
   calc: Calculation
+  prefs: Preferences
   update: Update
 }
 
@@ -72,13 +74,14 @@ export const Results = memo(
   (a: Props, b: Props) =>
     a.result === b.result &&
     a.update === b.update &&
+    a.prefs === b.prefs &&
     a.calc.unit === b.calc.unit &&
     a.calc.overrides === b.calc.overrides &&
     a.calc.recipes === b.calc.recipes &&
     sameTargets(a.calc.targets, b.calc.targets),
 )
 
-function ResultsTable({ result, calc, update }: Props) {
+function ResultsTable({ result, calc, prefs, update }: Props) {
   const game = useGame()
   const rows = useMemo(() => inOrder(result, calc), [result, calc])
   const [editing, setEditing] = useState<Editing>()
@@ -101,7 +104,14 @@ function ResultsTable({ result, calc, update }: Props) {
           </thead>
           <tbody>
             {rows.map((p) => (
-              <Row key={p.key} process={p} setup={calc.overrides[p.key]?.setup} unit={calc.unit} onEdit={setEditing} />
+              <Row
+                key={p.key}
+                process={p}
+                override={calc.overrides[p.key]}
+                setup={calc.overrides[p.key]?.setup ?? prefs.setups[p.machine]}
+                unit={calc.unit}
+                onEdit={setEditing}
+              />
             ))}
           </tbody>
         </table>
@@ -113,7 +123,7 @@ function ResultsTable({ result, calc, update }: Props) {
       )}
       {editing?.type === 'modules' && edited && (
         <Popover anchor={editing.anchor} title={`Modules for ${processName(game, edited)}`} onClose={() => setEditing(undefined)}>
-          <ModuleEditor process={edited} calc={calc} update={update} />
+          <ModuleEditor process={edited} calc={calc} prefs={prefs} update={update} />
         </Popover>
       )}
       {editing?.type === 'recipe' && (
@@ -128,6 +138,9 @@ function ResultsTable({ result, calc, update }: Props) {
 
 interface RowProps {
   process: ProcessResult
+  // This calculation's own settings for the process, if any.
+  override: ProcessSettings | undefined
+  // Modules and beacons in effect: the override's, else the preferences'.
   setup: ModuleSetup | undefined
   unit: Calculation['unit']
   onEdit: (editing: Editing) => void
@@ -135,7 +148,7 @@ interface RowProps {
 
 // One process. Re-renders only when its numbers or settings change, not on every new result.
 const Row = memo(
-  function Row({ process: p, setup, unit: rateUnit, onEdit }: RowProps) {
+  function Row({ process: p, override, setup, unit: rateUnit, onEdit }: RowProps) {
     const game = useGame()
     const scale = UNIT_SECONDS[rateUnit]
     const unit = UNIT_LABELS[rateUnit]
@@ -171,7 +184,7 @@ const Row = memo(
           </span>
         </td>
         <td>
-          <span className={styles.machine}>
+          <span className={cx(styles.machine, override?.machine && styles.custom)} title={override?.machine ? 'Set for this calculation' : undefined}>
             <Slot
               kind="machine"
               id={p.machine}
@@ -187,7 +200,11 @@ const Row = memo(
         </td>
         <td>
           {machine && machine.module_slots > 0 ? (
-            <button type="button" className={styles.modules} aria-label={`Modules for ${name}`} onClick={(e) => onEdit({ type: 'modules', key: p.key, anchor: e.currentTarget })}>
+            <button
+              type="button"
+              className={cx(styles.modules, override?.setup && styles.custom)}
+              title={override?.setup ? 'Set for this calculation' : undefined}
+              aria-label={`Modules for ${name}`} onClick={(e) => onEdit({ type: 'modules', key: p.key, anchor: e.currentTarget })}>
               {setup?.modules.length ? (
                 setup.modules.slice(0, machine.module_slots).map((m, i) => <Icon key={i} kind="item" id={m} size={20} />)
               ) : (
@@ -214,7 +231,8 @@ const Row = memo(
       </tr>
     )
   },
-  (a, b) => a.setup === b.setup && a.unit === b.unit && a.onEdit === b.onEdit && JSON.stringify(a.process) === JSON.stringify(b.process),
+  (a, b) =>
+    a.override === b.override && a.setup === b.setup && a.unit === b.unit && a.onEdit === b.onEdit && JSON.stringify(a.process) === JSON.stringify(b.process),
 )
 
 function MachineChooser({ process, calc, update, done }: { process: ProcessResult; calc: Calculation; update: Update; done: () => void }) {
@@ -237,50 +255,21 @@ function MachineChooser({ process, calc, update, done }: { process: ProcessResul
   )
 }
 
-function ModuleEditor({ process, calc, update }: { process: ProcessResult; calc: Calculation; update: Update }) {
+function ModuleEditor({ process, calc, prefs, update }: { process: ProcessResult; calc: Calculation; prefs: Preferences; update: Update }) {
   const game = useGame()
   const machine = game.machines.get(process.machine)!
   const recipe = process.kind === 'recipe' ? game.recipes.get(process.id) : undefined
   const allowed = machine.allowed_effects.filter((e) => !recipe || recipe.allowed_effects.includes(e)) as EffectName[]
-  const beacon = game.data.beacons[0]
-  const setup: ModuleSetup = calc.overrides[process.key]?.setup ?? { modules: [], beacons: [] }
-  const placed = setup.beacons[0]
-  const save = (next: ModuleSetup | undefined) => update((c) => ({ ...c, overrides: { ...c.overrides, [process.key]: { ...c.overrides[process.key], setup: next } } }))
-
-  const options = game.data.modules.filter((m) => fits(m.effects, allowed))
-  const beaconOptions = beacon ? options.filter((m) => fits(m.effects, beacon.allowed_effects)) : []
-  const setBeacons = (count: number, module: string | undefined) =>
-    save({ ...setup, beacons: beacon && count > 0 && module ? [{ id: beacon.id, count, modules: Array(beacon.module_slots).fill(module) }] : [] })
-
+  const override = calc.overrides[process.key]?.setup
+  const save = (setup: ModuleSetup | undefined) =>
+    update((c) => ({ ...c, overrides: { ...c.overrides, [process.key]: { ...c.overrides[process.key], setup } } }))
   return (
     <>
-      <span>Fill {machine.module_slots} slots with:</span>
-      <div className={styles.choices}>
-        <Button square aria-label="No modules" selected={!setup.modules.length} onClick={() => save({ ...setup, modules: [] })}>
-          ∅
-        </Button>
-        {options.map((m) => (
-          <Slot key={m.id} kind="item" id={m.id} title={m.name} aria-label={m.name} selected={setup.modules[0] === m.id} onClick={() => save({ ...setup, modules: Array(machine.module_slots).fill(m.id) })} />
-        ))}
-      </div>
-      {beacon && beaconOptions.length > 0 && (
-        <>
-          <span className={styles.beaconRow}>
-            Beacons
-            <NumberInput value={placed?.count ?? 0} min={0} max={24} onChange={(n) => setBeacons(n, placed?.modules[0] ?? beaconOptions[0].id)} aria-label="Number of beacons" />
-            each with:
-          </span>
-          <div className={styles.choices}>
-            {beaconOptions.map((m) => (
-              <Slot key={m.id} kind="item" id={m.id} title={m.name} aria-label={`Beacons with ${m.name}`} selected={placed?.modules[0] === m.id} onClick={() => setBeacons(Math.max(placed?.count ?? 0, 1), m.id)} />
-            ))}
-          </div>
-        </>
-      )}
+      <ModuleSetupEditor machine={machine} allowed={allowed} setup={override ?? prefs.setups[machine.id] ?? { modules: [], beacons: [] }} onChange={save} />
       <span className={styles.effects}>
         Speed {pct(process.speed)}, productivity {pct(process.productivity)}, power {pct(process.consumption)}
       </span>
-      {calc.overrides[process.key]?.setup && <Button onClick={() => save(undefined)}>Use the default</Button>}
+      {override && <Button onClick={() => save(undefined)}>Use the default from settings</Button>}
     </>
   )
 }

@@ -1,0 +1,61 @@
+.page {
+  display: flex;
+  min-height: 0;
+  padding: var(--space-2);
+}
+
+.scroll {
+  flex: 1;
+  height: min(60vh, 560px);
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-right: var(--space-2);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid rgb(255 255 255 / 0.06);
+}
+
+.rowLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  width: 200px;
+  font-weight: 600;
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.note {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.recipe {
+  align-self: flex-start;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.message {
+  flex: 1;
+  color: var(--color-text-muted);
+}

@@ -1,0 +1,17 @@
+.editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.beacons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}

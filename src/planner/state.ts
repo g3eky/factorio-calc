@@ -5,6 +5,7 @@ import { buildProcesses } from '../calculator/processes.ts'
 import { defaultDisabled } from '../calculator/solve.ts'
 import type { Kind, ProcessSettings, SolveRequest } from '../calculator/types.ts'
 import type { Recipe } from '../db/types.ts'
+import type { Preferences } from '../settings/preferences.ts'
 import { UNIT_SECONDS, type RateUnit } from './format.ts'
 
 export type TargetUnit = RateUnit | 'belts' | 'machines'
@@ -76,14 +77,24 @@ export function recipesFor(game: Game, kind: Kind, id: string): Recipe[] {
   return index.get(`${kind}/${id}`) ?? []
 }
 
-export function toRequest(game: Game, calc: Calculation): SolveRequest {
+export function toRequest(game: Game, calc: Calculation, prefs: Preferences): SolveRequest {
   const disabled = new Set(defaultDisabled(game.data))
+  for (const id of prefs.enabled) disabled.delete(id)
+  for (const id of prefs.disabled) disabled.add(id)
   // Choosing a recipe for an item turns off the other recipes that mainly make it.
   for (const [key, recipe] of Object.entries(calc.recipes)) {
     const [kind, ...id] = key.split('/')
     for (const r of recipesFor(game, kind as Kind, id.join('/'))) if (r.id !== recipe) disabled.add(r.id)
   }
-  const base: SolveRequest = { targets: [], machines: {}, setups: {}, overrides: calc.overrides, disabled: [...disabled], research: {}, fuel: 'coal' }
+  const base: SolveRequest = {
+    targets: [],
+    machines: prefs.machines,
+    setups: prefs.setups,
+    overrides: calc.overrides,
+    disabled: [...disabled],
+    research: prefs.research,
+    fuel: prefs.fuel,
+  }
   const beltSpeed = game.data.belts.find((b) => b.id === calc.belt)?.speed ?? 15
   // For "machines" targets: output of one machine of the recipe that would make the item.
   const processes = calc.targets.some((t) => t.unit === 'machines') ? buildProcesses(game.data, base, []) : []
