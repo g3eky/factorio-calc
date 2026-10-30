@@ -1,0 +1,10 @@
+- id: nauvis
+  name: Nauvis
+  kind: planet
+  surface_properties: { pressure: 1000, gravity: 10 }
+  resources: [iron-ore, copper-ore, coal, uranium-ore, crude-oil]
+- id: space-platform
+  name: Space platform
+  kind: platform
+  surface_properties: { pressure: 0, gravity: 0 }
+  resources: []

@@ -1,0 +1,125 @@
+- id: iron-plate
+  name: Iron plate
+  categories: [smelting]
+  time: 3.2
+  ingredients: [{ type: item, id: iron-ore, amount: 1 }]
+  results: [{ type: item, id: iron-plate, amount: 1 }]
+  order: a
+  allowed_effects: [speed, productivity, consumption, pollution, quality]
+  max_productivity: 3
+- id: copper-plate
+  name: Copper plate
+  categories: [smelting]
+  time: 3.2
+  ingredients: [{ type: item, id: copper-ore, amount: 1 }]
+  results: [{ type: item, id: copper-plate, amount: 1 }]
+  order: b
+  allowed_effects: [speed, productivity, consumption, pollution, quality]
+  max_productivity: 3
+- id: copper-cable
+  name: Copper cable
+  categories: [crafting]
+  time: 0.5
+  ingredients: [{ type: item, id: copper-plate, amount: 1 }]
+  results: [{ type: item, id: copper-cable, amount: 2 }]
+  order: c
+  allowed_effects: [speed, productivity, consumption, pollution, quality]
+  max_productivity: 3
+- id: electronic-circuit
+  name: Electronic circuit
+  categories: [crafting]
+  time: 0.5
+  ingredients:
+    - { type: item, id: iron-plate, amount: 1 }
+    - { type: item, id: copper-cable, amount: 3 }
+  results: [{ type: item, id: electronic-circuit, amount: 1 }]
+  order: d
+  allowed_effects: [speed, productivity, consumption, pollution, quality]
+  max_productivity: 3
+- id: advanced-oil-processing
+  name: Advanced oil processing
+  categories: [oil-processing]
+  time: 5
+  ingredients:
+    - { type: fluid, id: water, amount: 50 }
+    - { type: fluid, id: crude-oil, amount: 100 }
+  results:
+    - { type: fluid, id: heavy-oil, amount: 25 }
+    - { type: fluid, id: light-oil, amount: 45 }
+    - { type: fluid, id: petroleum-gas, amount: 55 }
+  subgroup: fluid-recipes
+  order: a
+  allowed_effects: [speed, productivity, consumption, pollution]
+  max_productivity: 3
+- id: heavy-oil-cracking
+  name: Heavy oil cracking to light oil
+  categories: [chemistry]
+  time: 2
+  ingredients:
+    - { type: fluid, id: water, amount: 30 }
+    - { type: fluid, id: heavy-oil, amount: 40 }
+  results: [{ type: fluid, id: light-oil, amount: 30 }]
+  subgroup: fluid-recipes
+  order: b
+  allowed_effects: [speed, productivity, consumption, pollution]
+  max_productivity: 3
+- id: light-oil-cracking
+  name: Light oil cracking to petroleum gas
+  categories: [chemistry]
+  time: 2
+  ingredients:
+    - { type: fluid, id: water, amount: 30 }
+    - { type: fluid, id: light-oil, amount: 30 }
+  results: [{ type: fluid, id: petroleum-gas, amount: 20 }]
+  subgroup: fluid-recipes
+  order: c
+  allowed_effects: [speed, productivity, consumption, pollution]
+  max_productivity: 3
+- id: uranium-processing
+  name: Uranium processing
+  categories: [centrifuging]
+  time: 12
+  ingredients: [{ type: item, id: uranium-ore, amount: 10 }]
+  results:
+    - { type: item, id: uranium-235, amount: 1, probability: 0.007 }
+    - { type: item, id: uranium-238, amount: 1, probability: 0.993 }
+  main_product: uranium-235
+  order: e
+  allowed_effects: [speed, productivity, consumption, pollution, quality]
+  max_productivity: 3
+- id: kovarex-enrichment-process
+  name: Kovarex enrichment process
+  categories: [centrifuging]
+  time: 60
+  ingredients:
+    - { type: item, id: uranium-235, amount: 40 }
+    - { type: item, id: uranium-238, amount: 5 }
+  results:
+    - { type: item, id: uranium-235, amount: 41, ignored_by_productivity: 40 }
+    - { type: item, id: uranium-238, amount: 2, ignored_by_productivity: 2 }
+  main_product: uranium-235
+  order: f
+  allowed_effects: [speed, consumption, pollution]
+  max_productivity: 3
+- id: electronic-circuit-recycling
+  name: Electronic circuit recycling
+  categories: [recycling]
+  time: 0.03125
+  ingredients: [{ type: item, id: electronic-circuit, amount: 1 }]
+  results:
+    - { type: item, id: iron-plate, amount: 0, extra_fraction: 0.25 }
+    - { type: item, id: copper-cable, amount: 0, extra_fraction: 0.75 }
+  order: g
+  hidden: true
+  allowed_effects: [speed, consumption, pollution, quality]
+  max_productivity: 3
+  surface_conditions: [{ property: gravity, min: 1 }]
+- id: scrap-recycling
+  name: Scrap recycling
+  categories: [recycling]
+  time: 0.2
+  ingredients: [{ type: item, id: iron-ore, amount: 1 }]
+  results: [{ type: item, id: copper-ore, amount_min: 1, amount_max: 3, probability: 0.5 }]
+  order: h
+  allowed_effects: [speed, consumption, pollution, quality]
+  max_productivity: 3

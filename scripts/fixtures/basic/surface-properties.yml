@@ -1,0 +1,2 @@
+- { id: pressure, name: Pressure, default_value: 1000 }
+- { id: gravity, name: Gravity, default_value: 10 }

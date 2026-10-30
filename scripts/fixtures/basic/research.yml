@@ -1,0 +1,2 @@
+- { id: mining-productivity-1, name: Mining productivity 1, kind: mining-productivity, recipes: [], change: 0.1, max_level: 1 }
+- { id: electronic-circuit-productivity, name: Electronic circuit productivity, kind: recipe-productivity, recipes: [electronic-circuit], change: 0.1 }

@@ -1,0 +1,14 @@
+- id: intermediate-products
+  name: Intermediate products
+  order: c
+  subgroups:
+    - { id: raw-resource, order: a }
+    - { id: raw-material, order: b }
+    - { id: intermediate-product, order: c }
+    - { id: fluid, order: d }
+    - { id: fluid-recipes, order: e }
+- id: production
+  name: Production
+  order: b
+  subgroups:
+    - { id: module, order: a }

@@ -1,0 +1,4 @@
+name: Fixture
+version: "0"
+mods: [base]
+source: Hand-written test data covering every field

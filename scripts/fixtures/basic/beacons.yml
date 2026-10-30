@@ -1,0 +1,8 @@
+- id: beacon
+  name: Beacon
+  distribution_effectivity: 1.5
+  distribution_effectivity_per_quality: 0.2
+  profile: [1, 0.7071, 0.5773, 0.5]
+  module_slots: 2
+  power: 480000
+  allowed_effects: [speed, consumption, pollution]

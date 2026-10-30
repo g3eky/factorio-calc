@@ -1,0 +1,91 @@
+- id: stone-furnace
+  name: Stone furnace
+  kind: crafting
+  categories: [smelting]
+  speed: 1
+  energy: { type: burner, usage: 90000, fuel_categories: [chemical] }
+  module_slots: 0
+  allowed_effects: [speed, productivity, consumption, pollution, quality]
+- id: assembling-machine-2
+  name: Assembling machine 2
+  kind: crafting
+  categories: [crafting]
+  speed: 0.75
+  energy: { type: electric, usage: 150000, drain: 5000 }
+  module_slots: 2
+  allowed_effects: [speed, productivity, consumption, pollution, quality]
+- id: oil-refinery
+  name: Oil refinery
+  kind: crafting
+  categories: [oil-processing]
+  speed: 1
+  energy: { type: electric, usage: 420000, drain: 14000 }
+  module_slots: 3
+  allowed_effects: [speed, productivity, consumption, pollution, quality]
+- id: chemical-plant
+  name: Chemical plant
+  kind: crafting
+  categories: [chemistry]
+  speed: 1
+  energy: { type: electric, usage: 210000, drain: 7000 }
+  module_slots: 3
+  allowed_effects: [speed, productivity, consumption, pollution, quality]
+- id: centrifuge
+  name: Centrifuge
+  kind: crafting
+  categories: [centrifuging]
+  speed: 1
+  energy: { type: electric, usage: 350000, drain: 11600 }
+  module_slots: 2
+  allowed_effects: [speed, productivity, consumption, pollution, quality]
+- id: recycler
+  name: Recycler
+  kind: crafting
+  categories: [recycling]
+  speed: 0.5
+  energy: { type: electric, usage: 180000, drain: 6000 }
+  module_slots: 4
+  allowed_effects: [speed, consumption, pollution, quality]
+  surface_conditions: [{ property: gravity, min: 0.1 }]
+- id: foundry
+  name: Foundry
+  kind: crafting
+  categories: [smelting]
+  speed: 4
+  energy: { type: electric, usage: 2500000, drain: 83333 }
+  module_slots: 4
+  allowed_effects: [speed, productivity, consumption, pollution, quality]
+  base_effect: { productivity: 0.5 }
+- id: electric-mining-drill
+  name: Electric mining drill
+  kind: mining
+  categories: [basic-solid]
+  speed: 0.5
+  energy: { type: electric, usage: 90000 }
+  module_slots: 3
+  allowed_effects: [speed, productivity, consumption, pollution, quality]
+- id: pumpjack
+  name: Pumpjack
+  kind: mining
+  categories: [basic-fluid]
+  speed: 1
+  energy: { type: electric, usage: 90000 }
+  module_slots: 2
+  allowed_effects: [speed, productivity, consumption, pollution, quality]
+- id: offshore-pump
+  name: Offshore pump
+  kind: offshore-pump
+  categories: []
+  speed: 1200
+  energy: { type: void, usage: 0 }
+  module_slots: 0
+  allowed_effects: []
+- id: boiler
+  name: Boiler
+  kind: boiler
+  categories: []
+  speed: 1
+  energy: { type: burner, usage: 1800000, fuel_categories: [chemical] }
+  module_slots: 0
+  allowed_effects: []
+  boiler: { input_fluid: water, output_fluid: steam, target_temperature: 165 }

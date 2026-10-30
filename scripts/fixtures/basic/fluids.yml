@@ -1,0 +1,7 @@
+- { id: water, name: Water, subgroup: fluid, order: a, default_temperature: 15 }
+- { id: steam, name: Steam, subgroup: fluid, order: b, default_temperature: 15 }
+- { id: crude-oil, name: Crude oil, subgroup: fluid, order: c, default_temperature: 25 }
+- { id: heavy-oil, name: Heavy oil, subgroup: fluid, order: d, default_temperature: 25 }
+- { id: light-oil, name: Light oil, subgroup: fluid, order: e, default_temperature: 25 }
+- { id: petroleum-gas, name: Petroleum gas, subgroup: fluid, order: f, default_temperature: 25 }
+- { id: sulfuric-acid, name: Sulfuric acid, subgroup: fluid, order: g, default_temperature: 25 }

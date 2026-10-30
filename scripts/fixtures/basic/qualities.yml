@@ -1,0 +1,2 @@
+- { id: normal, name: Normal, level: 0, next: uncommon, next_probability: 0.1 }
+- { id: uncommon, name: Uncommon, level: 1 }

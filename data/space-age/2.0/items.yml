@@ -1,7 +1,4 @@
 # Placeholder until stage 02 imports the real data.
-- id: iron-plate
-  name: Iron plate
-- id: copper-plate
-  name: Copper plate
-- id: electronic-circuit
-  name: Electronic circuit
+- { id: iron-plate, name: Iron plate, subgroup: raw-material, order: a, stack_size: 100 }
+- { id: copper-plate, name: Copper plate, subgroup: raw-material, order: b, stack_size: 100 }
+- { id: electronic-circuit, name: Electronic circuit, subgroup: intermediate-product, order: a, stack_size: 200 }

@@ -1,0 +1,2 @@
+- { id: transport-belt, name: Transport belt, speed: 15 }
+- { id: fast-transport-belt, name: Fast transport belt, speed: 30 }

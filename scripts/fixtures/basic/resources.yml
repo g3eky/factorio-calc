@@ -1,0 +1,15 @@
+- { id: iron-ore, name: Iron ore, category: basic-solid, mining_time: 1, results: [{ type: item, id: iron-ore, amount: 1 }] }
+- { id: copper-ore, name: Copper ore, category: basic-solid, mining_time: 1, results: [{ type: item, id: copper-ore, amount: 1 }] }
+- { id: coal, name: Coal, category: basic-solid, mining_time: 1, results: [{ type: item, id: coal, amount: 1 }] }
+- id: uranium-ore
+  name: Uranium ore
+  category: basic-solid
+  mining_time: 2
+  results: [{ type: item, id: uranium-ore, amount: 1 }]
+  required_fluid: { id: sulfuric-acid, amount: 1 }
+- id: crude-oil
+  name: Crude oil
+  category: basic-fluid
+  mining_time: 1
+  results: [{ type: fluid, id: crude-oil, amount: 10 }]
+  infinite: true

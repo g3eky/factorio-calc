@@ -1,0 +1,6 @@
+- { id: speed-module, name: Speed module, category: speed, tier: 1, effects: { speed: 0.2, consumption: 0.5 } }
+- id: productivity-module
+  name: Productivity module
+  category: productivity
+  tier: 1
+  effects: { productivity: 0.04, consumption: 0.4, pollution: 0.05, speed: -0.05 }

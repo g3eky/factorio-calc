@@ -1,0 +1,23 @@
+- { id: iron-ore, name: Iron ore, subgroup: raw-resource, order: a, stack_size: 50 }
+- { id: copper-ore, name: Copper ore, subgroup: raw-resource, order: b, stack_size: 50 }
+- id: coal
+  name: Coal
+  subgroup: raw-resource
+  order: c
+  stack_size: 50
+  fuel: { category: chemical, value: 4000000 }
+- { id: uranium-ore, name: Uranium ore, subgroup: raw-resource, order: d, stack_size: 50 }
+- { id: iron-plate, name: Iron plate, subgroup: raw-material, order: a, stack_size: 100 }
+- { id: copper-plate, name: Copper plate, subgroup: raw-material, order: b, stack_size: 100 }
+- { id: uranium-235, name: Uranium-235, subgroup: intermediate-product, order: d, stack_size: 100 }
+- { id: uranium-238, name: Uranium-238, subgroup: intermediate-product, order: e, stack_size: 100 }
+- { id: copper-cable, name: Copper cable, subgroup: intermediate-product, order: a, stack_size: 200 }
+- { id: electronic-circuit, name: Electronic circuit, subgroup: intermediate-product, order: b, stack_size: 200 }
+- id: iron-bacteria
+  name: Iron bacteria
+  subgroup: intermediate-product
+  order: f
+  stack_size: 50
+  spoil: { time: 60, result: iron-ore }
+- { id: speed-module, name: Speed module, subgroup: module, order: a, stack_size: 50 }
+- { id: productivity-module, name: Productivity module, subgroup: module, order: b, stack_size: 50 }
