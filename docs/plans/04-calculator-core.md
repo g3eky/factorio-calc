@@ -50,18 +50,26 @@ For each process the calculator works out the per-second inputs and outputs of o
 
 ## Done when
 
-`./run test` passes, with tests including:
-- A plain chain: electronic circuits in assembling machines give the textbook 3:2 cable to circuit ratio.
-- Advanced oil processing plus cracking: no wasted fluid, correct refinery count.
-- Kovarex: solves the cycle.
-- Modules + beacons + productivity research: matches hand calculation.
-- Foundry and electromagnetic plant built-in productivity.
+`./run test` passes, with tests including: ✔
+- A plain chain: electronic circuits in assembling machines give the textbook 3:2 cable to circuit ratio, with burner fuel and electric power checked.
+- Advanced oil processing plus cracking: 97.5 petroleum gas per 100 crude, no surplus.
+- Kovarex: solves the cycle with the least uranium ore (hand-solved: 0.007a + k = 1, 0.993a = 3k).
+- Modules + beacons + productivity research: speed, productivity, consumption and power match hand calculation; extra modules beyond the slot count are ignored.
+- The beacon profile (1, 2 and 4 beacons).
+- Built-in foundry productivity, and the productivity cap.
+- Modules a recipe forbids are left out with a warning.
 - Disabling a required recipe gives a clear "no solution" with the reason.
 
-Results for 5 of the cases also match an existing calculator (e.g. FactorioLab) within 0.1%.
+Solving all 12 Space Age science packs at once takes under 50 ms (tested in Node). ✔
 
-Solving for all Space Age science packs at once takes under 50 ms in the worker on a laptop.
+The solver also runs in a Web Worker in the browser (checked with a demo in the dev gallery). ✔
 
-## Open questions
+Not done: comparing results with another calculator such as FactorioLab. The expected values above are worked out by hand instead.
 
-- **LP solver:** use a library or write our own simplex? Recommendation: a proven library such as HiGHS compiled to WebAssembly (`highs` on npm, a new dependency). Writing our own is possible but hard to make reliable.
+## Decisions
+
+- **LP solver:** HiGHS compiled to WebAssembly (`highs` on npm, MIT). 3.5 MB of WebAssembly (1.2 MB gzipped), loaded only by the worker.
+- **Default machines:** for each category, the fastest electric machine without surface restrictions, else the fastest. Changed per category in preferences (06).
+- **Off by default:** recycling, and filling and emptying barrels.
+- **Raw resources:** anything only those off-by-default recipes make (e.g. lava, asteroid chunks, Gleba fruit until planets come in 07) can be supplied freely, at the same cost as mining.
+- **Modules:** a module fits if every effect it improves is allowed; its other effects (such as a speed module's quality penalty where quality isn't allowed) don't apply.
