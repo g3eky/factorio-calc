@@ -5,12 +5,27 @@ import { useEffect, useState } from 'react'
 
 type Store = Pick<Storage, 'getItem' | 'setItem'>
 
-export function loadJson<T>(key: string, fallback: T, valid: (value: unknown) => value is T, store: Store = localStorage): T {
+// `read` turns the stored JSON into a value (upgrading old versions), or undefined if it can't.
+// A stored value that can't be read is kept under "<key>:backup" rather than lost.
+export function loadJson<T>(key: string, fallback: T, read: (value: unknown) => T | undefined, store: Store = localStorage): T {
+  const text = store.getItem(key)
+  if (text === null) return fallback
+  let value: T | undefined
   try {
-    const value = JSON.parse(store.getItem(key) ?? 'null')
-    return value !== null && valid(value) ? value : fallback
+    value = read(JSON.parse(text))
   } catch {
-    return fallback
+    value = undefined
+  }
+  if (value !== undefined) return value
+  saveRaw(`${key}:backup`, text, store)
+  return fallback
+}
+
+function saveRaw(key: string, text: string, store: Store) {
+  try {
+    store.setItem(key, text)
+  } catch {
+    // Storage full or blocked.
   }
 }
 
@@ -23,8 +38,8 @@ export function saveJson(key: string, value: unknown, store: Store = localStorag
 }
 
 // React state that's loaded from and saved to localStorage under `key`.
-export function usePersistentState<T>(key: string, fallback: () => T, valid: (value: unknown) => value is T) {
-  const [value, setValue] = useState(() => loadJson(key, fallback(), valid))
+export function usePersistentState<T>(key: string, fallback: () => T, read: (value: unknown) => T | undefined) {
+  const [value, setValue] = useState(() => loadJson(key, fallback(), read))
   useEffect(() => saveJson(key, value), [key, value])
   return [value, setValue] as const
 }
