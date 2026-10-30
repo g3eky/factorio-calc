@@ -150,7 +150,9 @@ export const SCHEMAS: Record<keyof GameData, Check> = {
     }),
   ),
   belts: list(object({ id, name: text, speed: positive })),
-  planets: list(object({ id, name: text, kind: oneOf('planet', 'platform'), surface_properties: record(number), resources: list(id) })),
+  planets: list(
+    object({ id, name: text, kind: oneOf('planet', 'platform'), surface_properties: record(number), resources: list(id), fluids: list(id), gathered: list(id) }),
+  ),
   surface_properties: list(object({ id, name: text, default_value: number })),
   qualities: list(object({ id, name: text, level: nonNegative, 'next?': id, 'next_probability?': nonNegative })),
   research: list(
@@ -238,6 +240,12 @@ export function checkReferences(data: GameData, report: (key: keyof GameData, pa
       if (!properties.has(property)) report('planets', [i, 'surface_properties', property], `unknown surface property "${property}"`)
     planet.resources.forEach((r, j) => {
       if (!resources.has(r)) report('planets', [i, 'resources', j], `unknown resource "${r}"`)
+    })
+    planet.fluids.forEach((f, j) => {
+      if (!fluids.has(f)) report('planets', [i, 'fluids', j], `unknown fluid "${f}"`)
+    })
+    planet.gathered.forEach((x, j) => {
+      if (!items.has(x)) report('planets', [i, 'gathered', j], `unknown item "${x}"`)
     })
   })
   const qualities = ids(data.qualities)

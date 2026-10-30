@@ -12,6 +12,9 @@
     - crude-oil
     - fluorine-vent
     - lithium-brine
+  fluids:
+    - ammoniacal-solution
+  gathered: []
 - id: fulgora
   name: Fulgora
   kind: planet
@@ -23,6 +26,9 @@
     solar-power: 20
   resources:
     - scrap
+  fluids:
+    - heavy-oil
+  gathered: []
 - id: gleba
   name: Gleba
   kind: planet
@@ -34,6 +40,11 @@
     solar-power: 50
   resources:
     - stone
+  fluids:
+    - water
+  gathered:
+    - jellynut
+    - yumako
 - id: nauvis
   name: Nauvis
   kind: planet
@@ -46,6 +57,11 @@
     - iron-ore
     - stone
     - uranium-ore
+  fluids:
+    - water
+  gathered:
+    - raw-fish
+    - wood
 - id: space-platform
   name: Space platform
   kind: platform
@@ -55,6 +71,12 @@
     magnetic-field: 0
     pressure: 0
   resources: []
+  fluids: []
+  gathered:
+    - carbonic-asteroid-chunk
+    - metallic-asteroid-chunk
+    - oxide-asteroid-chunk
+    - promethium-asteroid-chunk
 - id: vulcanus
   name: Vulcanus
   kind: planet
@@ -69,3 +91,6 @@
     - coal
     - sulfuric-acid-geyser
     - tungsten-ore
+  fluids:
+    - lava
+  gathered: []

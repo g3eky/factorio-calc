@@ -128,7 +128,9 @@ CREATE TABLE planet (
   name TEXT NOT NULL,
   kind TEXT NOT NULL,
   surface_properties TEXT NOT NULL,
-  resources TEXT NOT NULL
+  resources TEXT NOT NULL,
+  fluids TEXT NOT NULL,
+  gathered TEXT NOT NULL
 );
 
 CREATE TABLE surface_property (id TEXT PRIMARY KEY, name TEXT NOT NULL, default_value REAL NOT NULL);

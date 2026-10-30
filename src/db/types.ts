@@ -147,6 +147,10 @@ export interface Planet {
   kind: 'planet' | 'platform'
   surface_properties: Record<Id, number>
   resources: Id[]
+  // Fluids offshore pumps can pump there (lava on Vulcanus, heavy oil on Fulgora, ...).
+  fluids: Id[]
+  // Items gathered without a recipe: plant harvests, fish, asteroid chunks.
+  gathered: Id[]
 }
 
 export interface SurfaceProperty {

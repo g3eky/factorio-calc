@@ -100,6 +100,8 @@ export function loadGameData(db: Database): GameData {
       ...present(r),
       surface_properties: parse(r.surface_properties),
       resources: parse(r.resources),
+      fluids: parse(r.fluids),
+      gathered: parse(r.gathered),
     })),
     surface_properties: rows(db, 'SELECT * FROM surface_property ORDER BY rowid').map((r) => present(r)),
     qualities: rows(db, 'SELECT * FROM quality ORDER BY rowid').map((r) => present(r)),

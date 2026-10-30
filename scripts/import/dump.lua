@@ -295,7 +295,7 @@ local SKIP_KEYS = {
   circuit_connector = true, circuit_wire_max_distance = true, icons_positioning = true,
   crafting_machine_tint = true, wet_mining_graphics_set = true, base_picture = true,
   variations = true, layers = true, shadow = true, frames = true, stages = true,
-  autoplace = true, map_color = true, created_effect = true, trigger = true,
+  map_color = true, created_effect = true, trigger = true,
 }
 
 local out = {}

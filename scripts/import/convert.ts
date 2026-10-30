@@ -245,22 +245,40 @@ export function convert(raw: Raw, game: GameData['game'], names: Map<string, str
 
   const surfaceProperties = all(raw, 'surface-property').map((p) => ({ id: p.name, name: name(p.name), default_value: p.default_value }))
 
+  // What each planet offers without a recipe: fluids in its tiles for offshore pumps, plants
+  // that grow on its tiles, fish in its water; asteroid chunks on space platforms.
+  const minedItems = (p: Proto) =>
+    (p.minable?.results ? list<Proto>(p.minable.results).map((r) => r.name) : p.minable?.result ? [p.minable.result] : []).filter((i: string) =>
+      itemIds.has(i),
+    )
   const planets: GameData['planets'] = [
-    ...all(raw, 'planet').map((p) => ({
-      id: p.name,
-      name: name(p.name),
-      kind: 'planet' as const,
-      surface_properties: p.surface_properties ?? {},
-      resources: Object.keys(p.map_gen_settings?.autoplace_settings?.entity?.settings ?? {})
-        .filter((r) => resourceIds.has(r))
-        .sort(),
-    })),
+    ...all(raw, 'planet').map((p) => {
+      const settings = p.map_gen_settings?.autoplace_settings ?? {}
+      const tiles = new Set(Object.keys(settings.tile?.settings ?? {}))
+      const entities = Object.keys(settings.entity?.settings ?? {})
+      const plants = all(raw, 'plant').filter((plant) => list<string>(plant.autoplace?.tile_restriction).some((t) => tiles.has(t)))
+      const fish = entities.filter((e) => raw.fish?.[e]).map((e) => raw.fish[e])
+      return {
+        id: p.name,
+        name: name(p.name),
+        kind: 'planet' as const,
+        surface_properties: p.surface_properties ?? {},
+        resources: entities.filter((r) => resourceIds.has(r)).sort(),
+        fluids: [...new Set([...tiles].map((t) => raw.tile?.[t]?.fluid).filter((f) => f && fluidIds.has(f)))].sort() as string[],
+        gathered: [...new Set([...plants, ...fish].flatMap(minedItems))].sort() as string[],
+      }
+    }),
     ...all(raw, 'surface').map((p) => ({
       id: p.name,
       name: name(p.name),
       kind: 'platform' as const,
       surface_properties: p.surface_properties ?? {},
       resources: [],
+      fluids: [],
+      gathered: all(raw, 'asteroid-chunk')
+        .map((a) => a.name)
+        .filter((n: string) => itemIds.has(n))
+        .sort(),
     })),
   ]
 

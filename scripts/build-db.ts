@@ -196,7 +196,15 @@ export function writeDatabase(db: Database, data: GameData): void {
   }
   for (const b of data.belts) insert(db, 'belt', { id: b.id, name: b.name, speed: b.speed })
   for (const p of data.planets) {
-    insert(db, 'planet', { id: p.id, name: p.name, kind: p.kind, surface_properties: json(p.surface_properties), resources: json(p.resources) })
+    insert(db, 'planet', {
+      id: p.id,
+      name: p.name,
+      kind: p.kind,
+      surface_properties: json(p.surface_properties),
+      resources: json(p.resources),
+      fluids: json(p.fluids),
+      gathered: json(p.gathered),
+    })
   }
   for (const s of data.surface_properties) insert(db, 'surface_property', { id: s.id, name: s.name, default_value: s.default_value })
   for (const q of data.qualities) {

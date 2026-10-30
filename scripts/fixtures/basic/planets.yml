@@ -3,8 +3,12 @@
   kind: planet
   surface_properties: { pressure: 1000, gravity: 10 }
   resources: [iron-ore, copper-ore, coal, uranium-ore, crude-oil]
+  fluids: [water]
+  gathered: []
 - id: space-platform
   name: Space platform
   kind: platform
   surface_properties: { pressure: 0, gravity: 0 }
   resources: []
+  fluids: []
+  gathered: [iron-ore]
