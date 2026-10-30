@@ -7,6 +7,8 @@ import type { Fluid, GameData, Item, Machine, Recipe } from './types.ts'
 
 export interface Game {
   dataset: Manifest['datasets'][number]
+  // Every dataset the site has, for the version select.
+  datasets: Manifest['datasets']
   data: GameData
   icons?: IconAtlas & { url: string }
   items: Map<string, Item>
@@ -17,9 +19,10 @@ export interface Game {
 
 const byId = <T extends { id: string }>(list: T[]) => new Map(list.map((x) => [x.id, x]))
 
-export function createGame(dataset: Game['dataset'], data: GameData, icons?: IconAtlas): Game {
+export function createGame(dataset: Game['dataset'], data: GameData, icons?: IconAtlas, datasets: Game['datasets'] = [dataset]): Game {
   return {
     dataset,
+    datasets,
     data,
     icons: icons && dataset.icons ? { ...icons, url: dbUrl(dataset.icons) } : undefined,
     items: byId(data.items),
@@ -29,16 +32,33 @@ export function createGame(dataset: Game['dataset'], data: GameData, icons?: Ico
   }
 }
 
+// The newest Space Age dataset, else the newest of any.
+export function defaultDataset(datasets: Manifest['datasets']): Manifest['datasets'][number] | undefined {
+  const newest = (list: Manifest['datasets']) => [...list].sort((a, b) => b.version.localeCompare(a.version, 'en', { numeric: true }))[0]
+  return newest(datasets.filter((d) => d.id.startsWith('space-age-'))) ?? newest(datasets)
+}
+
+// Datasets stay in memory once loaded, so switching back is instant.
+const loaded = new Map<string, Promise<Game>>()
+let manifest: Promise<Manifest> | undefined
+
 export async function loadGame(datasetId?: string): Promise<Game> {
-  const manifest = await loadManifest()
-  const dataset = manifest.datasets.find((d) => d.id === datasetId) ?? manifest.datasets[0]
+  manifest ??= loadManifest()
+  const { datasets } = await manifest
+  const dataset = datasets.find((d) => d.id === datasetId) ?? defaultDataset(datasets)
   if (!dataset) throw new Error('No datasets in the manifest')
-  const db = await openDatabase(dataset.file)
-  try {
-    return createGame(dataset, loadGameData(db), loadIcons(db))
-  } finally {
-    db.close()
+  if (!loaded.has(dataset.id)) {
+    const game = openDatabase(dataset.file).then((db) => {
+      try {
+        return createGame(dataset, loadGameData(db), loadIcons(db), datasets)
+      } finally {
+        db.close()
+      }
+    })
+    game.catch(() => loaded.delete(dataset.id))
+    loaded.set(dataset.id, game)
   }
+  return loaded.get(dataset.id)!
 }
 
 const GameContext = createContext<Game | null>(null)
@@ -53,16 +73,21 @@ export function useGame(): Game {
   return game
 }
 
-export type LoadState = { status: 'loading' } | { status: 'ready'; game: Game } | { status: 'error'; error: string }
+export interface LoadState {
+  // The game on screen: while another dataset loads, the previous one stays.
+  game?: Game
+  loading: boolean
+  error?: string
+}
 
 export function useLoadGame(datasetId?: string): LoadState {
-  const [state, setState] = useState<LoadState>({ status: 'loading' })
+  const [state, setState] = useState<LoadState>({ loading: true })
   useEffect(() => {
     let cancelled = false
-    setState({ status: 'loading' })
+    setState((s) => ({ ...s, loading: true, error: undefined }))
     loadGame(datasetId).then(
-      (game) => !cancelled && setState({ status: 'ready', game }),
-      (error) => !cancelled && setState({ status: 'error', error: String(error) }),
+      (game) => !cancelled && setState({ game, loading: false }),
+      (error) => !cancelled && setState((s) => ({ ...s, loading: false, error: String(error) })),
     )
     return () => {
       cancelled = true

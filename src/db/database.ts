@@ -17,9 +17,12 @@ export async function loadManifest(): Promise<Manifest> {
   return (await fetchOk(dbUrl('manifest.json'))).json()
 }
 
+let sqlJs: ReturnType<typeof initSqlJs> | undefined
+
 export async function openDatabase(file: string): Promise<Database> {
+  sqlJs ??= initSqlJs({ locateFile: () => wasmUrl })
   const [SQL, buffer] = await Promise.all([
-    initSqlJs({ locateFile: () => wasmUrl }),
+    sqlJs,
     fetchOk(dbUrl(file)).then((response) => response.arrayBuffer()),
   ])
   return new SQL.Database(new Uint8Array(buffer))

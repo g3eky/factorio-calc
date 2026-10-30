@@ -19,7 +19,7 @@ import styles from './Planner.module.css'
 export type Update = (change: (calc: Calculation) => Calculation) => void
 
 // The calculator screen: targets on the left, the production chain on the right.
-export function Planner() {
+export function Planner({ onDataset, switching }: { onDataset: (id: string) => void; switching: boolean }) {
   const game = useGame()
   const [calc, setCalc] = usePersistentState(`factorio-calc:v1:calculation:${game.dataset.id}`, () => emptyCalculation(game), (v) =>
     isCalculation(v) ? { ...emptyCalculation(game), ...v } : undefined,
@@ -41,11 +41,21 @@ export function Planner() {
     <div className={styles.planner}>
       <header className={styles.header}>
         <h1 className={styles.title}>Factorio calculator</h1>
-        <span className={styles.dataset}>
-          {game.dataset.name} {game.dataset.version}
-        </span>
+        {game.datasets.length > 1 ? (
+          <Select
+            label="Game version"
+            value={game.dataset.id}
+            onChange={onDataset}
+            options={game.datasets.map((d) => ({ value: d.id, label: `${d.name} ${d.version}` }))}
+          />
+        ) : (
+          <span className={styles.dataset}>
+            {game.dataset.name} {game.dataset.version}
+          </span>
+        )}
+        {switching && <span className={styles.dataset}>Loading…</span>}
         <span className={styles.spacer} />
-        {game.data.planets.length > 0 && (
+        {game.data.planets.length > 1 && (
           <label className={styles.setting}>
             Build on
             <Select
