@@ -1,0 +1,29 @@
+.tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  max-width: 360px;
+  background: var(--color-tooltip);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.8), 0 4px 12px rgb(0 0 0 / 0.6);
+  pointer-events: none;
+  animation: appear var(--duration) var(--ease);
+}
+
+.title {
+  padding: 2px var(--space-2);
+  background: var(--color-tooltip-title-background);
+  color: var(--color-tooltip-title);
+  font-weight: 700;
+}
+
+.content {
+  padding: var(--space-1) var(--space-2) var(--space-2);
+  font-size: var(--font-size-small);
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+}
