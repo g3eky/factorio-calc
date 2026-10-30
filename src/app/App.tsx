@@ -1,31 +1,37 @@
-import { useEffect, useState } from 'react'
-import { loadManifest, openDatabase } from '../db/database.ts'
+import { lazy, Suspense } from 'react'
+import { GameProvider, useLoadGame } from '../db/GameProvider.tsx'
+import { Panel } from '../ui/Panel/Panel.tsx'
+import { Window } from '../ui/Window/Window.tsx'
 import styles from './App.module.css'
 
+// Dev-only component gallery at #/gallery; left out of production builds.
+const Gallery = import.meta.env.DEV ? lazy(() => import('../gallery/Gallery.tsx').then((m) => ({ default: m.Gallery }))) : null
+
 export function App() {
-  const [status, setStatus] = useState('Loading…')
+  const state = useLoadGame()
 
-  useEffect(() => {
-    let cancelled = false
-    ;(async () => {
-      const manifest = await loadManifest()
-      const dataset = manifest.datasets[0]
-      const db = await openDatabase(dataset.file)
-      const count = db.exec('SELECT COUNT(*) FROM item')[0].values[0][0]
-      db.close()
-      if (!cancelled) setStatus(`${dataset.name} ${dataset.version}: ${count} items loaded`)
-    })().catch((error) => {
-      if (!cancelled) setStatus(`Failed to load data: ${error}`)
-    })
-    return () => {
-      cancelled = true
-    }
-  }, [])
+  if (state.status !== 'ready') {
+    return (
+      <Window title="Factorio calculator" className={styles.status}>
+        <Panel>{state.status === 'loading' ? 'Loading game data…' : `Failed to load game data: ${state.error}`}</Panel>
+      </Window>
+    )
+  }
 
+  const { game } = state
   return (
-    <div className={styles.window}>
-      <h1 className={styles.title}>Factorio calculator</h1>
-      <div className={styles.panel}>{status}</div>
-    </div>
+    <GameProvider game={game}>
+      {Gallery && location.hash === '#/gallery' ? (
+        <Suspense>
+          <Gallery />
+        </Suspense>
+      ) : (
+        <Window title="Factorio calculator" className={styles.status}>
+          <Panel>
+            {game.dataset.name} {game.dataset.version}: {game.data.items.length} items loaded
+          </Panel>
+        </Window>
+      )}
+    </GameProvider>
   )
 }
