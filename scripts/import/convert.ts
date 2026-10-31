@@ -19,7 +19,7 @@ import type {
   SurfaceCondition,
 } from '../../src/db/types.ts'
 
-type Proto = Record<string, any>
+export type Proto = Record<string, any>
 export type Raw = Record<string, Record<string, Proto>>
 
 const ALL_EFFECTS: EffectName[] = ['speed', 'productivity', 'consumption', 'pollution', 'quality']

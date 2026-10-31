@@ -37,7 +37,7 @@ export const THEME_STYLES: Record<string, string> = {
 // paddings it inherits; its own side paddings then apply on top.
 export function resolveStyle(styles: Record<string, Proto>, name: string): Proto {
   const chain: Proto[] = []
-  for (let style = styles[name]; style; style = style.parent ? styles[style.parent] : undefined) chain.unshift(style)
+  for (let style: Proto | undefined = styles[name]; style; style = style.parent ? styles[style.parent] : undefined) chain.unshift(style)
   const out: Proto = {}
   for (const style of chain) {
     if (style.padding !== undefined) for (const side of ['top', 'right', 'bottom', 'left']) out[`${side}_padding`] = style.padding
