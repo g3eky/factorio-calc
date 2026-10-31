@@ -13,6 +13,16 @@
     <meta property="og:image" content="https://g3eky.github.io/factorio-calc/preview.png" />
   </head>
   <body>
+    <script>
+      // UI scale, before anything paints (src/settings/interface.ts keeps it up to date).
+      try {
+        const scale = JSON.parse(localStorage.getItem('factorio-calc:v1:interface'))?.uiScale
+        if ([0.75, 0.85, 1, 1.25, 1.5, 1.75, 2].includes(scale)) {
+          document.documentElement.style.zoom = scale
+          document.documentElement.style.setProperty('--ui-scale', scale)
+        }
+      } catch {}
+    </script>
     <div id="root">
       <!-- Shown until the app starts, in the same place as the app's header. Inline styles so it paints immediately. -->
       <div style="padding: 12px; font: 15px 'Titillium Web', sans-serif">

@@ -8,6 +8,7 @@ import { NumberInput } from './Input/Input.tsx'
 import { ItemPicker } from './ItemPicker/ItemPicker.tsx'
 import { Select } from './Select/Select.tsx'
 import { Slot } from './Slot/Slot.tsx'
+import { Slider } from './Slider/Slider.tsx'
 import { Tabs } from './Tabs/Tabs.tsx'
 
 let game: Game
@@ -109,4 +110,13 @@ test('slot tooltip appears after a short hover and goes away on leave', () => {
   fireEvent.pointerLeave(slot)
   expect(screen.queryByRole('tooltip')).toBeNull()
   vi.useRealTimers()
+})
+
+test('slider moves between its steps and reports the value', () => {
+  const onChange = vi.fn()
+  render(<Slider label="UI scale" steps={[0.75, 1, 1.5]} value={1} onChange={onChange} />)
+  const slider = screen.getByRole('slider', { name: 'UI scale' })
+  expect(slider.getAttribute('aria-valuetext')).toBe('1')
+  fireEvent.change(slider, { target: { value: '2' } })
+  expect(onChange).toHaveBeenCalledWith(1.5)
 })

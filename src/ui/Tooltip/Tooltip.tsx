@@ -1,5 +1,6 @@
 import { cloneElement, useEffect, useId, useRef, useState, type FocusEvent, type PointerEvent, type ReactElement, type ReactNode, type Ref } from 'react'
 import { createPortal } from 'react-dom'
+import { uiZoom } from '../zoom.ts'
 import styles from './Tooltip.module.css'
 
 interface Props {
@@ -24,12 +25,15 @@ export function Tooltip({ title, content, children }: Props) {
   const place = () => {
     const el = box.current
     if (!el) return
+    // Screen pixels; the box's own size and the final position are in zoomed CSS pixels.
+    const zoom = uiZoom()
     const { innerWidth, innerHeight } = window
+    const [width, height] = [el.offsetWidth * zoom, el.offsetHeight * zoom]
     let x = point.current.x + OFFSET
     let y = point.current.y + OFFSET
-    if (x + el.offsetWidth > innerWidth - 4) x = point.current.x - OFFSET - el.offsetWidth
-    if (y + el.offsetHeight > innerHeight - 4) y = Math.max(4, innerHeight - 4 - el.offsetHeight)
-    el.style.transform = `translate3d(${Math.max(4, x)}px, ${y}px, 0)`
+    if (x + width > innerWidth - 4) x = point.current.x - OFFSET - width
+    if (y + height > innerHeight - 4) y = Math.max(4, innerHeight - 4 - height)
+    el.style.transform = `translate3d(${Math.max(4, x) / zoom}px, ${y / zoom}px, 0)`
   }
 
   useEffect(() => {

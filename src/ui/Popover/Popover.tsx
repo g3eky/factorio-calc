@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
+import { uiZoom } from '../zoom.ts'
 import styles from './Popover.module.css'
 
 interface Props {
@@ -16,12 +17,15 @@ export function Popover({ anchor, title, onClose, children }: Props) {
   const box = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
+    // Screen pixels; the box's own size and the final position are in zoomed CSS pixels.
     const el = box.current!
+    const zoom = uiZoom()
     const rect = anchor.getBoundingClientRect()
-    const x = Math.max(4, Math.min(rect.left, window.innerWidth - el.offsetWidth - 4))
+    const [width, height] = [el.offsetWidth * zoom, el.offsetHeight * zoom]
+    const x = Math.max(4, Math.min(rect.left, window.innerWidth - width - 4))
     const below = rect.bottom + 4
-    const y = below + el.offsetHeight > window.innerHeight - 4 ? Math.max(4, rect.top - 4 - el.offsetHeight) : below
-    el.style.transform = `translate3d(${x}px, ${y}px, 0)`
+    const y = below + height > window.innerHeight - 4 ? Math.max(4, rect.top - 4 - height) : below
+    el.style.transform = `translate3d(${x / zoom}px, ${y / zoom}px, 0)`
     el.querySelector<HTMLElement>('button, input, [tabindex]')?.focus()
   }, [anchor])
 

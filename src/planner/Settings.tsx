@@ -12,19 +12,29 @@ import { Panel } from '../ui/Panel/Panel.tsx'
 import { ScrollPane } from '../ui/ScrollPane/ScrollPane.tsx'
 import { Select } from '../ui/Select/Select.tsx'
 import { Slot } from '../ui/Slot/Slot.tsx'
+import { Slider } from '../ui/Slider/Slider.tsx'
 import { Tabs } from '../ui/Tabs/Tabs.tsx'
+import { UI_SCALES, type InterfacePreferences } from '../settings/interface.ts'
 import { ModuleSetupEditor } from './ModuleSetupEditor.tsx'
 import { QualitySelect } from './QualitySelect.tsx'
 import styles from './Settings.module.css'
 
-type Tab = 'machines' | 'modules' | 'research' | 'recipes'
+type Tab = 'machines' | 'modules' | 'research' | 'recipes' | 'interface'
 type SetPrefs = (change: (prefs: Preferences) => Preferences) => void
 
 // "crafting-with-fluid" -> "Crafting with fluid"
 const label = (id: string) => id.charAt(0).toUpperCase() + id.slice(1).replace(/-/g, ' ')
 
 // Defaults for every calculation. Changes apply and save immediately, like the game's settings.
-export function Settings({ prefs, setPrefs, onClose }: { prefs: Preferences; setPrefs: SetPrefs; onClose: () => void }) {
+interface Props {
+  prefs: Preferences
+  setPrefs: SetPrefs
+  ui: InterfacePreferences
+  setUi: (ui: InterfacePreferences) => void
+  onClose: () => void
+}
+
+export function Settings({ prefs, setPrefs, ui, setUi, onClose }: Props) {
   const game = useGame()
   const [tab, setTab] = useState<Tab>('machines')
   const [message, setMessage] = useState<string>()
@@ -61,6 +71,7 @@ export function Settings({ prefs, setPrefs, onClose }: { prefs: Preferences; set
           { id: 'modules', label: 'Modules' },
           { id: 'research', label: 'Research' },
           { id: 'recipes', label: 'Recipes' },
+          { id: 'interface', label: 'Interface' },
         ]}
       />
       <Panel className={styles.page}>
@@ -69,6 +80,7 @@ export function Settings({ prefs, setPrefs, onClose }: { prefs: Preferences; set
           {tab === 'modules' && <ModulesTab prefs={prefs} setPrefs={setPrefs} />}
           {tab === 'research' && <ResearchTab prefs={prefs} setPrefs={setPrefs} />}
           {tab === 'recipes' && <RecipesTab prefs={prefs} setPrefs={setPrefs} />}
+          {tab === 'interface' && <InterfaceTab ui={ui} setUi={setUi} />}
         </ScrollPane>
       </Panel>
       <div className={styles.footer}>
@@ -234,6 +246,21 @@ function RecipesTab({ prefs, setPrefs }: { prefs: Preferences; setPrefs: SetPref
           />
         )
       })}
+    </div>
+  )
+}
+
+// Settings for this device, for every game version: laid out like the game's interface settings.
+function InterfaceTab({ ui, setUi }: { ui: InterfacePreferences; setUi: (ui: InterfacePreferences) => void }) {
+  return (
+    <div className={styles.rows}>
+      <strong className={styles.section}>Scale</strong>
+      <div className={styles.row}>
+        <span className={styles.rowLabel}>UI scale</span>
+        <Slider label="UI scale" steps={UI_SCALES} value={ui.uiScale} onChange={(uiScale) => setUi({ ...ui, uiScale })} />
+        <output className={styles.value}>{Math.round(ui.uiScale * 100)}%</output>
+      </div>
+      <p className={styles.note}>Makes everything bigger or smaller, like the game's UI scale. Saved on this device for every game version.</p>
     </div>
   )
 }

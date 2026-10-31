@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react
 import type { SolveResult } from '../calculator/types.ts'
 import { useSolver } from '../calculator/useSolver.ts'
 import { useGame } from '../db/GameProvider.tsx'
+import { applyUiScale, defaultInterface, INTERFACE_KEY, readInterface } from '../settings/interface.ts'
 import { defaultPreferences, migrate } from '../settings/preferences.ts'
 import { usePersistentState } from '../settings/storage.ts'
 import { Button } from '../ui/Button/Button.tsx'
@@ -43,6 +44,8 @@ export function Planner({ onDataset, switching }: { onDataset: (id: string) => v
     isCalculation(v) ? { ...emptyCalculation(game), ...v } : undefined,
   )
   const [prefs, setPrefs] = usePersistentState(`factorio-calc:v1:preferences:${game.dataset.id}`, defaultPreferences, migrate)
+  const [ui, setUi] = usePersistentState(INTERFACE_KEY, defaultInterface, readInterface)
+  useEffect(() => applyUiScale(ui.uiScale), [ui.uiScale])
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [aboutOpen, setAboutOpen] = useState(false)
   const closeAbout = useCallback(() => setAboutOpen(false), [])
@@ -108,7 +111,7 @@ export function Planner({ onDataset, switching }: { onDataset: (id: string) => v
         <Button onClick={() => setAboutOpen(true)}>About</Button>
       </header>
       {aboutOpen && <About onClose={closeAbout} />}
-      {settingsOpen && <Settings prefs={prefs} setPrefs={setPrefs} onClose={closeSettings} />}
+      {settingsOpen && <Settings prefs={prefs} setPrefs={setPrefs} ui={ui} setUi={setUi} onClose={closeSettings} />}
       <Targets calc={calc} update={setCalc} />
       <main className={styles.main}>
         {error && (
