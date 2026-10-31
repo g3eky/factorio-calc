@@ -4,3 +4,6 @@ dist/
 Thumbs.db
 *.swp
 *~
+
+# Reference screenshots of the game (Wube's art; local only, see docs/plans/11-game-theme.md).
+screenshots/
