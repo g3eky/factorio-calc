@@ -1,9 +1,10 @@
+/* Game scrollbars: a grey thumb in a dark recessed track; orange when hovered (11). */
 .pane {
   min-height: 0;
   overflow: auto;
-  scrollbar-gutter: stable;
   overscroll-behavior: contain;
-  scrollbar-color: var(--color-button) var(--color-panel-deep);
+  scrollbar-gutter: stable;
+  scrollbar-color: var(--color-button) var(--color-well);
   scrollbar-width: thin;
 }
 
@@ -13,13 +14,14 @@
 }
 
 .pane::-webkit-scrollbar-track {
-  background: var(--color-panel-deep);
+  background: var(--color-well);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.6);
 }
 
 .pane::-webkit-scrollbar-thumb {
-  border: 2px solid var(--color-panel-deep);
+  border: 2px solid var(--color-well);
   border-radius: var(--radius);
-  background: var(--color-button);
+  background: linear-gradient(90deg, var(--color-button-light), var(--color-button) 2px, var(--color-button-dark));
 }
 
 .pane::-webkit-scrollbar-thumb:hover {

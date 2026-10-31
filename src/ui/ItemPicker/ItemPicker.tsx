@@ -132,6 +132,10 @@ export function ItemPicker({ onPick, filter, selected }: Props) {
           <ScrollPane ref={grid} className={styles.grid} role="group" aria-label={current.name} onKeyDown={onGridKeyDown}>
             {current.rows.map((row) => (
               <div key={`${row[0].kind}/${row[0].id}`} className={styles.row}>
+                {/* Empty cells fill the row to whole lines of ten, as in the game. */}
+                {Array.from({ length: (10 - (row.length % 10)) % 10 }, (_, i) => (
+                  <span key={`empty-${i}`} className={styles.empty} style={{ order: 1 }} />
+                ))}
                 {row.map((entry) => (
                   <Slot
                     key={`${entry.kind}/${entry.id}`}

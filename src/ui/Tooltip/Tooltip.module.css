@@ -1,25 +1,38 @@
+/* game.css: tooltip_label (max 356 px wide), tooltip_title_label (bold). A cream title bar with dark
+   bold text over a dark body; sections are separated by lines (6). */
 .tooltip {
+  display: flex;
+  flex-direction: column;
+  min-width: var(--game-tooltip-label-min-width);
+  max-width: calc(var(--game-tooltip-label-max-width) + 2 * var(--space-3));
+  background: var(--color-tooltip);
+  box-shadow: 0 0 0 1px #000, 0 4px 12px rgb(0 0 0 / 0.6);
+  color: var(--game-tooltip-label-color);
+  font-size: var(--game-tooltip-label-font-size);
+}
+
+.floating {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
-  max-width: 360px;
-  background: var(--color-tooltip);
-  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.8), 0 4px 12px rgb(0 0 0 / 0.6);
   pointer-events: none;
   animation: appear var(--duration) var(--ease);
 }
 
 .title {
-  padding: 2px var(--space-2);
+  padding: 3px var(--space-3);
   background: var(--color-tooltip-title-background);
+  box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.25);
   color: var(--color-tooltip-title);
-  font-weight: 700;
+  font-weight: var(--game-tooltip-title-font-weight);
 }
 
 .content {
-  padding: var(--space-1) var(--space-2) var(--space-2);
-  font-size: var(--font-size-small);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
 }
 
 @keyframes appear {

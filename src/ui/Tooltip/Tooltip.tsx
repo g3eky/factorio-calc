@@ -1,4 +1,4 @@
-import { cloneElement, useEffect, useId, useRef, useState, type FocusEvent, type PointerEvent, type ReactElement, type ReactNode } from 'react'
+import { cloneElement, useEffect, useId, useRef, useState, type FocusEvent, type PointerEvent, type ReactElement, type ReactNode, type Ref } from 'react'
 import { createPortal } from 'react-dom'
 import styles from './Tooltip.module.css'
 
@@ -71,12 +71,22 @@ export function Tooltip({ title, content, children }: Props) {
       {child}
       {open &&
         createPortal(
-          <div ref={box} id={id} role="tooltip" className={styles.tooltip}>
-            <div className={styles.title}>{title}</div>
-            {content && <div className={styles.content}>{content}</div>}
-          </div>,
+          <TooltipBox ref={box} id={id} title={title} floating>
+            {content}
+          </TooltipBox>,
           document.body,
         )}
     </>
+  )
+}
+
+// The tooltip's look: a cream title bar over a dark body (6). Floating ones follow the pointer;
+// the gallery shows static ones.
+export function TooltipBox({ title, children, floating, id, ref }: { title: ReactNode; children?: ReactNode; floating?: boolean; id?: string; ref?: Ref<HTMLDivElement> }) {
+  return (
+    <div ref={ref} id={id} role="tooltip" className={floating ? `${styles.tooltip} ${styles.floating}` : styles.tooltip}>
+      <div className={styles.title}>{title}</div>
+      {children && <div className={styles.content}>{children}</div>}
+    </div>
   )
 }

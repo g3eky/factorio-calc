@@ -2,28 +2,34 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  width: calc(10 * var(--slot-size) + 9 * 2px + 2 * var(--space-1) + 12px);
+  width: calc(10 * var(--slot-size) + 12px);
 }
 
 .search {
   width: 100%;
 }
 
-/* Fixed height, so switching groups never moves anything; long groups scroll. */
+/* Fixed height, so switching groups never moves anything; long groups scroll. Slots sit flush
+   in a dark well, a row per subgroup, like Factoriopedia (9). */
 .grid {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  height: calc(10 * var(--slot-size) + 9 * 2px + 2 * var(--space-1));
-  padding: var(--space-1);
-  background: var(--color-panel-deep);
+  height: calc(10 * var(--slot-size));
+  background: var(--color-well);
   box-shadow: var(--bevel-inset);
 }
 
 .row {
   display: grid;
   grid-template-columns: repeat(10, var(--slot-size));
-  gap: 2px;
+}
+
+.row > .empty {
+  width: var(--slot-size);
+  height: var(--slot-size);
+  border-radius: var(--radius);
+  background: var(--color-slot-empty);
+  box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.6), 0 0 0 1px #0f0e0e;
 }
 
 .empty {

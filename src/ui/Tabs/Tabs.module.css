@@ -1,45 +1,55 @@
+/* game.css: tab (min 84 px wide, bold) and filter_group_tab (72 px tall). Unselected tabs are
+   grey buttons; the selected one is dark and joins the panel below, with cream text (6, 9). */
 .tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 2px;
+  align-items: flex-end;
+  gap: 0;
 }
 
 .tab {
+  min-width: var(--game-tab-min-width);
   min-height: var(--control-height);
-  padding: 0 var(--space-3);
+  padding: var(--game-tab-padding);
   border: 0;
   border-radius: var(--radius) var(--radius) 0 0;
-  background: var(--color-panel-deep);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08);
-  color: var(--color-text);
+  background: linear-gradient(var(--color-button-light), var(--color-button) 3px);
+  box-shadow: 0 0 0 1px #0a0a0a;
+  color: var(--game-tab-color);
   font: inherit;
-  font-weight: 600;
+  font-size: var(--game-tab-font-size);
+  font-weight: var(--game-tab-font-weight);
+  line-height: 1;
   cursor: pointer;
 }
 
 .tab:hover,
 .tab:focus-visible {
   outline: none;
-  background: var(--color-slot-light);
-  color: var(--color-slot-hover);
+  background: linear-gradient(var(--color-button-hover-light), var(--color-button-hover) 3px);
 }
 
 .selected,
 .selected:hover {
+  z-index: 1;
+  padding-bottom: calc(9px + 4px);
   background: var(--color-panel);
-  color: var(--color-heading);
+  box-shadow: 0 0 0 1px #0a0a0a, inset 0 1px 0 #4f4d4e;
+  color: var(--game-tab-selected-color);
 }
 
+/* Item group tabs: six to a row, like the game's crafting menu and Factoriopedia (6, 9). */
 .large .tab {
   display: grid;
   place-items: center;
-  width: 64px;
-  height: 64px;
-  padding: 0;
-  border-radius: var(--radius);
+  flex: 0 0 calc(100% / 6);
+  min-width: var(--game-group-tab-min-width);
+  height: var(--game-group-tab-height);
+  padding: var(--game-group-tab-padding);
+  border-radius: 0;
 }
 
 .large .selected {
-  background: var(--color-button);
-  box-shadow: var(--bevel-button);
+  padding: var(--game-group-tab-padding);
+  background: var(--color-panel);
 }

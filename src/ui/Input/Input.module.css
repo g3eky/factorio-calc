@@ -1,27 +1,34 @@
+/* game.css: textbox (28 px tall, 14 px black text). A grey recessed field (18). */
 .input {
   min-width: 0;
-  height: var(--control-height);
-  padding: 0 var(--space-2);
+  height: var(--game-textbox-min-height);
+  padding: var(--game-textbox-padding);
+  padding-inline: var(--space-2);
   border: 0;
   border-radius: var(--radius);
   background: var(--color-input);
-  box-shadow: inset 0 2px 2px rgb(0 0 0 / 0.35);
-  color: var(--color-text-dark);
+  box-shadow: inset 0 2px 2px rgb(0 0 0 / 0.45), 0 0 0 1px #0a0a0a;
+  color: var(--game-textbox-color);
   font: inherit;
+  font-size: var(--game-textbox-font-size);
+}
+
+.input::placeholder {
+  color: #3a3a3a;
 }
 
 .input:focus {
   outline: none;
   background: var(--color-input-focus);
-  box-shadow: inset 0 2px 2px rgb(0 0 0 / 0.35), 0 0 0 2px var(--color-slot-hover);
+  box-shadow: inset 0 2px 2px rgb(0 0 0 / 0.45), 0 0 0 1px #0a0a0a, 0 0 6px 1px var(--color-glow);
 }
 
 .number {
   width: 80px;
-  text-align: right;
+  text-align: center;
 }
 
 .invalid,
 .invalid:focus {
-  box-shadow: inset 0 2px 2px rgb(0 0 0 / 0.35), 0 0 0 2px var(--color-danger);
+  box-shadow: inset 0 2px 2px rgb(0 0 0 / 0.45), 0 0 0 2px var(--color-danger);
 }

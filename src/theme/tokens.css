@@ -1,57 +1,76 @@
-/* Colours, bevels, sizes and motion taken from Factorio's in-game menus. */
+/* Colours and sizes of Factorio's menus. Sizes, fonts and font colours come from the game's
+   styles (game.css, generated). Surface colours are sampled from reference screenshots of the
+   game (screenshots/, see docs/plans/11-game-theme.md); the number in each comment is the
+   screenshot they came from. */
 :root {
   --font: 'Titillium Web', sans-serif;
-  --font-size: 15px;
-  --font-size-small: 13px;
-  --font-size-heading: 17px;
+  --font-size: var(--game-label-font-size, 14px);
+  --font-size-small: 12px;
+  --font-size-heading: var(--game-frame-title-font-size, 18px);
 
   /* Text */
   --color-text: #ffffff;
+  /* Lighter than the game's dimmed text, for 4.5:1 contrast on panels. */
   --color-text-muted: #b8b8b8;
   --color-text-dark: #000000;
-  --color-heading: #ffe6c0;
+  --color-heading: #ffe6c0; /* game.css: frame_title, caption_label */
   --color-link: #ffa200;
 
   /* Surfaces */
   --color-background: #1b1a1b;
-  --color-frame: #313031;
-  --color-frame-light: #4b4a4b;
-  --color-frame-dark: #121112;
-  --color-panel: #403f40;
-  --color-panel-deep: #242324;
+  --color-frame: #2e2c2d; /* 2, 6, 18: window */
+  --color-frame-light: #4a4849; /* window top edge */
+  --color-frame-dark: #0c0b0b; /* window outline */
+  --color-panel: #3f3d3e; /* 6, 18: inside shallow frame, selected tab */
+  --color-panel-deep: #201e1f; /* 6, 18: inside deep frame, subheader */
+  --color-well: #1b1a1b; /* 2, 6: behind slot grids and buttons */
 
   /* Buttons */
-  --color-button: #8e8e8e;
-  --color-button-light: #b1b1b1;
-  --color-button-dark: #5c5c5c;
-  --color-button-hover: #f9b44b;
-  --color-button-pressed: #e58e14;
-  --color-confirm: #5eb663;
-  --color-confirm-hover: #8ee193;
-  --color-danger: #e23a3a;
-  --color-danger-hover: #ff6d6d;
-  --color-selected: #ffa200;
+  --color-button: #8f8f8f; /* 2: face */
+  --color-button-light: #c1c1c1; /* 2: top edge */
+  --color-button-dark: #6d6d6d; /* 2: bottom edge */
+  --color-button-hover: #e49921; /* 2: hovered face */
+  --color-button-hover-light: #f6c77d;
+  --color-button-hover-dark: #a96a10;
+  --color-button-pressed: #f0a42a;
+  --color-button-disabled: #6a6a6a;
+  --color-confirm: #5db763; /* 2: green face */
+  --color-confirm-light: #9fdca2;
+  --color-confirm-dark: #3b8a41;
+  --color-confirm-hover: #7fd085;
+  --color-danger: #fe5b5a; /* 2: red face */
+  --color-danger-light: #ffa3a2;
+  --color-danger-dark: #c23736;
+  --color-danger-hover: #ff7f7e;
+  --color-selected: #fca100; /* 4, 18: hovered slot, slider fill, checked box */
+  --color-glow: rgb(255 166 40 / 0.55); /* 2, 4: hover glow */
 
   /* Slots */
-  --color-slot: #2f2e2f;
-  --color-slot-light: #4e4d4e;
-  --color-slot-hover: #ffb84d;
+  --color-slot: #353334; /* 6: item slot face */
+  --color-slot-light: #4b494a; /* 6: item slot top edge */
+  --color-slot-dark: #161515;
+  --color-slot-empty: #201e1f; /* 6: empty slot cell */
+  --color-slot-red: #491e1e; /* 6: slot that can't be crafted */
+  --color-slot-hover: #fca100;
 
   /* Inputs */
-  --color-input: #e1e1e1;
-  --color-input-focus: #ffffff;
+  --color-input: #8b8b8b; /* 18: text field */
+  --color-input-focus: #b5b5b5;
+  --color-groove: #0e0e0e; /* 18: slider groove */
 
   /* Tooltips */
-  --color-tooltip: rgb(31 30 31 / 0.96);
-  --color-tooltip-title: #ffe6c0;
-  --color-tooltip-title-background: #424142;
+  --color-tooltip: #1a191a; /* 6: tooltip body */
+  --color-tooltip-title: #1c1c1c; /* 6: dark text on the title bar */
+  --color-tooltip-title-background: #e4cfad; /* 6: tooltip title bar */
+  --color-tooltip-line: #3b3938; /* 6: line between tooltip sections */
 
-  /* Bevels: outset for raised things (frames, buttons), inset for wells (panels, slots). */
-  --bevel-outset: inset 0 1px 0 var(--color-frame-light), inset 0 -1px 0 var(--color-frame-dark), 0 2px 6px rgb(0 0 0 / 0.5);
-  --bevel-inset: inset 0 2px 3px rgb(0 0 0 / 0.6), inset 0 -1px 0 rgb(255 255 255 / 0.06);
-  --bevel-button: inset 0 1px 0 rgb(255 255 255 / 0.45), inset 0 -2px 0 rgb(0 0 0 / 0.35), 0 1px 2px rgb(0 0 0 / 0.6);
-  --bevel-button-pressed: inset 0 2px 2px rgb(0 0 0 / 0.45);
-  --bevel-slot: inset 0 1px 0 rgb(255 255 255 / 0.1), inset 0 -1px 0 rgb(0 0 0 / 0.5), 0 0 0 1px rgb(0 0 0 / 0.6);
+  /* Bevels */
+  --bevel-outset: inset 0 1px 0 var(--color-frame-light), inset 0 -1px 0 #1a1919, 0 0 0 1px var(--color-frame-dark), 0 3px 8px rgb(0 0 0 / 0.55);
+  --bevel-shallow: 0 0 0 1px #151414, inset 0 1px 0 #4f4d4e, inset 0 -1px 0 #2c2a2b;
+  --bevel-inset: inset 0 2px 3px rgb(0 0 0 / 0.65), 0 1px 0 rgb(255 255 255 / 0.06), 0 0 0 1px #111010;
+  --bevel-button: 0 0 0 1px #0a0a0a, 0 1px 2px rgb(0 0 0 / 0.5);
+  --bevel-button-pressed: 0 0 0 1px #0a0a0a, inset 0 2px 2px rgb(0 0 0 / 0.35);
+  --bevel-slot: inset 0 1px 0 var(--color-slot-light), inset 0 -1px 0 var(--color-slot-dark), 0 0 0 1px #0f0e0e;
   --text-outline: 0 0 2px #000, 0 0 2px #000, 1px 1px 1px #000;
 
   /* Spacing and sizes */
@@ -59,10 +78,10 @@
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
-  --slot-size: 40px;
+  --slot-size: var(--game-slot-width, 40px);
   --icon-size: 32px;
-  --control-height: 28px;
-  --radius: 2px;
+  --control-height: var(--game-button-min-height, 28px);
+  --radius: 3px;
 
   /* Motion. Only transform and opacity are animated. */
   --duration-fast: 80ms;

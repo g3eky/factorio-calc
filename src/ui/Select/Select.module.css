@@ -1,7 +1,8 @@
+/* game.css: dropdown (min 116 x 28). A grey button face with the value and a dark arrow (18). */
 .select {
   position: relative;
   display: inline-block;
-  min-width: 140px;
+  min-width: var(--game-dropdown-min-width);
 }
 
 .button {
@@ -9,15 +10,15 @@
   align-items: center;
   gap: var(--space-2);
   width: 100%;
-  height: var(--control-height);
-  padding: 0 var(--space-2);
+  height: var(--game-dropdown-min-height);
+  padding: var(--game-dropdown-padding);
   border: 0;
   border-radius: var(--radius);
-  background: linear-gradient(var(--color-button-light), var(--color-button) 40%, var(--color-button-dark));
+  background: linear-gradient(var(--color-button-light), var(--color-button) 3px, var(--color-button) calc(100% - 2px), var(--color-button-dark));
   box-shadow: var(--bevel-button);
   color: var(--color-text-dark);
   font: inherit;
-  font-weight: 600;
+  font-weight: 400;
   text-align: left;
   cursor: pointer;
 }
@@ -25,7 +26,8 @@
 .button:hover,
 .button:focus-visible {
   outline: none;
-  background: linear-gradient(#ffd38f, var(--color-button-hover) 40%, #d9922b);
+  background: linear-gradient(var(--color-button-hover-light), var(--color-button-hover) 3px, var(--color-button-hover) calc(100% - 2px), var(--color-button-hover-dark));
+  box-shadow: var(--bevel-button), 0 0 6px 1px var(--color-glow);
 }
 
 .value {
@@ -66,7 +68,7 @@
   padding: 2px;
   overflow: auto;
   list-style: none;
-  background: var(--color-panel-deep);
+  background: var(--color-frame);
   box-shadow: 0 0 0 1px #000, 0 4px 12px rgb(0 0 0 / 0.6);
   animation: drop var(--duration) var(--ease);
 }
