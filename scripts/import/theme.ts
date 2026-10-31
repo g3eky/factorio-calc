@@ -6,6 +6,12 @@ import type { Proto, Raw } from './convert.ts'
 
 // CSS name -> game style name. Only the styles the site uses.
 export const THEME_STYLES: Record<string, string> = {
+  // Spacing: rows and columns of things, title bars, padded panels, tables, dialog buttons.
+  flow: 'vertical_flow',
+  header: 'frame_header_flow',
+  'padded-frame': 'inside_shallow_frame_with_padding',
+  table: 'table',
+  'dialog-buttons': 'dialog_buttons_horizontal_flow',
   label: 'label',
   caption: 'caption_label',
   'frame-title': 'frame_title',
@@ -101,7 +107,7 @@ export function themeCss(raw: Raw): string {
     if (sides.some((p) => p !== undefined)) set('padding', sides.map((p) => px(Math.max(0, p ?? 0))).join(' '))
     set('pressed-offset', s.clicked_vertical_offset !== undefined ? px(s.clicked_vertical_offset) : undefined)
     set('text-gap', s.text_padding !== undefined ? px(s.text_padding) : undefined)
-    const spacing = s.vertical_flow_style?.vertical_spacing ?? s.horizontal_flow_style?.horizontal_spacing
+    const spacing = s.vertical_spacing ?? s.horizontal_spacing ?? s.vertical_flow_style?.vertical_spacing ?? s.horizontal_flow_style?.horizontal_spacing
     set('spacing', spacing !== undefined ? px(spacing) : undefined)
   }
 

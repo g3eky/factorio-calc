@@ -34,6 +34,10 @@ test.each([
   ['--game-slot-width', '40px'],
   ['--game-tab-selected-color', 'rgb(255 230 192)'],
   ['--game-back-button-font-size', '18px'],
+  ['--game-flow-spacing', '4px'],
+  ['--game-header-spacing', '8px'],
+  ['--game-padded-frame-padding', '12px 12px 12px 12px'],
+  ['--game-frame-action-button-width', '24px'],
 ])('game.css: %s is %s', (name, value) => {
   expect(css).toContain(`${name}: ${value};`)
 })
