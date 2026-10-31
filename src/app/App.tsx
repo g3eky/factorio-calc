@@ -8,6 +8,8 @@ import styles from './App.module.css'
 
 // Dev-only component gallery at #/gallery; left out of production builds.
 const Gallery = import.meta.env.DEV ? lazy(() => import('../gallery/Gallery.tsx').then((m) => ({ default: m.Gallery }))) : null
+// Dev-only comparison with screenshots of the game at #/compare.
+const CompareGallery = import.meta.env.DEV ? lazy(() => import('../gallery/CompareGallery.tsx').then((m) => ({ default: m.CompareGallery }))) : null
 
 export function App() {
   // The chosen game version; empty means the newest Space Age.
@@ -38,6 +40,10 @@ export function App() {
       {Gallery && location.hash === '#/gallery' ? (
         <Suspense>
           <Gallery />
+        </Suspense>
+      ) : CompareGallery && location.hash === '#/compare' ? (
+        <Suspense>
+          <CompareGallery />
         </Suspense>
       ) : (
         // Keyed by dataset so each version gets its own saved calculation and settings.
