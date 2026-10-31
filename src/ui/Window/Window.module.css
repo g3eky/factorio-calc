@@ -9,12 +9,13 @@
   box-shadow: var(--bevel-outset);
 }
 
+/* game.css: frame_header_flow (8 px between title, handle and buttons; 4 px below). */
 .titleBar {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  min-height: 32px;
-  margin-bottom: var(--space-1);
+  gap: var(--game-header-spacing);
+  min-height: var(--game-frame-action-button-height);
+  padding: var(--game-header-padding);
 }
 
 .title {
@@ -29,7 +30,7 @@
 .filler {
   flex: 1;
   align-self: center;
-  height: 24px;
+  height: var(--game-frame-action-button-height);
   border-radius: 2px;
   background: repeating-linear-gradient(90deg, #252324 0 1px, #3a3839 1px 2px, #2b292a 2px 3px);
   box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.6);

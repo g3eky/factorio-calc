@@ -1,14 +1,13 @@
 .totals {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
+  gap: var(--game-header-spacing);
 }
 
 .section {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
-  padding: var(--space-2);
+  gap: var(--game-flow-spacing);
 }
 
 .section h3 {
@@ -18,10 +17,10 @@
   font-weight: 700;
 }
 
+/* Slots sit flush, like the game's slot tables. */
 .slots {
   display: flex;
   flex-wrap: wrap;
-  gap: 2px;
 }
 
 .power {

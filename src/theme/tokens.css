@@ -83,6 +83,15 @@
   --control-height: var(--game-button-min-height, 28px);
   --radius: 3px;
 
+  /* Layers, lowest to highest. Everything that overlaps uses one of these. */
+  --z-raised: 1; /* hovered slot, selected tab: above their neighbours */
+  --z-sticky: 2; /* table headers, above scrolling rows */
+  --z-modal: 400; /* settings and about windows */
+  --z-popover: 500; /* item picker and row editors, also from inside a modal */
+  --z-dropdown: 600; /* drop-down lists, also from inside a popover or modal */
+  --z-notice: 700; /* "new version" notice */
+  --z-tooltip: 1000; /* tooltips, above everything */
+
   /* Motion. Only transform and opacity are animated. */
   --duration-fast: 80ms;
   --duration: 150ms;

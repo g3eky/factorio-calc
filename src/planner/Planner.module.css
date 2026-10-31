@@ -15,8 +15,9 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-1) var(--space-3);
+  gap: var(--game-header-spacing);
+  padding: var(--game-frame-padding);
+  border-radius: var(--radius);
   background: var(--color-frame);
   box-shadow: var(--bevel-outset);
 }

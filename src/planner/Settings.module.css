@@ -12,7 +12,7 @@
 .rows {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--game-flow-spacing);
   padding-right: var(--space-2);
 }
 
@@ -66,10 +66,12 @@
   align-self: flex-start;
 }
 
+/* game.css: dialog_buttons_horizontal_flow. */
 .footer {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--game-dialog-buttons-spacing);
+  padding: var(--game-dialog-buttons-padding);
 }
 
 .message {

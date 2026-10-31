@@ -27,6 +27,10 @@ Font: Titillium Web (the game's font), self-hosted (`src/theme/fonts/`, SIL Open
 
 Icons come from the dataset's atlas through `<Icon kind id />`. Recipes without their own icon show their main product; anything without an icon shows its initials.
 
+**Spacing** follows the game's flows, also in `game.css`: 4 px between items in a row or column (`--game-flow-spacing`), 8 px in title bars and between dialog buttons (`--game-header-spacing`, `--game-dialog-buttons-spacing`), 12 px padding inside section panels (`--game-padded-frame-padding`), and no gaps in slot grids.
+
+**Layers:** anything that overlaps uses the z-index tokens in `tokens.css`, lowest to highest: raised (hovered slot, selected tab), sticky (table headers), modal, popover, dropdown, notice, tooltip. Drop-down lists, popovers, modals and tooltips render at the end of `<body>`, so no panel's scrolling or clipping can hide them; drop-down lists follow their button when something scrolls.
+
 **UI scale:** Settings → Interface. CSS `zoom` on the root, with `--ui-scale` set alongside. Anything positioned from pointer or viewport coordinates must divide by `uiZoom()` (`src/ui/zoom.ts`), and full-height layouts use `calc(100vh / var(--ui-scale, 1))`.
 
 ## Motion and smoothness

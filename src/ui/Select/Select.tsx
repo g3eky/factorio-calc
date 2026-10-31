@@ -1,4 +1,6 @@
-import { useEffect, useId, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
+import { useEffect, useId, useLayoutEffect, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
+import { createPortal } from 'react-dom'
+import { uiZoom } from '../zoom.ts'
 import { cx } from '../cx.ts'
 import styles from './Select.module.css'
 
@@ -11,21 +13,47 @@ interface Props<T extends string> {
 }
 
 // A game-style drop-down. Keyboard: arrows, Home/End, Enter or Space to pick, Escape to close.
+// The list opens in the drop-down layer, outside the page's panels, so scrolling panels can't clip
+// it; it sits under the button (or above, if there's no room) and follows it when things scroll.
 export function Select<T extends string>({ value, options, onChange, label, className }: Props<T>) {
   const id = useId()
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState(0)
   const root = useRef<HTMLDivElement>(null)
   const button = useRef<HTMLButtonElement>(null)
+  const list = useRef<HTMLUListElement>(null)
   const selectedIndex = Math.max(0, options.findIndex((o) => o.value === value))
 
   useEffect(() => {
     if (!open) return
     const close = (e: PointerEvent) => {
-      if (!root.current?.contains(e.target as Node)) setOpen(false)
+      if (!root.current?.contains(e.target as Node) && !list.current?.contains(e.target as Node)) setOpen(false)
     }
     document.addEventListener('pointerdown', close)
     return () => document.removeEventListener('pointerdown', close)
+  }, [open])
+
+  useLayoutEffect(() => {
+    if (!open) return
+    // Screen pixels in, zoomed CSS pixels out (see ../zoom.ts).
+    const place = () => {
+      const el = list.current
+      const anchor = button.current?.getBoundingClientRect()
+      if (!el || !anchor) return
+      const zoom = uiZoom()
+      const height = el.offsetHeight * zoom
+      const below = anchor.bottom + 2
+      const y = below + height > window.innerHeight - 4 && anchor.top - 2 - height > 4 ? anchor.top - 2 - height : below
+      el.style.minWidth = `${anchor.width / zoom}px`
+      el.style.transform = `translate3d(${anchor.left / zoom}px, ${y / zoom}px, 0)`
+    }
+    place()
+    window.addEventListener('resize', place)
+    window.addEventListener('scroll', place, true)
+    return () => {
+      window.removeEventListener('resize', place)
+      window.removeEventListener('scroll', place, true)
+    }
   }, [open])
 
   const openList = () => {
@@ -80,8 +108,9 @@ export function Select<T extends string>({ value, options, onChange, label, clas
         </span>
         <span className={styles.arrow} aria-hidden />
       </button>
-      {open && (
-        <ul id={id} role="listbox" aria-label={label} className={styles.list}>
+      {open &&
+        createPortal(
+        <ul ref={list} id={id} role="listbox" aria-label={label} className={styles.list}>
           {options.map((option, i) => (
             <li
               key={option.value}
@@ -95,8 +124,9 @@ export function Select<T extends string>({ value, options, onChange, label, clas
               {option.label}
             </li>
           ))}
-        </ul>
-      )}
+        </ul>,
+          document.body,
+        )}
     </div>
   )
 }

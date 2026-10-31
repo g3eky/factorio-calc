@@ -6,7 +6,7 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--game-flow-spacing);
   max-height: calc(100vh / var(--ui-scale, 1) - 160px);
 }
 
@@ -18,8 +18,8 @@
 .target {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2);
+  gap: var(--game-header-spacing);
+  padding: var(--game-padded-frame-padding);
   animation: appear var(--duration) var(--ease);
 }
 
@@ -27,7 +27,7 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--game-flow-spacing);
   min-width: 0;
 }
 
@@ -40,7 +40,7 @@
 
 .amount {
   display: flex;
-  gap: var(--space-1);
+  gap: var(--game-flow-spacing);
 }
 
 .unit {

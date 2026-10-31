@@ -58,11 +58,10 @@
 }
 
 .list {
-  position: absolute;
-  top: calc(100% + 2px);
+  position: fixed;
+  top: 0;
   left: 0;
-  z-index: 100;
-  min-width: 100%;
+  z-index: var(--z-dropdown);
   max-height: 320px;
   margin: 0;
   padding: 2px;

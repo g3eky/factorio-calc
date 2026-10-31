@@ -1,6 +1,7 @@
 /* game.css: inside_shallow_frame (lighter section panel) and inside_deep_frame (dark well). */
+/* Section panels get the game's padded frame padding (12 px). */
 .panel {
-  padding: var(--space-2) var(--space-3);
+  padding: var(--game-padded-frame-padding);
   background: var(--color-panel);
   box-shadow: var(--bevel-shallow);
 }

@@ -19,7 +19,7 @@
 .slot:hover,
 .slot:focus-visible,
 .slot[data-force='hover'] {
-  z-index: 1;
+  z-index: var(--z-raised);
   outline: none;
   background: linear-gradient(var(--color-slot-hover) calc(100% - 3px), #b86f00);
   box-shadow: 0 0 0 1px #0f0e0e, 0 0 6px 1px var(--color-glow);
