@@ -32,24 +32,22 @@ Out:
 - Behaviour: `clicked_vertical_offset = 1` (content moves down 1 px when pressed).
 - Which sprite each state uses (`base = {position = {0, 17}, corner_size = 8}` …): not used for drawing, but it tells which states look different and how wide their borders are (`corner_size`).
 
-**Reference screenshots** in `screenshots/`, taken on a Retina screen (2 screenshot pixels per game pixel at 100% UI scale):
+**Reference screenshots** in `screenshots/`, numbered in name order. They were taken on a Retina screen with the game's UI scale at 125% ("Manual (pixels) 250%" in screenshot 18): 2.5 screenshot pixels per game pixel, so the compare view shows them at 0.4. Their colours are already sRGB values.
 
 | # | Screen | Use it for |
 |---|---|---|
-| 2, 3 | Main menu (3: Single player hovered) | Buttons: default, hovered, green confirm, red exit; window frame and title |
-| 4, 5 | Quickbar (5: a slot hovered) | Slots: empty, hovered |
-| 6 | Character and crafting windows | Windows side by side, inventory grid, item group tabs, title bar buttons |
-| 7 | Crafting with a recipe tooltip | Tooltip: title bars, sections, ingredients list |
-| 8 | Crafting, hovering a group tab | Large tabs: hovered, selected; small tooltip |
-| 9 | Production statistics | Tabs, small buttons, inside frames, deep panels |
-| 10, 11 | Factoriopedia (11: with a tooltip) | Item grid by subgroup (our item picker), search button, tooltip |
-| 12 | Achievements | Scroll pane and scrollbar, list rows |
-| 13–15 | Tips and tricks | List with a selected row, headings, panels, buttons |
-| 16, 17 | Alerts configuration (17: close hovered) | Table headers, rows, checkboxes, close button |
-| 18 | Game menu | Large buttons: green, default, red |
-| 19 | Interface settings | Checkboxes, sliders, dropdowns, text fields, Back/Confirm buttons; the model for our Interface settings screen |
-
-Screenshot 1 (27 Oct, 5120 × 2880) is a desktop screenshot, not of Factorio; it isn't used.
+| 1, 2 | Main menu (2: Single player hovered) | Buttons: default, hovered, green confirm, red exit; window frame and title |
+| 3, 4 | Quickbar (4: a slot hovered) | Slots: empty, hovered |
+| 5 | Character and crafting windows | Windows side by side, inventory grid, item group tabs, title bar buttons |
+| 6 | Crafting with a recipe tooltip | Tooltip: title bars, sections, ingredients list; slot grid |
+| 7 | Crafting, hovering a group tab | Large tabs: hovered, selected; small tooltip |
+| 8 | Production statistics | Tabs, small buttons, inside frames, deep panels |
+| 9, 10 | Factoriopedia (10: with a tooltip) | Item grid by subgroup (our item picker), search button, tooltip |
+| 11 | Achievements | Scroll pane and scrollbar, list rows |
+| 12–14 | Tips and tricks | List with a selected row, headings, panels, buttons |
+| 15, 16 | Alerts configuration (16: close hovered) | Table headers, rows, checkboxes, close button |
+| 17 | Game menu | Large buttons: green, default, red |
+| 18 | Interface settings | Checkboxes, sliders, dropdowns, text fields, Back/Confirm buttons; the model for our Interface settings screen |
 
 ## Design
 
@@ -77,8 +75,16 @@ Screenshot 1 (27 Oct, 5120 × 2880) is a desktop screenshot, not of Factorio; it
 
 ## Done when
 
-- `src/theme/game.css` is generated from the game's `style.lua`, and its test passes.
-- Every component's size, padding, font and font colours equal the `style.lua` values (checked by the test and in the browser's computed styles).
-- In the compare view, each component is a close match to its screenshot, and the user signs off on it.
-- UI scale works from 75% to 200%: everything scales together, nothing overlaps, it's remembered, and the page doesn't jump on load.
-- No regressions: `./run test` passes, no axe violations, no long tasks over 50 ms in the timing probe, layout shift still under 0.01.
+- `src/theme/game.css` is generated from the game's `style.lua` (590 styles in 2.1.24; 25 used), and its test passes. ✔
+- Every component's size, padding, font and font colours come from the `style.lua` values. ✔ Checked by the test (button 108 × 28, 8 px side padding, semibold 14 px, 1 px pressed offset; slot 40 px; cream selected tab; 18 px dialog buttons) and by using the generated custom properties in each component's CSS.
+- In the compare view (`#/compare` in dev), each component is a close match to its screenshot: window and title bar, buttons and their hover glow, dialog Back/Confirm, slots, crafting window with group tabs and tooltip, dropdown and value boxes, checkboxes, and the item picker against Factoriopedia. ✘ Waiting for your sign-off.
+- UI scale works from 75% to 200%: everything scales together, the page still fits the window, tooltips and popovers stay next to what they belong to, it's remembered, and it's applied before the first paint. ✔ Checked in Chrome at 150%.
+- No regressions: `./run test` passes (69 tests), no axe violations, no long tasks over 50 ms in the timing probe, Lighthouse desktop 98 / 100 / 100 / 100 with layout shift 0. ✔
+
+## Differences from the game
+
+- **Not pixel-identical:** frames, bevels and glows are CSS, not the game's sprites (decided). Textures (the faint noise on frames) are left out.
+- **Main menu buttons** in the game are a larger style than ordinary buttons; the site only uses ordinary ones.
+- **Muted text** is lighter than the game's dimmed text, for 4.5:1 contrast.
+- **Focus** shows the hover glow, so keyboard users can see where they are; the game has no keyboard focus.
+- **Negative paddings** in the game's styles (e.g. a dropdown's −1 px top) become 0, which CSS requires.
