@@ -2,8 +2,6 @@
 
 A production calculator for Factorio. Pick a game version, pick what you want to make, and see the machines, inputs and rates needed.
 
-![The calculator, building red, green and military science on Nauvis, in the light theme](docs/screenshot.png)
-
 It's a static website hosted on GitHub Pages. Everything runs in your browser: the game data is downloaded as a SQLite database, the solver (a linear program, [HiGHS](https://highs.dev)) runs in a Web Worker, and your calculations and settings are saved in your browser's local storage. Nothing is sent to a server. After the first visit it works offline.
 
 **What it does:** Factorio 2.1 base game and Space Age. Targets per second, minute, hour, belt or machine; machines, modules, beacons and productivity research; cycles and byproducts (oil cracking, Kovarex, recycling); per-planet production with surface conditions and imports; quality, including upcycling loops.
