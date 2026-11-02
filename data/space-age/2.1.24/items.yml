@@ -215,7 +215,7 @@
   order: d[rocket-launcher]-d[capture]
   stack_size: 10
 - id: car
-  name: Zippy/workbench
+  name: Car
   subgroup: transport
   order: b[personal-transport]-a[car]
   stack_size: 1

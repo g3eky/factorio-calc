@@ -129,7 +129,7 @@
   order: d[cannon-shell]-a[basic]
   stack_size: 100
 - id: car
-  name: Zippy/workbench
+  name: Car
   subgroup: transport
   order: b[personal-transport]-a[car]
   stack_size: 1

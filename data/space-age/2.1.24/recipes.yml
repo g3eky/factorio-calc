@@ -2562,7 +2562,7 @@
   max_productivity: 3
   hidden: true
 - id: car
-  name: Zippy/workbench
+  name: Car
   categories:
     - crafting
   time: 2

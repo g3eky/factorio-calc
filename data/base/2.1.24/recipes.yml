@@ -721,7 +721,7 @@
   max_productivity: 3
   main_product: cannon-shell
 - id: car
-  name: Zippy/workbench
+  name: Car
   categories:
     - crafting
   time: 2

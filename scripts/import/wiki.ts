@@ -54,8 +54,9 @@ export class Wiki {
         const content: string = page.revisions?.[0]?.slots?.main?.content ?? ''
         const internal = /^\|\s*internal-name\s*=\s*([a-z0-9-]+)\s*$/m.exec(content)?.[1]
         const type = /^\|\s*prototype-type\s*=\s*([a-z0-9-]+)\s*$/m.exec(content)?.[1]
-        // Technologies and archived pages reuse item names ("Advanced circuit (research)").
-        if (!internal || type === 'technology' || /\((research|archived)\)$/.test(page.title)) continue
+        // Technologies and archived pages reuse item names ("Advanced circuit (research)"), and
+        // subpages are drafts ("Infobox:Zippy/workbench" also claims to be the car).
+        if (!internal || type === 'technology' || /\((research|archived)\)$/.test(page.title) || page.title.includes('/')) continue
         names.set(internal, page.title.replace(/^Infobox:/, ''))
       }
     }
