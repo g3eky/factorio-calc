@@ -47,3 +47,7 @@ Start with [`AGENTS.md`](AGENTS.md) for how the project works, then the plan for
 ## Credits
 
 Factorio is a game by [Wube Software](https://factorio.com). This is an unofficial fan project and is not affiliated with Wube. Game data comes from Wube's [factorio-data](https://github.com/wube/factorio-data); names and icons from the [official Factorio wiki](https://wiki.factorio.com). Factorio's names and art belong to Wube Software.
+
+## License
+
+The code is under the [MIT License](LICENSE). Game data and icons in `data/` belong to Wube Software, and the fonts in `src/theme/fonts/` are under the SIL Open Font License.

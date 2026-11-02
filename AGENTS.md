@@ -15,6 +15,7 @@ Factorio production calculator. A static website hosted on GitHub Pages: pick a 
 ```
 AGENTS.md           this file
 README.md
+LICENSE             MIT for the code; not data/ or the fonts
 run                 the only entry point: ./run <command>
 package.json        dependencies only (must be at the root for node_modules resolution)
 package-lock.json
