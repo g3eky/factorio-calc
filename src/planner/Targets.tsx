@@ -86,23 +86,6 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
         <ItemPicker onPick={toggle} filter={makeable} selected={making} details={info} />
       </div>
       <ScrollPane role="tabpanel" aria-label="Build list" className={styles.list} hidden={tab !== 'making'}>
-        {targets.length === 0 && <p className={styles.hint}>Nothing yet. Click items in the Catalog to make them; click again to stop.</p>}
-        {targets.map((t, i) => (
-          <Panel key={`${t.kind}/${t.id}/${i}`} className={styles.target}>
-            <Slot kind={t.kind} id={t.id} quality={t.quality} title={name(t)} aria-label={`Change ${name(t)}`} onClick={(e) => setPicking({ index: i, anchor: e.currentTarget })} />
-            <div className={styles.fields}>
-              <span className={styles.name}>{name(t)}</span>
-              <span className={styles.amount}>
-                <NumberInput value={t.amount} min={0} onChange={(amount) => change(i, { amount })} aria-label={`Amount of ${name(t)}`} />
-                <Select label={`Unit for ${name(t)}`} value={t.unit} options={UNITS} onChange={(unit) => change(i, { unit })} className={styles.unit} />
-              </span>
-              {t.kind === 'item' && <QualitySelect label={`Quality of ${name(t)}`} value={t.quality} onChange={(quality) => change(i, { quality })} />}
-            </div>
-            <Button square variant="danger" aria-label={`Remove ${name(t)}`} onClick={() => update((c) => ({ ...c, targets: c.targets.filter((_, j) => j !== i) }))}>
-              ✕
-            </Button>
-          </Panel>
-        ))}
         <section className={styles.saved} aria-label="Saved lists">
           <h3 className={styles.savedHead}>Saved lists</h3>
           <form
@@ -113,8 +96,8 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
             }}
           >
             <TextInput placeholder="Name this list" aria-label="Name for this list" value={saveName} onChange={(e) => setSaveName(e.target.value)} />
-            <Button type="submit" disabled={!saveName.trim() || targets.length === 0}>
-              Save
+            <Button type="submit" square aria-label="Save the build list as a new list" title="Save the build list as a new list" disabled={!saveName.trim() || targets.length === 0}>
+              +
             </Button>
           </form>
           {saved.length === 0 && <p className={styles.hint}>No saved lists yet.</p>}
@@ -135,6 +118,29 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
             </div>
           ))}
         </section>
+        <div className={styles.listHead}>
+          <h3 className={styles.savedHead}>Build list</h3>
+          <Button disabled={targets.length === 0} onClick={() => update((c) => ({ ...c, targets: [] }))}>
+            Clear
+          </Button>
+        </div>
+        {targets.length === 0 && <p className={styles.hint}>Nothing yet. Click items in the Catalog to make them; click again to stop.</p>}
+        {targets.map((t, i) => (
+          <Panel key={`${t.kind}/${t.id}/${i}`} className={styles.target}>
+            <Slot kind={t.kind} id={t.id} quality={t.quality} title={name(t)} aria-label={`Change ${name(t)}`} onClick={(e) => setPicking({ index: i, anchor: e.currentTarget })} />
+            <div className={styles.fields}>
+              <span className={styles.name}>{name(t)}</span>
+              <span className={styles.amount}>
+                <NumberInput value={t.amount} min={0} onChange={(amount) => change(i, { amount })} aria-label={`Amount of ${name(t)}`} />
+                <Select label={`Unit for ${name(t)}`} value={t.unit} options={UNITS} onChange={(unit) => change(i, { unit })} className={styles.unit} />
+              </span>
+              {t.kind === 'item' && <QualitySelect label={`Quality of ${name(t)}`} value={t.quality} onChange={(quality) => change(i, { quality })} />}
+            </div>
+            <Button square variant="danger" aria-label={`Remove ${name(t)}`} onClick={() => update((c) => ({ ...c, targets: c.targets.filter((_, j) => j !== i) }))}>
+              ✕
+            </Button>
+          </Panel>
+        ))}
       </ScrollPane>
       {picking && (
         <Popover anchor={picking.anchor} title="Change item" onClose={() => setPicking(undefined)}>
