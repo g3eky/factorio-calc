@@ -8,6 +8,7 @@ import { Popover } from '../ui/Popover/Popover.tsx'
 import { ScrollPane } from '../ui/ScrollPane/ScrollPane.tsx'
 import { Select } from '../ui/Select/Select.tsx'
 import { Slot } from '../ui/Slot/Slot.tsx'
+import { Tabs } from '../ui/Tabs/Tabs.tsx'
 import { Window } from '../ui/Window/Window.tsx'
 import { ItemInfo } from './ItemInfo.tsx'
 import { QualitySelect } from './QualitySelect.tsx'
@@ -28,6 +29,7 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
   const game = useGame()
   // Picker open for changing a target, next to its slot.
   const [picking, setPicking] = useState<{ index: number; anchor: HTMLElement }>()
+  const [tab, setTab] = useState<'items' | 'making'>('items')
   const targets = knownTargets(game, calc.targets)
   const name = (t: Pick) => (t.kind === 'fluid' ? game.fluids : game.items).get(t.id)?.name ?? t.id
   // Only offer things the calculator can make.
@@ -59,10 +61,22 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
 
   return (
     <Window title="Make" className={styles.targets}>
+      <Tabs
+        label="Make"
+        value={tab}
+        onChange={setTab}
+        tabs={[
+          { id: 'items', label: 'Catalog' },
+          { id: 'making', label: `Build list (${targets.length})` },
+        ]}
+      />
+      {/* Both stay mounted, so switching doesn't rebuild the few hundred item slots. */}
       {/* Every item that can be made, by category; click one to make it. */}
-      <ItemPicker onPick={toggle} filter={makeable} selected={making} details={info} />
-      <ScrollPane className={styles.list}>
-        {targets.length === 0 && <p className={styles.hint}>Click an item above to make it; click it again to stop.</p>}
+      <div role="tabpanel" aria-label="Catalog" className={styles.panel} hidden={tab !== 'items'}>
+        <ItemPicker onPick={toggle} filter={makeable} selected={making} details={info} />
+      </div>
+      <ScrollPane role="tabpanel" aria-label="Build list" className={styles.list} hidden={tab !== 'making'}>
+        {targets.length === 0 && <p className={styles.hint}>Nothing yet. Click items in the Catalog to make them; click again to stop.</p>}
         {targets.map((t, i) => (
           <Panel key={`${t.kind}/${t.id}/${i}`} className={styles.target}>
             <Slot kind={t.kind} id={t.id} quality={t.quality} title={name(t)} aria-label={`Change ${name(t)}`} onClick={(e) => setPicking({ index: i, anchor: e.currentTarget })} />

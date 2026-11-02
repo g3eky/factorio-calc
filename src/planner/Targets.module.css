@@ -1,4 +1,4 @@
-/* The rail: sunken, a line on the right; the picker on top and what's being made below. */
+/* The rail: sunken, a line on the right; tabs for the item picker and what's being made. */
 .targets {
   grid-area: targets;
   min-height: 0;
@@ -9,13 +9,24 @@
   box-shadow: none;
 }
 
+.panel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
 .list {
   display: flex;
-  flex: 0 1 auto;
+  flex: 1;
   flex-direction: column;
   gap: 6px;
-  max-height: 40%;
   min-height: 0;
+}
+
+.panel[hidden],
+.list[hidden] {
+  display: none;
 }
 
 .hint {
@@ -63,3 +74,4 @@
     transform: translateY(-4px);
   }
 }
+
