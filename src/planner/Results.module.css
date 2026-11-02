@@ -67,6 +67,20 @@
   white-space: nowrap;
 }
 
+/* An input slot with its share of a belt underneath. */
+.withBelt {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.belt {
+  min-height: 1.2em;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  line-height: 1.2;
+}
+
 .plain {
   cursor: default;
 }

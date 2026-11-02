@@ -1,0 +1,40 @@
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--game-flow-spacing);
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  gap: var(--game-header-spacing);
+}
+
+.label {
+  width: 200px;
+  font-weight: 600;
+}
+
+/* Slots sit flush, like the game's slot tables. */
+.slots {
+  display: flex;
+}
+
+/* Main screen: groups side by side, label above its slots. */
+.compact {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+}
+
+.compact .category {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.compact .label {
+  width: auto;
+  color: var(--color-heading);
+  font-size: var(--font-size-small);
+}

@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, type KeyboardEvent } from 'react'
+import { useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { useGame } from '../../db/GameProvider.tsx'
 import { TextInput } from '../Input/Input.tsx'
 import { Icon } from '../Icon/Icon.tsx'
@@ -21,15 +21,22 @@ interface Props {
   onPick: (pick: Pick) => void
   // Which items and fluids to offer. Defaults to all.
   filter?: (pick: Pick) => boolean
-  selected?: Pick
+  // Marked as selected: one item, or several (e.g. everything already being made).
+  selected?: Pick | Pick[]
+  // Height of the slot grid in rows; longer groups scroll.
+  rows?: number
+  // Tooltip body for each item, below its name.
+  details?: (pick: Pick) => ReactNode
 }
 
 // The game's item picker: a tab per item group, a row per subgroup, and search by name.
-export function ItemPicker({ onPick, filter, selected }: Props) {
+export function ItemPicker({ onPick, filter, selected, rows = 10, details }: Props) {
+  const chosen = selected === undefined ? [] : Array.isArray(selected) ? selected : [selected]
+  const first = chosen[0]
   const game = useGame()
   // Open on the group of the selected item, like the game.
   const [group, setGroup] = useState(() => {
-    const subgroup = selected && (selected.kind === 'item' ? game.items : game.fluids).get(selected.id)?.subgroup
+    const subgroup = first && (first.kind === 'item' ? game.items : game.fluids).get(first.id)?.subgroup
     return game.data.groups.find((g) => g.subgroups.some((s) => s.id === subgroup))?.id
   })
   const [query, setQuery] = useState('')
@@ -129,7 +136,14 @@ export function ItemPicker({ onPick, filter, selected }: Props) {
             onChange={setGroup}
             tabs={visible.map((g) => ({ id: g.id, title: g.name, label: <Icon kind={g.rows[0][0].kind} id={g.rows[0][0].id} size={48} /> }))}
           />
-          <ScrollPane ref={grid} className={styles.grid} role="group" aria-label={current.name} onKeyDown={onGridKeyDown}>
+          <ScrollPane
+            ref={grid}
+            className={styles.grid}
+            style={{ height: `calc(${rows} * var(--slot-size))` }}
+            role="group"
+            aria-label={current.name}
+            onKeyDown={onGridKeyDown}
+          >
             {current.rows.map((row) => (
               <div key={`${row[0].kind}/${row[0].id}`} className={styles.row}>
                 {/* Empty cells fill the row to whole lines of ten, as in the game. */}
@@ -142,8 +156,9 @@ export function ItemPicker({ onPick, filter, selected }: Props) {
                     kind={entry.kind}
                     id={entry.id}
                     title={entry.name}
+                    details={details?.(entry)}
                     aria-label={entry.name}
-                    selected={selected?.kind === entry.kind && selected.id === entry.id}
+                    selected={chosen.some((c) => c.kind === entry.kind && c.id === entry.id)}
                     onClick={() => onPick(entry)}
                   />
                 ))}

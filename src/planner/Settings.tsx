@@ -1,5 +1,4 @@
 import { useMemo, useRef, useState } from 'react'
-import { defaultMachines } from '../calculator/processes.ts'
 import { defaultDisabled } from '../calculator/solve.ts'
 import { useGame } from '../db/GameProvider.tsx'
 import { exportPreferences, importPreferences, defaultPreferences, type Preferences } from '../settings/preferences.ts'
@@ -11,10 +10,10 @@ import { Modal } from '../ui/Modal/Modal.tsx'
 import { Panel } from '../ui/Panel/Panel.tsx'
 import { ScrollPane } from '../ui/ScrollPane/ScrollPane.tsx'
 import { Select } from '../ui/Select/Select.tsx'
-import { Slot } from '../ui/Slot/Slot.tsx'
 import { Slider } from '../ui/Slider/Slider.tsx'
 import { Tabs } from '../ui/Tabs/Tabs.tsx'
 import { UI_SCALES, type InterfacePreferences } from '../settings/interface.ts'
+import { MachineChoices } from './MachineChoices.tsx'
 import { ModuleSetupEditor } from './ModuleSetupEditor.tsx'
 import { QualitySelect } from './QualitySelect.tsx'
 import styles from './Settings.module.css'
@@ -22,8 +21,6 @@ import styles from './Settings.module.css'
 type Tab = 'machines' | 'modules' | 'research' | 'recipes' | 'interface'
 type SetPrefs = (change: (prefs: Preferences) => Preferences) => void
 
-// "crafting-with-fluid" -> "Crafting with fluid"
-const label = (id: string) => id.charAt(0).toUpperCase() + id.slice(1).replace(/-/g, ' ')
 
 // Defaults for every calculation. Changes apply and save immediately, like the game's settings.
 interface Props {
@@ -113,15 +110,6 @@ export function Settings({ prefs, setPrefs, ui, setUi, onClose }: Props) {
 
 function MachinesTab({ prefs, setPrefs }: { prefs: Preferences; setPrefs: SetPrefs }) {
   const game = useGame()
-  const defaults = useMemo(() => defaultMachines(game.data), [game])
-  // Every category some recipe or resource needs, with the machines that serve it.
-  const categories = useMemo(() => {
-    const used = new Set([...game.data.recipes.flatMap((r) => r.categories), ...game.data.resources.map((r) => r.category)])
-    return [...used]
-      .sort()
-      .map((c) => ({ id: c, machines: game.data.machines.filter((m) => m.categories.includes(c)) }))
-      .filter((c) => c.machines.length > 1)
-  }, [game])
   const fuels = game.data.items.filter((i) => i.fuel?.category === 'chemical')
 
   return (
@@ -134,28 +122,7 @@ function MachinesTab({ prefs, setPrefs }: { prefs: Preferences; setPrefs: SetPre
         <span className={styles.rowLabel}>Machine quality</span>
         <QualitySelect label="Machine quality" value={prefs.machineQuality} onChange={(machineQuality) => setPrefs((p) => ({ ...p, machineQuality }))} />
       </div>
-      {categories.map((c) => {
-        const current = prefs.machines[c.id] ?? defaults[c.id]
-        return (
-          <div key={c.id} className={styles.row}>
-            <span className={styles.rowLabel}>{label(c.id)}</span>
-            <div className={styles.choices}>
-              {c.machines.map((m) => (
-                <Slot
-                  key={m.id}
-                  kind="machine"
-                  id={m.id}
-                  title={m.name}
-                  details={`Speed ${m.speed}${m.surface_conditions ? '. Only on some planets.' : ''}`}
-                  aria-label={`${m.name} for ${label(c.id)}`}
-                  selected={m.id === current}
-                  onClick={() => setPrefs((p) => ({ ...p, machines: { ...p.machines, [c.id]: m.id } }))}
-                />
-              ))}
-            </div>
-          </div>
-        )
-      })}
+      <MachineChoices prefs={prefs} setPrefs={setPrefs} />
     </div>
   )
 }

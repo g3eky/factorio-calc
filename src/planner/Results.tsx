@@ -79,6 +79,7 @@ export const Results = memo(
   ResultsTable,
   (a: Props, b: Props) =>
     a.result === b.result &&
+    a.calc.belt === b.calc.belt &&
     a.update === b.update &&
     a.prefs === b.prefs &&
     a.calc.unit === b.calc.unit &&
@@ -92,6 +93,7 @@ function ResultsTable({ result, calc, prefs, update }: Props) {
   const rows = useMemo(() => inOrder(result, calc), [result, calc])
   const [editing, setEditing] = useState<Editing>()
   const unit = UNIT_LABELS[calc.unit]
+  const belt = useMemo(() => game.data.belts.find((b) => b.id === calc.belt), [game, calc.belt])
   const edited = editing && editing.type !== 'recipe' ? result.processes.find((p) => p.key === editing.key) : undefined
 
   return (
@@ -103,7 +105,7 @@ function ResultsTable({ result, calc, prefs, update }: Props) {
               <th>Recipe</th>
               <th>Machines</th>
               <th>Modules</th>
-              <th>Inputs {unit}</th>
+              <th>Inputs {unit}, % of a belt</th>
               <th>Outputs {unit}</th>
               <th>Power</th>
             </tr>
@@ -116,6 +118,7 @@ function ResultsTable({ result, calc, prefs, update }: Props) {
                 override={calc.overrides[p.key.split('@')[0]]}
                 setup={calc.overrides[p.key.split('@')[0]]?.setup ?? prefs.setups[p.machine]}
                 unit={calc.unit}
+                belt={belt}
                 onEdit={setEditing}
               />
             ))}
@@ -149,12 +152,14 @@ interface RowProps {
   // Modules and beacons in effect: the override's, else the preferences'.
   setup: ModuleSetup | undefined
   unit: Calculation['unit']
+  // The belt chosen in the header, for each item input's share of it.
+  belt: { name: string; speed: number } | undefined
   onEdit: (editing: Editing) => void
 }
 
 // One process. Re-renders only when its numbers or settings change, not on every new result.
 const Row = memo(
-  function Row({ process: p, override, setup, unit: rateUnit, onEdit }: RowProps) {
+  function Row({ process: p, override, setup, unit: rateUnit, belt, onEdit }: RowProps) {
     const game = useGame()
     const scale = UNIT_SECONDS[rateUnit]
     const unit = UNIT_LABELS[rateUnit]
@@ -162,11 +167,14 @@ const Row = memo(
     const name = processName(game, p)
     const editable = p.kind !== 'pump'
 
-    const amounts = (list: Amount[]) =>
+    // Inputs show how much of a belt they fill (items only; fluids go in pipes).
+    const amounts = (list: Amount[], showBelt = false) =>
       list.map((a) => {
         const choices = recipesFor(game, a.kind, a.id)
-        const label = `${amountName(game, a)}: ${long(a.rate * scale)}${unit}`
-        return (
+        const share = showBelt && belt && a.kind === 'item' ? a.rate / belt.speed : undefined
+        const beltText = share === undefined ? '' : ` (${percent(share)} of a ${belt!.name.toLowerCase()})`
+        const label = `${amountName(game, a)}: ${long(a.rate * scale)}${unit}${beltText}`
+        const slot = (
           <Slot
             key={`${a.kind}/${a.id}@${a.quality ?? ''}`}
             kind={a.kind}
@@ -174,11 +182,20 @@ const Row = memo(
             quality={a.quality}
             amount={short(a.rate * scale)}
             title={amountName(game, a)}
-            details={`${long(a.rate * scale)}${unit}${choices.length > 1 ? '. Click to choose its recipe.' : ''}`}
+            details={`${long(a.rate * scale)}${unit}${beltText}${choices.length > 1 ? '. Click to choose its recipe.' : ''}`}
             aria-label={label}
             className={choices.length > 1 ? undefined : styles.plain}
             onClick={choices.length > 1 ? (e) => onEdit({ type: 'recipe', item: a, anchor: e.currentTarget }) : undefined}
           />
+        )
+        if (!showBelt) return slot
+        return (
+          <span key={`${a.kind}/${a.id}@${a.quality ?? ''}`} className={styles.withBelt}>
+            {slot}
+            <span className={styles.belt} aria-hidden>
+              {share === undefined ? '' : percent(share)}
+            </span>
+          </span>
         )
       })
 
@@ -233,7 +250,7 @@ const Row = memo(
           )}
         </td>
         <td>
-          <span className={styles.amounts}>{amounts(p.inputs)}</span>
+          <span className={styles.amounts}>{amounts(p.inputs, true)}</span>
         </td>
         <td>
           <span className={styles.amounts}>{amounts(p.outputs)}</span>
@@ -243,7 +260,12 @@ const Row = memo(
     )
   },
   (a, b) =>
-    a.override === b.override && a.setup === b.setup && a.unit === b.unit && a.onEdit === b.onEdit && JSON.stringify(a.process) === JSON.stringify(b.process),
+    a.override === b.override &&
+    a.setup === b.setup &&
+    a.unit === b.unit &&
+    a.belt === b.belt &&
+    a.onEdit === b.onEdit &&
+    JSON.stringify(a.process) === JSON.stringify(b.process),
 )
 
 function MachineChooser({ process, calc, update, done }: { process: ProcessResult; calc: Calculation; update: Update; done: () => void }) {
@@ -293,6 +315,9 @@ function ModuleEditor({ process, calc, prefs, update }: { process: ProcessResult
     </>
   )
 }
+
+// 0.0667 -> "6.7%"; under 1% keeps one more decimal.
+const percent = (n: number) => `${Number((n * 100).toFixed(n < 0.01 ? 2 : 1))}%`
 
 const pct = (n: number) => `${n >= 0 ? '+' : ''}${Math.round(n * 1000) / 10}%`
 

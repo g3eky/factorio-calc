@@ -56,6 +56,13 @@ test('item picker opens on the selected item\'s group', () => {
   expect(screen.getByRole('button', { name: 'Water' }).getAttribute('aria-pressed')).toBe('true')
 })
 
+test('item picker can mark several items as selected', () => {
+  render(<ItemPicker onPick={() => {}} selected={[{ kind: 'item', id: 'speed-module' }, { kind: 'item', id: 'productivity-module' }]} />, { wrapper: withGame(game) })
+  expect(screen.getByRole('button', { name: 'Speed module' }).getAttribute('aria-pressed')).toBe('true')
+  expect(screen.getByRole('button', { name: 'Productivity module' }).getAttribute('aria-pressed')).toBe('true')
+  expect(screen.getByRole('button', { name: 'Quality module' }).getAttribute('aria-pressed')).toBe('false')
+})
+
 test('number input only reports valid numbers', () => {
   const onChange = vi.fn()
   render(<NumberInput value={5} min={0} onChange={onChange} aria-label="Rate" />)

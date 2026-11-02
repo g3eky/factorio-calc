@@ -1,0 +1,38 @@
+/* Like the game's tooltips (6): sections separated by lines, cream headings, icon rows. */
+.info {
+  display: flex;
+  flex-direction: column;
+  margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-3));
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--game-flow-spacing);
+  padding: var(--space-2) var(--space-3);
+}
+
+.section + .section {
+  border-top: 2px solid var(--color-tooltip-line);
+}
+
+.heading {
+  color: var(--color-heading);
+}
+
+.amount,
+.time,
+.icons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.icons {
+  flex-wrap: wrap;
+}
+
+.click {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}

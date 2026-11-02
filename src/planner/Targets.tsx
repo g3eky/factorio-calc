@@ -9,6 +9,7 @@ import { ScrollPane } from '../ui/ScrollPane/ScrollPane.tsx'
 import { Select } from '../ui/Select/Select.tsx'
 import { Slot } from '../ui/Slot/Slot.tsx'
 import { Window } from '../ui/Window/Window.tsx'
+import { ItemInfo } from './ItemInfo.tsx'
 import { QualitySelect } from './QualitySelect.tsx'
 import type { Update } from './Planner.tsx'
 import { knownTargets, recipesFor, type Calculation, type TargetUnit } from './state.ts'
@@ -25,22 +26,25 @@ const UNITS: { value: TargetUnit; label: string }[] = [
 // What to make, and how much.
 export function Targets({ calc, update }: { calc: Calculation; update: Update }) {
   const game = useGame()
-  // Picker open for adding (index -1) or changing a target, next to the clicked button.
+  // Picker open for changing a target, next to its slot.
   const [picking, setPicking] = useState<{ index: number; anchor: HTMLElement }>()
   const targets = knownTargets(game, calc.targets)
   const name = (t: Pick) => (t.kind === 'fluid' ? game.fluids : game.items).get(t.id)?.name ?? t.id
   // Only offer things the calculator can make.
   const makeable = (p: Pick) => recipesFor(game, p.kind, p.id).length > 0
 
-  const pick = (p: Pick) => {
+  // Items in the panel toggle: click to make it, click again to stop. Picking from a target's
+  // popover replaces that target.
+  const toggle = (p: Pick) =>
+    update((c) => {
+      const same = (t: Pick) => t.kind === p.kind && t.id === p.id
+      return c.targets.some(same)
+        ? { ...c, targets: c.targets.filter((t) => !same(t)) }
+        : { ...c, targets: [...c.targets, { kind: p.kind, id: p.id, amount: 60, unit: c.unit }] }
+    })
+  const replace = (p: Pick) => {
     const index = picking!.index
-    update((c) => ({
-      ...c,
-      targets:
-        index < 0
-          ? [...c.targets, { kind: p.kind, id: p.id, amount: 60, unit: c.unit }]
-          : c.targets.map((t, i) => (i === index ? { ...t, kind: p.kind, id: p.id } : t)),
-    }))
+    update((c) => ({ ...c, targets: c.targets.map((t, i) => (i === index ? { ...t, kind: p.kind, id: p.id } : t)) }))
     setPicking(undefined)
   }
   const change = (index: number, patch: Partial<Calculation['targets'][number]>) =>
@@ -48,8 +52,10 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
 
   return (
     <Window title="Make" className={styles.targets}>
+      {/* Every item that can be made, by category; click one to make it. */}
+      <ItemPicker onPick={toggle} filter={makeable} selected={targets} rows={6} details={(p) => <ItemInfo kind={p.kind} id={p.id} />} />
       <ScrollPane className={styles.list}>
-        {targets.length === 0 && <p className={styles.hint}>Nothing yet. Add an item to make.</p>}
+        {targets.length === 0 && <p className={styles.hint}>Click an item above to make it; click it again to stop.</p>}
         {targets.map((t, i) => (
           <Panel key={`${t.kind}/${t.id}/${i}`} className={styles.target}>
             <Slot kind={t.kind} id={t.id} quality={t.quality} title={name(t)} aria-label={`Change ${name(t)}`} onClick={(e) => setPicking({ index: i, anchor: e.currentTarget })} />
@@ -67,12 +73,9 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
           </Panel>
         ))}
       </ScrollPane>
-      <Button variant="confirm" onClick={(e) => setPicking({ index: -1, anchor: e.currentTarget })}>
-        Add item
-      </Button>
       {picking && (
-        <Popover anchor={picking.anchor} title={picking.index < 0 ? 'Add item' : 'Change item'} onClose={() => setPicking(undefined)}>
-          <ItemPicker onPick={pick} filter={makeable} selected={picking.index >= 0 ? targets[picking.index] : undefined} />
+        <Popover anchor={picking.anchor} title="Change item" onClose={() => setPicking(undefined)}>
+          <ItemPicker onPick={replace} filter={makeable} selected={targets[picking.index]} />
         </Popover>
       )}
     </Window>

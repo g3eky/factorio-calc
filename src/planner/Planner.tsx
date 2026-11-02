@@ -11,6 +11,7 @@ import { Panel } from '../ui/Panel/Panel.tsx'
 import { Select } from '../ui/Select/Select.tsx'
 import { Window } from '../ui/Window/Window.tsx'
 import { UNIT_LABELS, type RateUnit } from './format.ts'
+import { MachineChoices } from './MachineChoices.tsx'
 import { Results } from './Results.tsx'
 import { About } from './About.tsx'
 import { Settings } from './Settings.tsx'
@@ -126,6 +127,9 @@ export function Planner({ onDataset, switching }: { onDataset: (id: string) => v
           result && (
             <>
               <Totals result={result} calc={calc} solving={solving} />
+              <Window title="Machines">
+                <MachineChoices prefs={prefs} setPrefs={setPrefs} planet={calc.planet} compact />
+              </Window>
               <Results result={result} calc={calc} prefs={prefs} update={setCalc} />
             </>
           )

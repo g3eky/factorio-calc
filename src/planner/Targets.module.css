@@ -3,11 +3,13 @@
   min-height: 0;
 }
 
+/* Below the item picker; takes the rest of the column and scrolls. */
 .list {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: var(--game-flow-spacing);
-  max-height: calc(100vh / var(--ui-scale, 1) - 160px);
+  min-height: 120px;
 }
 
 .hint {
