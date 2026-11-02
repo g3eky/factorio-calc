@@ -3,7 +3,7 @@ import type { Game } from '../db/GameProvider.tsx'
 import { fixtureGame } from '../test/fixtureGame.tsx'
 import { defaultPreferences } from '../settings/preferences.ts'
 import { long, power, short } from './format.ts'
-import { emptyCalculation, isCalculation, recipesFor, toRequest, type Calculation } from './state.ts'
+import { emptyCalculation, isCalculation, isSavedLists, recipesFor, toRequest, type Calculation } from './state.ts'
 
 let game: Game
 beforeAll(async () => {
@@ -63,6 +63,13 @@ test('stored calculations are checked before use', () => {
   expect(isCalculation(calc({}))).toBe(true)
   expect(isCalculation({ targets: 'oops' })).toBe(false)
   expect(isCalculation(null)).toBe(false)
+})
+
+test('stored saved lists are checked before use', () => {
+  expect(isSavedLists([{ name: 'Science', targets: [{ kind: 'item', id: 'iron-plate', amount: 60, unit: 'min' }] }])).toBe(true)
+  expect(isSavedLists([])).toBe(true)
+  expect(isSavedLists([{ name: 'Science', targets: [{ id: 'iron-plate' }] }])).toBe(false)
+  expect(isSavedLists({ name: 'Science' })).toBe(false)
 })
 
 test('numbers are formatted like the game', () => {

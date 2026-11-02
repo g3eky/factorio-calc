@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useGame } from '../db/GameProvider.tsx'
 import { Button } from '../ui/Button/Button.tsx'
-import { NumberInput } from '../ui/Input/Input.tsx'
+import { NumberInput, TextInput } from '../ui/Input/Input.tsx'
 import { ItemPicker, type Pick } from '../ui/ItemPicker/ItemPicker.tsx'
 import { Panel } from '../ui/Panel/Panel.tsx'
 import { Popover } from '../ui/Popover/Popover.tsx'
@@ -13,7 +13,8 @@ import { Window } from '../ui/Window/Window.tsx'
 import { ItemInfo } from './ItemInfo.tsx'
 import { QualitySelect } from './QualitySelect.tsx'
 import type { Update } from './Planner.tsx'
-import { knownTargets, recipesFor, type Calculation, type TargetUnit } from './state.ts'
+import { usePersistentState } from '../settings/storage.ts'
+import { isSavedLists, knownTargets, recipesFor, type Calculation, type SavedList, type TargetUnit } from './state.ts'
 import styles from './Targets.module.css'
 
 const UNITS: { value: TargetUnit; label: string }[] = [
@@ -30,6 +31,9 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
   // Picker open for changing a target, next to its slot.
   const [picking, setPicking] = useState<{ index: number; anchor: HTMLElement }>()
   const [tab, setTab] = useState<'items' | 'making'>('items')
+  // Named build lists, per dataset since item ids differ between versions.
+  const [saved, setSaved] = usePersistentState<SavedList[]>(`factorio-calc:v1:saved-lists:${game.dataset.id}`, () => [], (v) => (isSavedLists(v) ? v : undefined))
+  const [saveName, setSaveName] = useState('')
   const targets = knownTargets(game, calc.targets)
   const name = (t: Pick) => (t.kind === 'fluid' ? game.fluids : game.items).get(t.id)?.name ?? t.id
   // Only offer things the calculator can make.
@@ -55,6 +59,12 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
     const index = picking!.index
     update((c) => ({ ...c, targets: c.targets.map((t, i) => (i === index ? { ...t, kind: p.kind, id: p.id } : t)) }))
     setPicking(undefined)
+  }
+  // Saving under a name that's taken replaces that list.
+  const save = () => {
+    const list = { name: saveName.trim(), targets: calc.targets }
+    setSaved((all) => (all.some((l) => l.name === list.name) ? all.map((l) => (l.name === list.name ? list : l)) : [...all, list]))
+    setSaveName('')
   }
   const change = (index: number, patch: Partial<Calculation['targets'][number]>) =>
     update((c) => ({ ...c, targets: c.targets.map((t, i) => (i === index ? { ...t, ...patch } : t)) }))
@@ -93,6 +103,38 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
             </Button>
           </Panel>
         ))}
+        <section className={styles.saved} aria-label="Saved lists">
+          <h3 className={styles.savedHead}>Saved lists</h3>
+          <form
+            className={styles.saveRow}
+            onSubmit={(e) => {
+              e.preventDefault()
+              save()
+            }}
+          >
+            <TextInput placeholder="Name this list" aria-label="Name for this list" value={saveName} onChange={(e) => setSaveName(e.target.value)} />
+            <Button type="submit" disabled={!saveName.trim() || targets.length === 0}>
+              Save
+            </Button>
+          </form>
+          {saved.length === 0 && <p className={styles.hint}>No saved lists yet.</p>}
+          {saved.map((l, i) => (
+            <div key={i} className={styles.saveRow}>
+              <TextInput
+                aria-label={`Rename ${l.name}`}
+                value={l.name}
+                onChange={(e) => setSaved((all) => all.map((x, j) => (j === i ? { ...x, name: e.target.value } : x)))}
+              />
+              <span className={styles.count}>{l.targets.length}</span>
+              <Button title="Replace the build list with this one" onClick={() => update((c) => ({ ...c, targets: l.targets }))}>
+                Load
+              </Button>
+              <Button square variant="danger" aria-label={`Delete ${l.name}`} onClick={() => setSaved((all) => all.filter((_, j) => j !== i))}>
+                ✕
+              </Button>
+            </div>
+          ))}
+        </section>
       </ScrollPane>
       {picking && (
         <Popover anchor={picking.anchor} title="Change item" onClose={() => setPicking(undefined)}>

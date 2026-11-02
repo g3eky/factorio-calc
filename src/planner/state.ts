@@ -44,13 +44,24 @@ export const emptyCalculation = (game: Game): Calculation => ({
 
 const isObject = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v)
 
+const isTarget = (t: unknown): t is Target => isObject(t) && typeof t.id === 'string' && typeof t.amount === 'number' && typeof t.unit === 'string'
+
+// A build list saved under a name, to load again later. Only the targets are saved.
+export interface SavedList {
+  name: string
+  targets: Target[]
+}
+
+export const isSavedLists = (value: unknown): value is SavedList[] =>
+  Array.isArray(value) && value.every((l) => isObject(l) && typeof l.name === 'string' && Array.isArray(l.targets) && l.targets.every(isTarget))
+
 // Checks a stored calculation's shape. Items the dataset no longer has are dropped when it's used;
 // fields added later (like `planet`) are filled in from emptyCalculation by the caller.
 export function isCalculation(value: unknown): value is Calculation {
   return (
     isObject(value) &&
     Array.isArray(value.targets) &&
-    value.targets.every((t) => isObject(t) && typeof t.id === 'string' && typeof t.amount === 'number' && typeof t.unit === 'string') &&
+    value.targets.every(isTarget) &&
     isObject(value.overrides) &&
     isObject(value.recipes) &&
     typeof value.unit === 'string' &&
