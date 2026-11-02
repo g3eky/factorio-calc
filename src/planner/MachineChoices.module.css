@@ -42,3 +42,8 @@
   letter-spacing: 0.09em;
   text-transform: uppercase;
 }
+
+.apply {
+  margin-left: var(--space-2);
+  align-self: center;
+}
