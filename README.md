@@ -1,8 +1,8 @@
 # Factorio calculator
 
-A production calculator for Factorio, styled like the game's menus. Pick a game version, pick what you want to make, and see the machines, inputs and rates needed.
+A production calculator for Factorio. Pick a game version, pick what you want to make, and see the machines, inputs and rates needed.
 
-![The calculator, building red, green and military science on Nauvis](docs/screenshot.png)
+![The calculator, building red, green and military science on Nauvis, in the light theme](docs/screenshot.png)
 
 It's a static website hosted on GitHub Pages. Everything runs in your browser: the game data is downloaded as a SQLite database, the solver (a linear program, [HiGHS](https://highs.dev)) runs in a Web Worker, and your calculations and settings are saved in your browser's local storage. Nothing is sent to a server. After the first visit it works offline.
 

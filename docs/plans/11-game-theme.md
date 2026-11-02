@@ -1,5 +1,7 @@
 # 11 Game theme
 
+> Superseded by `12-companion-theme.md`: the site now uses the factorio-companion theme. The game theme generator, `game.css` and the compare view were removed.
+
 ## Goal
 
 Make the UI look like Factorio's own menus: the same frames, buttons, slots, tabs, fields, scrollbars, tooltips, fonts and colours, at the same sizes. Stage 03 approximated the look from memory; this stage takes every value from the game's own definitions and checks the result against screenshots of the game. Also add an Interface settings screen with a UI scale, like the game's.

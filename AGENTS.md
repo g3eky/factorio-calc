@@ -45,7 +45,7 @@ browser: read manifest -> download chosen database -> query it with SQLite (WASM
 
 ## UI
 
-- **Theme:** match Factorio's in-game menus: dark panels with beveled edges, inset slots for item icons, the game's button styles and colours, and the Titillium Web font.
+- **Theme:** the factorio-companion theme (`docs/plans/12-companion-theme.md`): flat cards with thin lines, condensed uppercase headings, mono numbers, an orange accent; light by default with a dark variant and a System/Light/Dark toggle. Every colour is a token in `src/theme/tokens.css`; no colour literal anywhere else.
 - **Smooth:** every part of the UI should feel smooth. Animate only `transform` and `opacity`, avoid layout shifts, keep interactions under one frame of work where possible, virtualise long lists, and load the database without blocking the UI. Respect `prefers-reduced-motion`.
 - Build reusable themed parts (panel, button, slot, tooltip, etc.) once, in their own area of `src/`, and use them everywhere.
 
