@@ -1,40 +1,63 @@
+/* The companion's rail: filter pills, then every item under a heading per category. */
 .picker {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  width: calc(10 * var(--slot-size) + 12px);
+  min-height: 0;
 }
 
 .search {
   width: 100%;
 }
 
-/* Fixed height, so switching groups never moves anything; long groups scroll. Slots sit flush
-   in a dark well, a row per subgroup, like Factoriopedia (9). */
 .grid {
+  min-height: 0;
+  padding: 0 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--panel-sunken);
+}
+
+.groupHead {
   display: flex;
-  flex-direction: column;
-  height: calc(10 * var(--slot-size));
-  background: var(--color-well);
-  box-shadow: var(--bevel-inset);
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 12px 6px 4px;
+  color: var(--ink-faint);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
 }
 
+.groupHead::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0;
+  order: 2;
+}
+
+/* No content-visibility here (unlike the companion): rows that wrap are taller than any fixed
+   placeholder size, so it made the list shift on load, and a few hundred icons render quickly. */
 .row {
-  display: grid;
-  grid-template-columns: repeat(10, var(--slot-size));
-}
-
-.row > .empty {
-  width: var(--slot-size);
-  height: var(--slot-size);
-  border-radius: var(--radius);
-  background: var(--color-slot-empty);
-  box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.6), 0 0 0 1px #0f0e0e;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  padding: 1px 4px;
 }
 
 .empty {
   margin: 0;
-  padding: var(--space-4);
-  color: var(--color-text-muted);
+  padding: 26px 12px;
+  color: var(--ink-faint);
   text-align: center;
 }

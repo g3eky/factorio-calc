@@ -1,37 +1,61 @@
+/* The companion's shell: a header across the top with a belt-hazard stripe, a rail on the left
+   and a graph-paper sheet on the right. */
 .planner {
   display: grid;
   grid-template-areas:
     'header header'
     'targets main';
-  /* The left column fits the item picker: ten slots, its scrollbar and the window's padding. */
-  grid-template-columns: calc(10 * var(--slot-size) + 12px + 16px) minmax(0, 1fr);
+  grid-template-columns: minmax(360px, 440px) minmax(0, 1fr);
   grid-template-rows: auto minmax(0, 1fr);
-  gap: var(--space-3);
   height: calc(100vh / var(--ui-scale, 1));
-  padding: var(--space-3);
 }
 
 .header {
+  position: relative;
+  z-index: var(--z-header);
   grid-area: header;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--game-header-spacing);
-  padding: var(--game-frame-padding);
-  border-radius: var(--radius);
-  background: var(--color-frame);
-  box-shadow: var(--bevel-outset);
+  gap: 18px;
+  padding: 12px 20px 11px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+
+/* A belt-hazard stripe, the one decorative flourish in the chrome. */
+.header::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 -3px;
+  height: 3px;
+  background: repeating-linear-gradient(115deg, var(--accent) 0 9px, transparent 9px 20px);
+  opacity: 0.55;
 }
 
 .title {
   margin: 0;
-  color: var(--color-heading);
-  font-size: 20px;
+  font-family: var(--font-display);
+  font-size: 23px;
   font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.title em {
+  color: var(--accent);
+  font-style: normal;
 }
 
 .dataset {
-  color: var(--color-text-muted);
+  padding: 2px 7px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .spacer {
@@ -41,29 +65,55 @@
 .setting {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: 6px;
+  color: var(--ink-faint);
+  font-family: var(--font-display);
+  font-size: 11px;
   font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+/* The label is small and uppercase; the control inside it keeps the body font. */
+.setting > * {
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 .skeletonTargets {
   grid-area: targets;
 }
 
+/* The rail and the sheet each scroll on their own. */
 .main {
   grid-area: main;
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: 22px;
   min-height: 0;
+  padding: 24px 26px 40px;
+  overflow-y: auto;
+  background-image:
+    linear-gradient(var(--graph-paper) 1px, transparent 1px),
+    linear-gradient(90deg, var(--graph-paper) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
 .error {
-  border-left: 4px solid var(--color-danger);
+  border-color: var(--accent);
+  color: var(--accent);
   animation: appear var(--duration) var(--ease);
 }
 
 .empty {
-  color: var(--color-text-muted);
+  border: 1px dashed var(--line-strong);
+  background: transparent;
+  color: var(--ink-dim);
+  text-align: center;
 }
 
 @media (max-width: 900px) {
@@ -73,6 +123,11 @@
     grid-template-rows: auto auto auto;
     height: auto;
     min-height: calc(100vh / var(--ui-scale, 1));
+  }
+
+  .main {
+    overflow: visible;
+    padding: 18px 14px 70px;
   }
 }
 

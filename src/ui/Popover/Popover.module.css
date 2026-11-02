@@ -4,17 +4,23 @@
   left: 0;
   z-index: var(--z-popover);
   min-width: 200px;
-  max-width: min(480px, calc(100vw - 8px));
-  padding: var(--space-1) var(--space-2) var(--space-2);
-  background: var(--color-frame);
-  box-shadow: var(--bevel-outset), 0 0 0 1px #000, 0 6px 18px rgb(0 0 0 / 0.6);
+  max-width: min(480px, calc(100vw / var(--ui-scale, 1) - 8px));
+  padding: 10px 14px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-card);
+  background: var(--panel);
+  box-shadow: var(--shadow);
   animation: appear var(--duration) var(--ease);
 }
 
 .title {
-  padding: 2px 0 var(--space-1);
-  color: var(--color-heading);
-  font-weight: 700;
+  margin-bottom: var(--space-2);
+  color: var(--ink-dim);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .body {

@@ -8,8 +8,9 @@
 .missing {
   display: inline-grid;
   place-items: center;
+  border: 1px dashed var(--line-strong);
   border-radius: var(--radius);
-  background: var(--color-panel-deep);
-  color: var(--color-text-muted);
-  font-weight: 700;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-weight: 600;
 }

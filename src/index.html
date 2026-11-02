@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Factorio calculator</title>
     <meta name="description" content="Production calculator for Factorio and Space Age, styled like the game. Runs entirely in your browser." />
-    <meta name="theme-color" content="#1b1a1b" />
+    <meta name="theme-color" content="#f4f3f1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#232221" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="%BASE_URL%favicon.svg" type="image/svg+xml" />
+    <!-- The fonts the first screen uses, so text doesn't shift when they arrive. -->
+    <link rel="preload" href="./theme/fonts/saira-condensed-700.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./theme/fonts/saira-condensed-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./theme/fonts/ibm-plex-sans.woff2" as="font" type="font/woff2" crossorigin />
     <meta property="og:title" content="Factorio calculator" />
     <meta property="og:description" content="Production calculator for Factorio and Space Age, styled like the game." />
     <meta property="og:type" content="website" />
@@ -14,9 +19,11 @@
   </head>
   <body>
     <script>
-      // UI scale, before anything paints (src/settings/interface.ts keeps it up to date).
+      // UI scale and theme, before anything paints (src/settings/interface.ts keeps them up to date).
       try {
-        const scale = JSON.parse(localStorage.getItem('factorio-calc:v1:interface'))?.uiScale
+        const saved = JSON.parse(localStorage.getItem('factorio-calc:v1:interface'))
+        if (saved?.theme === 'light' || saved?.theme === 'dark') document.documentElement.dataset.theme = saved.theme
+        const scale = saved?.uiScale
         if ([0.75, 0.85, 1, 1.25, 1.5, 1.75, 2].includes(scale)) {
           document.documentElement.style.zoom = scale
           document.documentElement.style.setProperty('--ui-scale', scale)
@@ -25,9 +32,7 @@
     </script>
     <div id="root">
       <!-- Shown until the app starts, in the same place as the app's header. Inline styles so it paints immediately. -->
-      <div style="padding: 12px; font: 15px 'Titillium Web', sans-serif">
-        <div style="padding: 4px 12px; background: #313031; color: #ffe6c0; font-size: 20px; font-weight: 700; line-height: 1.5">Factorio calculator</div>
-      </div>
+      <div style="padding: 12px 20px; font: 700 23px/1.5 'Saira Condensed', sans-serif; letter-spacing: 0.03em; text-transform: uppercase">Factorio calculator</div>
     </div>
     <script type="module" src="./app/main.tsx"></script>
   </body>

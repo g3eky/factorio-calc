@@ -5,7 +5,7 @@
   display: grid;
   place-items: center;
   padding: var(--space-3);
-  background: rgb(0 0 0 / 0.55);
+  background: var(--backdrop);
   animation: fade var(--duration) var(--ease);
 }
 

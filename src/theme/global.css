@@ -1,5 +1,4 @@
 @import './fonts.css';
-@import './game.css';
 @import './tokens.css';
 
 *,
@@ -12,9 +11,25 @@ html,
 body {
   margin: 0;
   min-height: 100%;
-  background: var(--color-background);
-  color: var(--color-text);
-  font-family: var(--font);
-  font-size: var(--font-size);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }

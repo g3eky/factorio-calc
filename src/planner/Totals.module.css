@@ -1,35 +1,44 @@
+/* The companion's summary tiles. */
 .totals {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--game-header-spacing);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(178px, 1fr));
+  gap: 8px;
+  align-items: start;
 }
 
 .section {
   display: flex;
   flex-direction: column;
-  gap: var(--game-flow-spacing);
+  gap: 6px;
+  box-shadow: var(--shadow);
 }
 
 .section h3 {
   margin: 0;
-  color: var(--color-heading);
-  font-size: var(--font-size);
-  font-weight: 700;
+  color: var(--ink-faint);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
-/* Slots sit flush, like the game's slot tables. */
 .slots {
   display: flex;
   flex-wrap: wrap;
 }
 
 .power {
-  font-size: 20px;
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 23px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
 }
 
 .solving {
-  color: var(--color-text-muted);
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 11px;
   opacity: 0;
   transition: opacity var(--duration) var(--ease);
 }
@@ -40,6 +49,7 @@
 }
 
 .warnings {
-  color: var(--color-button-hover);
-  font-size: var(--font-size-small);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-size: 13px;
 }

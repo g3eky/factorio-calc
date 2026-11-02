@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react
 import type { SolveResult } from '../calculator/types.ts'
 import { useSolver } from '../calculator/useSolver.ts'
 import { useGame } from '../db/GameProvider.tsx'
-import { applyUiScale, defaultInterface, INTERFACE_KEY, readInterface } from '../settings/interface.ts'
+import { applyTheme, applyUiScale, defaultInterface, INTERFACE_KEY, readInterface, THEMES } from '../settings/interface.ts'
 import { defaultPreferences, migrate } from '../settings/preferences.ts'
 import { usePersistentState } from '../settings/storage.ts'
 import { Button } from '../ui/Button/Button.tsx'
@@ -28,7 +28,9 @@ export function PlannerSkeleton({ children }: { children: ReactNode }) {
   return (
     <div className={styles.planner}>
       <header className={styles.header}>
-        <h1 className={styles.title}>Factorio calculator</h1>
+        <h1 className={styles.title}>
+          Factorio <em>Calculator</em>
+        </h1>
       </header>
       <Window title="Make" className={styles.skeletonTargets}>
         <span />
@@ -47,6 +49,7 @@ export function Planner({ onDataset, switching }: { onDataset: (id: string) => v
   const [prefs, setPrefs] = usePersistentState(`factorio-calc:v1:preferences:${game.dataset.id}`, defaultPreferences, migrate)
   const [ui, setUi] = usePersistentState(INTERFACE_KEY, defaultInterface, readInterface)
   useEffect(() => applyUiScale(ui.uiScale), [ui.uiScale])
+  useEffect(() => applyTheme(ui.theme), [ui.theme])
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [aboutOpen, setAboutOpen] = useState(false)
   const closeAbout = useCallback(() => setAboutOpen(false), [])
@@ -64,7 +67,9 @@ export function Planner({ onDataset, switching }: { onDataset: (id: string) => v
   return (
     <div className={styles.planner}>
       <header className={styles.header}>
-        <h1 className={styles.title}>Factorio calculator</h1>
+        <h1 className={styles.title}>
+          Factorio <em>Calculator</em>
+        </h1>
         {game.datasets.length > 1 ? (
           <Select
             label="Game version"
@@ -108,6 +113,13 @@ export function Planner({ onDataset, switching }: { onDataset: (id: string) => v
             options={game.data.belts.map((b) => ({ value: b.id, label: b.name }))}
           />
         </label>
+        <Button
+          onClick={() => setUi({ ...ui, theme: THEMES[(THEMES.indexOf(ui.theme) + 1) % THEMES.length] })}
+          aria-label={`Theme: ${ui.theme}. Change theme`}
+          title="Theme: system, light or dark"
+        >
+          {{ system: 'Auto', light: 'Light', dark: 'Dark' }[ui.theme]}
+        </Button>
         <Button onClick={() => setSettingsOpen(true)}>Settings</Button>
         <Button onClick={() => setAboutOpen(true)}>About</Button>
       </header>

@@ -1,103 +1,132 @@
-/* Colours and sizes of Factorio's menus. Sizes, fonts and font colours come from the game's
-   styles (game.css, generated). Surface colours are sampled from reference screenshots of the
-   game (screenshots/, see docs/plans/11-game-theme.md); the number in each comment is the
-   screenshot they came from. */
+/*
+ * Design tokens, from the factorio-companion theme.
+ *
+ * Light is the base palette. Dark is redefined twice: once behind prefers-color-scheme for
+ * viewers who never picked a theme, and once behind [data-theme="dark"] so the toggle wins either
+ * way. Components only ever read var(--token): no colour literal outside this file.
+ */
 :root {
-  --font: 'Titillium Web', sans-serif;
-  --font-size: var(--game-label-font-size, 14px);
-  --font-size-small: 12px;
-  --font-size-heading: var(--game-frame-title-font-size, 18px);
+  --bg: #e6e5e2;
+  --panel: #f4f3f1;
+  --panel-sunken: #ecebe8;
+  --line: #d0cec9;
+  --line-strong: #bfbcb5;
 
-  /* Text */
-  --color-text: #ffffff;
-  /* Lighter than the game's dimmed text, for 4.5:1 contrast on panels. */
-  --color-text-muted: #b8b8b8;
-  --color-text-dark: #000000;
-  --color-heading: #ffe6c0; /* game.css: frame_title, caption_label */
-  --color-link: #ffa200;
+  --ink: #1c1b19;
+  --ink-dim: #6a6761;
+  /* Darker than the companion's #8e8a83 (and lighter in dark than its #7d776e), for 4.5:1
+     contrast on every panel colour. */
+  --ink-faint: #69655f;
 
-  /* Surfaces */
-  --color-background: #1b1a1b;
-  --color-frame: #2e2c2d; /* 2, 6, 18: window */
-  --color-frame-light: #4a4849; /* window top edge */
-  --color-frame-dark: #0c0b0b; /* window outline */
-  --color-panel: #3f3d3e; /* 6, 18: inside shallow frame, selected tab */
-  --color-panel-deep: #201e1f; /* 6, 18: inside deep frame, subheader */
-  --color-well: #1b1a1b; /* 2, 6: behind slot grids and buttons */
+  --accent: #b4520f;
+  --accent-ink: #fff;
+  --accent-soft: #f0e0d2;
+  --fluid: #256a75;
+  --danger: #b3261e;
 
-  /* Buttons */
-  --color-button: #8f8f8f; /* 2: face */
-  --color-button-light: #c1c1c1; /* 2: top edge */
-  --color-button-dark: #6d6d6d; /* 2: bottom edge */
-  --color-button-hover: #e49921; /* 2: hovered face */
-  --color-button-hover-light: #f6c77d;
-  --color-button-hover-dark: #a96a10;
-  --color-button-pressed: #f0a42a;
-  --color-button-disabled: #6a6a6a;
-  --color-confirm: #5db763; /* 2: green face */
-  --color-confirm-light: #9fdca2;
-  --color-confirm-dark: #3b8a41;
-  --color-confirm-hover: #7fd085;
-  --color-danger: #fe5b5a; /* 2: red face */
-  --color-danger-light: #ffa3a2;
-  --color-danger-dark: #c23736;
-  --color-danger-hover: #ff7f7e;
-  --color-selected: #fca100; /* 4, 18: hovered slot, slider fill, checked box */
-  --color-glow: rgb(255 166 40 / 0.55); /* 2, 4: hover glow */
+  --shadow: 0 1px 2px rgb(28 27 25 / 7%), 0 8px 24px -12px rgb(28 27 25 / 18%);
+  --graph-paper: rgb(28 27 25 / 4.5%);
+  --backdrop: rgb(28 27 25 / 35%);
+  /* Item counts over icons: white with a dark outline in both themes. */
+  --icon-outline: #000;
+  --icon-text: #fff;
 
-  /* Slots */
-  --color-slot: #353334; /* 6: item slot face */
-  --color-slot-light: #4b494a; /* 6: item slot top edge */
-  --color-slot-dark: #161515;
-  --color-slot-empty: #201e1f; /* 6: empty slot cell */
-  --color-slot-red: #491e1e; /* 6: slot that can't be crafted */
-  --color-slot-hover: #fca100;
+  /* Quality tiers, as in the game. */
+  --quality-uncommon: #2ad16b;
+  --quality-rare: #2a8bf2;
+  --quality-epic: #b23bf6;
+  --quality-legendary: #ff9f1c;
+  --quality-normal: #a0a0a0;
 
-  /* Inputs */
-  --color-input: #8b8b8b; /* 18: text field */
-  --color-input-focus: #b5b5b5;
-  --color-groove: #0e0e0e; /* 18: slider groove */
+  --font-display: 'Saira Condensed', Impact, sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
-  /* Tooltips */
-  --color-tooltip: #1a191a; /* 6: tooltip body */
-  --color-tooltip-title: #1c1c1c; /* 6: dark text on the title bar */
-  --color-tooltip-title-background: #e4cfad; /* 6: tooltip title bar */
-  --color-tooltip-line: #3b3938; /* 6: line between tooltip sections */
-
-  /* Bevels */
-  --bevel-outset: inset 0 1px 0 var(--color-frame-light), inset 0 -1px 0 #1a1919, 0 0 0 1px var(--color-frame-dark), 0 3px 8px rgb(0 0 0 / 0.55);
-  --bevel-shallow: 0 0 0 1px #151414, inset 0 1px 0 #4f4d4e, inset 0 -1px 0 #2c2a2b;
-  --bevel-inset: inset 0 2px 3px rgb(0 0 0 / 0.65), 0 1px 0 rgb(255 255 255 / 0.06), 0 0 0 1px #111010;
-  --bevel-button: 0 0 0 1px #0a0a0a, 0 1px 2px rgb(0 0 0 / 0.5);
-  --bevel-button-pressed: 0 0 0 1px #0a0a0a, inset 0 2px 2px rgb(0 0 0 / 0.35);
-  --bevel-slot: inset 0 1px 0 var(--color-slot-light), inset 0 -1px 0 var(--color-slot-dark), 0 0 0 1px #0f0e0e;
-  --text-outline: 0 0 2px #000, 0 0 2px #000, 1px 1px 1px #000;
+  color-scheme: light dark;
 
   /* Spacing and sizes */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
-  --slot-size: var(--game-slot-width, 40px);
-  --icon-size: 32px;
-  --control-height: var(--game-button-min-height, 28px);
+  --slot-size: 40px;
+  --control-height: 30px;
   --radius: 3px;
+  --radius-card: 4px;
 
   /* Layers, lowest to highest. Everything that overlaps uses one of these. */
-  --z-raised: 1; /* hovered slot, selected tab: above their neighbours */
-  --z-sticky: 2; /* table headers, above scrolling rows */
-  --z-modal: 400; /* settings and about windows */
-  --z-popover: 500; /* item picker and row editors, also from inside a modal */
-  --z-dropdown: 600; /* drop-down lists, also from inside a popover or modal */
-  --z-notice: 700; /* "new version" notice */
-  --z-tooltip: 1000; /* tooltips, above everything */
+  --z-raised: 1;
+  --z-sticky: 2;
+  --z-header: 5;
+  --z-modal: 400;
+  --z-popover: 500;
+  --z-dropdown: 600;
+  --z-notice: 700;
+  --z-tooltip: 1000;
 
   /* Motion. Only transform and opacity are animated. */
   --duration-fast: 80ms;
   --duration: 150ms;
   --duration-slow: 250ms;
   --ease: cubic-bezier(0.2, 0, 0, 1);
-  --tooltip-delay: 150ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #191817;
+    --panel: #232221;
+    --panel-sunken: #1f1e1d;
+    --line: #343230;
+    --line-strong: #464340;
+
+    --ink: #ece8e2;
+    --ink-dim: #9d978d;
+    --ink-faint: #918b81;
+
+    --accent: #ff9d2e;
+    --accent-ink: #1a1614;
+    --accent-soft: #3a2a17;
+    --fluid: #6cbccb;
+    --danger: #ff6b5e;
+
+    --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 10px 30px -14px rgb(0 0 0 / 70%);
+    --graph-paper: rgb(255 255 255 / 3.5%);
+    --backdrop: rgb(0 0 0 / 55%);
+    --icon-outline: #000;
+    --icon-text: #fff;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #191817;
+  --panel: #232221;
+  --panel-sunken: #1f1e1d;
+  --line: #343230;
+  --line-strong: #464340;
+
+  --ink: #ece8e2;
+  --ink-dim: #9d978d;
+  --ink-faint: #918b81;
+
+  --accent: #ff9d2e;
+  --accent-ink: #1a1614;
+  --accent-soft: #3a2a17;
+  --fluid: #6cbccb;
+  --danger: #ff6b5e;
+
+  --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 10px 30px -14px rgb(0 0 0 / 70%);
+  --graph-paper: rgb(255 255 255 / 3.5%);
+  --backdrop: rgb(0 0 0 / 55%);
+  --icon-outline: #000;
+  --icon-text: #fff;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
 }
 
 @media (prefers-reduced-motion: reduce) {

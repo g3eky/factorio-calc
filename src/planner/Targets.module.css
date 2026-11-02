@@ -1,27 +1,35 @@
+/* The rail: sunken, a line on the right; the picker on top and what's being made below. */
 .targets {
   grid-area: targets;
   min-height: 0;
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--panel-sunken);
+  box-shadow: none;
 }
 
-/* Below the item picker; takes the rest of the column and scrolls. */
 .list {
   display: flex;
-  flex: 1;
+  flex: 0 1 auto;
   flex-direction: column;
-  gap: var(--game-flow-spacing);
-  min-height: 120px;
+  gap: 6px;
+  max-height: 40%;
+  min-height: 0;
 }
 
 .hint {
   margin: 0;
-  color: var(--color-text-muted);
+  color: var(--ink-faint);
+  font-size: 13px;
 }
 
 .target {
   display: flex;
   align-items: center;
-  gap: var(--game-header-spacing);
-  padding: var(--game-padded-frame-padding);
+  gap: 10px;
+  padding: 7px 9px 7px 8px;
+  box-shadow: var(--shadow);
   animation: appear var(--duration) var(--ease);
 }
 
@@ -29,24 +37,24 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: var(--game-flow-spacing);
+  gap: 4px;
   min-width: 0;
 }
 
 .name {
   overflow: hidden;
-  font-weight: 600;
+  font-weight: 500;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .amount {
   display: flex;
-  gap: var(--game-flow-spacing);
+  gap: 4px;
 }
 
 .unit {
-  min-width: 100px;
+  min-width: 96px;
 }
 
 @keyframes appear {

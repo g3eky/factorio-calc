@@ -1,7 +1,6 @@
-import { useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
+import { memo, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { useGame } from '../../db/GameProvider.tsx'
 import { TextInput } from '../Input/Input.tsx'
-import { Icon } from '../Icon/Icon.tsx'
 import { ScrollPane } from '../ScrollPane/ScrollPane.tsx'
 import { Slot } from '../Slot/Slot.tsx'
 import { Tabs } from '../Tabs/Tabs.tsx'
@@ -23,22 +22,30 @@ interface Props {
   filter?: (pick: Pick) => boolean
   // Marked as selected: one item, or several (e.g. everything already being made).
   selected?: Pick | Pick[]
-  // Height of the slot grid in rows; longer groups scroll.
+  // Height of the list in slot rows; without it the list fills the space it's given.
   rows?: number
   // Tooltip body for each item, below its name.
   details?: (pick: Pick) => ReactNode
 }
 
-// The game's item picker: a tab per item group, a row per subgroup, and search by name.
-export function ItemPicker({ onPick, filter, selected, rows = 10, details }: Props) {
+const ALL = 'all'
+
+const picks = (selected: Props['selected']) =>
+  (selected === undefined ? [] : Array.isArray(selected) ? selected : [selected]).map((p) => `${p.kind}/${p.id}`).join(',')
+
+// Every item by category, as in the companion's rail: filter pills ("All" by default), then a
+// heading per category with a row per subgroup. Search by name narrows everything.
+// It's a few hundred slots, so it only re-renders when what it shows changes: pass stable
+// callbacks, and the selection is compared by item, not by array.
+export const ItemPicker = memo(
+  ItemPickerList,
+  (a, b) => a.onPick === b.onPick && a.filter === b.filter && a.details === b.details && a.rows === b.rows && picks(a.selected) === picks(b.selected),
+)
+
+function ItemPickerList({ onPick, filter, selected, rows, details }: Props) {
   const chosen = selected === undefined ? [] : Array.isArray(selected) ? selected : [selected]
-  const first = chosen[0]
   const game = useGame()
-  // Open on the group of the selected item, like the game.
-  const [group, setGroup] = useState(() => {
-    const subgroup = first && (first.kind === 'item' ? game.items : game.fluids).get(first.id)?.subgroup
-    return game.data.groups.find((g) => g.subgroups.some((s) => s.id === subgroup))?.id
-  })
+  const [group, setGroup] = useState(ALL)
   const [query, setQuery] = useState('')
   const search = useRef<HTMLInputElement>(null)
   const grid = useRef<HTMLDivElement>(null)
@@ -74,7 +81,7 @@ export function ItemPicker({ onPick, filter, selected, rows = 10, details }: Pro
         .map((g) => ({ ...g, rows: g.rows.map((row) => row.filter((e) => e.name.toLowerCase().includes(needle))).filter((row) => row.length) }))
         .filter((g) => g.rows.length)
     : groups
-  const current = visible.find((g) => g.id === group) ?? visible[0]
+  const shown = visible.filter((g) => g.id === group).length ? visible.filter((g) => g.id === group) : visible
 
   // Arrow keys move to the nearest slot in that direction; typing jumps to the search box.
   const onGridKeyDown = (e: KeyboardEvent) => {
@@ -108,7 +115,7 @@ export function ItemPicker({ onPick, filter, selected, rows = 10, details }: Pro
   }
 
   const onSearchKeyDown = (e: KeyboardEvent) => {
-    const first = current?.rows[0]?.[0]
+    const first = shown[0]?.rows[0]?.[0]
     if (e.key === 'Enter' && first) onPick(first)
     if (e.key === 'ArrowDown') {
       e.preventDefault()
@@ -127,42 +134,46 @@ export function ItemPicker({ onPick, filter, selected, rows = 10, details }: Pro
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={onSearchKeyDown}
       />
-      {visible.length > 0 && current ? (
+      {visible.length > 0 ? (
         <>
           <Tabs
             large
             label="Item groups"
-            value={current.id}
+            value={shown.length === 1 && visible.length > 1 ? shown[0].id : ALL}
             onChange={setGroup}
-            tabs={visible.map((g) => ({ id: g.id, title: g.name, label: <Icon kind={g.rows[0][0].kind} id={g.rows[0][0].id} size={48} /> }))}
+            tabs={[{ id: ALL, label: 'All' }, ...visible.map((g) => ({ id: g.id, label: g.name }))]}
           />
           <ScrollPane
             ref={grid}
             className={styles.grid}
-            style={{ height: `calc(${rows} * var(--slot-size))` }}
+            style={rows ? { height: `calc(${rows} * var(--slot-size) + 40px)` } : { flex: 1 }}
             role="group"
-            aria-label={current.name}
+            aria-label="Items"
             onKeyDown={onGridKeyDown}
           >
-            {current.rows.map((row) => (
-              <div key={`${row[0].kind}/${row[0].id}`} className={styles.row}>
-                {/* Empty cells fill the row to whole lines of ten, as in the game. */}
-                {Array.from({ length: (10 - (row.length % 10)) % 10 }, (_, i) => (
-                  <span key={`empty-${i}`} className={styles.empty} style={{ order: 1 }} />
+            {shown.map((g) => (
+              <section key={g.id} aria-label={`${g.name} items`}>
+                <h3 className={styles.groupHead}>
+                  {g.name}
+                  <span className={styles.count}>{g.rows.reduce((n, row) => n + row.length, 0)}</span>
+                </h3>
+                {g.rows.map((row) => (
+                  <div key={`${row[0].kind}/${row[0].id}`} className={styles.row}>
+                    {row.map((entry) => (
+                      <Slot
+                        key={`${entry.kind}/${entry.id}`}
+                        kind={entry.kind}
+                        id={entry.id}
+                        title={entry.name}
+                        details={details?.(entry)}
+                        aria-label={entry.name}
+                        selected={chosen.some((c) => c.kind === entry.kind && c.id === entry.id)}
+                        onClick={() => onPick(entry)}
+                      />
+                    ))}
+                  </div>
                 ))}
-                {row.map((entry) => (
-                  <Slot
-                    key={`${entry.kind}/${entry.id}`}
-                    kind={entry.kind}
-                    id={entry.id}
-                    title={entry.name}
-                    details={details?.(entry)}
-                    aria-label={entry.name}
-                    selected={chosen.some((c) => c.kind === entry.kind && c.id === entry.id)}
-                    onClick={() => onPick(entry)}
-                  />
-                ))}
-              </div>
+              </section>
             ))}
           </ScrollPane>
         </>

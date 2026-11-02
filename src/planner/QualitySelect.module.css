@@ -4,23 +4,22 @@
 
 .dot {
   display: inline-block;
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   margin: 0 2px;
   transform: rotate(45deg);
-  box-shadow: 0 0 0 1px #000;
-  background: #a0a0a0;
+  background: var(--quality-normal);
 }
 
 .dot[data-quality='uncommon'] {
-  background: #2ad16b;
+  background: var(--quality-uncommon);
 }
 .dot[data-quality='rare'] {
-  background: #2a8bf2;
+  background: var(--quality-rare);
 }
 .dot[data-quality='epic'] {
-  background: #b23bf6;
+  background: var(--quality-epic);
 }
 .dot[data-quality='legendary'] {
-  background: #ff9f1c;
+  background: var(--quality-legendary);
 }

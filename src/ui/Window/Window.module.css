@@ -1,42 +1,41 @@
-/* game.css: frame (padding), frame_title (font, colour), draggable_space (24 px filler). */
+/* A card (panel, line, shadow) with a section heading: condensed uppercase and a rule after it. */
 .window {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding: var(--game-frame-padding);
-  border-radius: var(--radius);
-  background: var(--color-frame);
-  box-shadow: var(--bevel-outset);
+  padding: 10px 14px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--panel);
+  box-shadow: var(--shadow);
 }
 
-/* game.css: frame_header_flow (8 px between title, handle and buttons; 4 px below). */
 .titleBar {
   display: flex;
   align-items: center;
-  gap: var(--game-header-spacing);
-  min-height: var(--game-frame-action-button-height);
-  padding: var(--game-header-padding);
+  gap: 9px;
+  min-height: 28px;
+  margin-bottom: var(--space-2);
 }
 
 .title {
   margin: 0;
-  color: var(--game-frame-title-color);
-  font-size: var(--game-frame-title-font-size);
-  font-weight: var(--game-frame-title-font-weight);
+  color: var(--ink-dim);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
-/* The drag handle: a recessed strip of fine vertical lines (2, 18). */
+/* The rule line after the heading. */
 .filler {
   flex: 1;
-  align-self: center;
-  height: var(--game-frame-action-button-height);
-  border-radius: 2px;
-  background: repeating-linear-gradient(90deg, #252324 0 1px, #3a3839 1px 2px, #2b292a 2px 3px);
-  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.6);
+  height: 1px;
+  background: var(--line);
 }
 
-/* Fills the window, so a stretched window's content can grow into it. */
 .body {
   display: flex;
   flex: 1;

@@ -19,10 +19,14 @@
 
 .about h3 {
   margin: 0;
-  color: var(--color-heading);
-  font-size: var(--font-size);
+  color: var(--ink-faint);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .about a {
-  color: var(--color-link);
+  color: var(--accent);
 }

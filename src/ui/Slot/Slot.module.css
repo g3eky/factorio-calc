@@ -1,49 +1,46 @@
-/* game.css: slot_button (40 x 40). A raised dark square that sits flush with its neighbours;
-   bright orange with a glow when hovered (4, 6). */
+/* The companion's cell: transparent until hovered; accent border and soft accent when selected. */
 .slot {
   position: relative;
   display: inline-grid;
   place-items: center;
-  width: var(--game-slot-width);
-  height: var(--game-slot-height);
+  width: var(--slot-size);
+  height: var(--slot-size);
   padding: 0;
-  border: 0;
+  border: 1px solid transparent;
   border-radius: var(--radius);
-  background: var(--color-slot);
-  box-shadow: var(--bevel-slot);
+  background: transparent;
   color: inherit;
   font: inherit;
+  line-height: 0;
   cursor: pointer;
 }
 
 .slot:hover,
-.slot:focus-visible,
-.slot[data-force='hover'] {
+.slot:focus-visible {
   z-index: var(--z-raised);
   outline: none;
-  background: linear-gradient(var(--color-slot-hover) calc(100% - 3px), #b86f00);
-  box-shadow: 0 0 0 1px #0f0e0e, 0 0 6px 1px var(--color-glow);
+  border-color: var(--line-strong);
+  background: var(--panel);
 }
 
-.slot:active {
-  transform: translateY(var(--game-slot-pressed-offset));
+.slot:focus-visible {
+  border-color: var(--accent);
 }
 
 .selected,
 .selected:hover {
-  background: linear-gradient(var(--color-selected) calc(100% - 3px), #b86f00);
-  box-shadow: 0 0 0 1px #0f0e0e;
+  border-color: var(--accent);
+  background: var(--accent-soft);
 }
 
-/* game font "count-font": 13 px bold, white with a black outline. */
+/* Counts: mono, white with a dark outline, over the icon's corner. */
 .amount {
   position: absolute;
-  right: 2px;
-  bottom: -1px;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.2;
-  text-shadow: var(--text-outline);
+  right: 1px;
+  bottom: 1px;
+  color: var(--icon-text);
+  font: 600 10.5px/1 var(--font-mono);
+  text-shadow: 0 0 2px var(--icon-outline), 0 0 2px var(--icon-outline), 0 0 1px var(--icon-outline);
   pointer-events: none;
 }
 
@@ -51,21 +48,21 @@
   position: absolute;
   bottom: 3px;
   left: 3px;
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   transform: rotate(45deg);
-  box-shadow: 0 0 0 1px #000;
+  box-shadow: 0 0 0 1px var(--icon-outline);
 }
 
 .uncommon {
-  background: #2ad16b;
+  background: var(--quality-uncommon);
 }
 .rare {
-  background: #2a8bf2;
+  background: var(--quality-rare);
 }
 .epic {
-  background: #b23bf6;
+  background: var(--quality-epic);
 }
 .legendary {
-  background: #ff9f1c;
+  background: var(--quality-legendary);
 }

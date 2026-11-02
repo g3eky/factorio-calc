@@ -1,13 +1,12 @@
-/* game.css: inside_shallow_frame (lighter section panel) and inside_deep_frame (dark well). */
-/* Section panels get the game's padded frame padding (12 px). */
+/* A tile inside a card; deep is the sunken variant. */
 .panel {
-  padding: var(--game-padded-frame-padding);
-  background: var(--color-panel);
-  box-shadow: var(--bevel-shallow);
+  padding: 11px 13px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--panel);
 }
 
 .deep {
-  padding: 0;
-  background: var(--color-panel-deep);
-  box-shadow: var(--bevel-inset);
+  padding: var(--space-1);
+  background: var(--panel-sunken);
 }

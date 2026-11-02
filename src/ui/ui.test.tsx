@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { useState } from 'react'
 import { afterEach, beforeAll, expect, test, vi } from 'vitest'
 import type { Game } from '../db/GameProvider.tsx'
@@ -17,21 +17,27 @@ beforeAll(async () => {
 })
 afterEach(cleanup)
 
-test('item picker shows a tab per group and a slot per item', () => {
+const pickerItems = () => within(screen.getByRole('group', { name: 'Items' })).getAllByRole('button').map((b) => b.getAttribute('aria-label'))
+
+test('item picker shows every category by default, and a pill narrows to one', () => {
   render(<ItemPicker onPick={() => {}} />, { wrapper: withGame(game) })
-  expect(screen.getAllByRole('tab').map((t) => t.title)).toEqual(['Production', 'Intermediate products'])
-  fireEvent.click(screen.getByRole('tab', { name: 'Intermediate products' }))
-  expect(screen.getByRole('button', { name: 'Iron plate' })).toBeTruthy()
-  expect(screen.getByRole('button', { name: 'Petroleum gas' })).toBeTruthy()
+  expect(screen.getAllByRole('tab').map((t) => t.textContent)).toEqual(['All', 'Production', 'Intermediate products'])
+  expect(screen.getByRole('tab', { selected: true }).textContent).toBe('All')
+  expect(screen.getByRole('region', { name: 'Production items' })).toBeTruthy()
+  expect(screen.getByRole('region', { name: 'Intermediate products items' })).toBeTruthy()
+  expect(pickerItems()).toContain('Iron plate')
+  expect(pickerItems()).toContain('Speed module')
+  fireEvent.click(screen.getByRole('tab', { name: 'Production' }))
+  expect(pickerItems()).toEqual(['Speed module', 'Productivity module', 'Quality module'])
 })
 
-test('item picker search filters across groups, and Enter picks the first match', () => {
+test('item picker search filters across categories, and Enter picks the first match', () => {
   const onPick = vi.fn()
   render(<ItemPicker onPick={onPick} />, { wrapper: withGame(game) })
   const search = screen.getByRole('textbox', { name: 'Search items' })
   fireEvent.change(search, { target: { value: 'cable' } })
-  expect(screen.getAllByRole('tab')).toHaveLength(1)
-  expect(screen.getAllByRole('button').map((b) => b.getAttribute('aria-label'))).toEqual(['Copper cable'])
+  expect(screen.getAllByRole('tab').map((t) => t.textContent)).toEqual(['All', 'Intermediate products'])
+  expect(pickerItems()).toEqual(['Copper cable'])
   fireEvent.keyDown(search, { key: 'Enter' })
   expect(onPick).toHaveBeenCalledWith(expect.objectContaining({ kind: 'item', id: 'copper-cable' }))
 
@@ -48,12 +54,6 @@ test('item picker: clicking a slot picks it, typing in the grid jumps to search'
   slot.focus()
   fireEvent.keyDown(slot, { key: 'p' })
   expect(document.activeElement).toBe(screen.getByRole('textbox', { name: 'Search items' }))
-})
-
-test('item picker opens on the selected item\'s group', () => {
-  render(<ItemPicker onPick={() => {}} selected={{ kind: 'fluid', id: 'water' }} />, { wrapper: withGame(game) })
-  expect(screen.getByRole('tab', { selected: true }).title).toBe('Intermediate products')
-  expect(screen.getByRole('button', { name: 'Water' }).getAttribute('aria-pressed')).toBe('true')
 })
 
 test('item picker can mark several items as selected', () => {

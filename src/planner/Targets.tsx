@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useGame } from '../db/GameProvider.tsx'
 import { Button } from '../ui/Button/Button.tsx'
 import { NumberInput } from '../ui/Input/Input.tsx'
@@ -31,17 +31,24 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
   const targets = knownTargets(game, calc.targets)
   const name = (t: Pick) => (t.kind === 'fluid' ? game.fluids : game.items).get(t.id)?.name ?? t.id
   // Only offer things the calculator can make.
-  const makeable = (p: Pick) => recipesFor(game, p.kind, p.id).length > 0
+  const makeable = useCallback((p: Pick) => recipesFor(game, p.kind, p.id).length > 0, [game])
+  const info = useCallback((p: Pick) => <ItemInfo kind={p.kind} id={p.id} />, [])
+  const targetKeys = targets.map((t) => `${t.kind}/${t.id}`).join(',')
+  // Changes only when what's being made changes, not when an amount is typed.
+  const making = useMemo(() => targets.map((t) => ({ kind: t.kind, id: t.id })), [targetKeys])
 
   // Items in the panel toggle: click to make it, click again to stop. Picking from a target's
   // popover replaces that target.
-  const toggle = (p: Pick) =>
-    update((c) => {
+  const toggle = useCallback(
+    (p: Pick) =>
+      update((c) => {
       const same = (t: Pick) => t.kind === p.kind && t.id === p.id
       return c.targets.some(same)
         ? { ...c, targets: c.targets.filter((t) => !same(t)) }
         : { ...c, targets: [...c.targets, { kind: p.kind, id: p.id, amount: 60, unit: c.unit }] }
-    })
+      }),
+    [update],
+  )
   const replace = (p: Pick) => {
     const index = picking!.index
     update((c) => ({ ...c, targets: c.targets.map((t, i) => (i === index ? { ...t, kind: p.kind, id: p.id } : t)) }))
@@ -53,7 +60,7 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
   return (
     <Window title="Make" className={styles.targets}>
       {/* Every item that can be made, by category; click one to make it. */}
-      <ItemPicker onPick={toggle} filter={makeable} selected={targets} rows={6} details={(p) => <ItemInfo kind={p.kind} id={p.id} />} />
+      <ItemPicker onPick={toggle} filter={makeable} selected={making} details={info} />
       <ScrollPane className={styles.list}>
         {targets.length === 0 && <p className={styles.hint}>Click an item above to make it; click it again to stop.</p>}
         {targets.map((t, i) => (
@@ -75,7 +82,7 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
       </ScrollPane>
       {picking && (
         <Popover anchor={picking.anchor} title="Change item" onClose={() => setPicking(undefined)}>
-          <ItemPicker onPick={replace} filter={makeable} selected={targets[picking.index]} />
+          <ItemPicker onPick={replace} filter={makeable} selected={targets[picking.index]} rows={8} />
         </Popover>
       )}
     </Window>

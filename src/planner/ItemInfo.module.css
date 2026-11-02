@@ -1,23 +1,27 @@
-/* Like the game's tooltips (6): sections separated by lines, cream headings, icon rows. */
 .info {
   display: flex;
   flex-direction: column;
-  margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-3));
+  margin: -7px -11px -9px;
 }
 
 .section {
   display: flex;
   flex-direction: column;
-  gap: var(--game-flow-spacing);
-  padding: var(--space-2) var(--space-3);
+  gap: 4px;
+  padding: 7px 11px 9px;
 }
 
 .section + .section {
-  border-top: 2px solid var(--color-tooltip-line);
+  border-top: 1px solid var(--line);
 }
 
 .heading {
-  color: var(--color-heading);
+  color: var(--ink-faint);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
 }
 
 .amount,
@@ -25,7 +29,15 @@
 .icons {
   display: flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: 6px;
+  color: var(--ink);
+}
+
+.amount strong,
+.time strong {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-weight: 500;
 }
 
 .icons {
@@ -33,6 +45,6 @@
 }
 
 .click {
-  color: var(--color-text-muted);
-  font-size: var(--font-size-small);
+  color: var(--ink-faint);
+  font-size: 12px;
 }

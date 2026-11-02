@@ -12,7 +12,7 @@ import { ScrollPane } from '../ui/ScrollPane/ScrollPane.tsx'
 import { Select } from '../ui/Select/Select.tsx'
 import { Slider } from '../ui/Slider/Slider.tsx'
 import { Tabs } from '../ui/Tabs/Tabs.tsx'
-import { UI_SCALES, type InterfacePreferences } from '../settings/interface.ts'
+import { UI_SCALES, THEMES, type InterfacePreferences, type Theme } from '../settings/interface.ts'
 import { MachineChoices } from './MachineChoices.tsx'
 import { ModuleSetupEditor } from './ModuleSetupEditor.tsx'
 import { QualitySelect } from './QualitySelect.tsx'
@@ -221,13 +221,23 @@ function RecipesTab({ prefs, setPrefs }: { prefs: Preferences; setPrefs: SetPref
 function InterfaceTab({ ui, setUi }: { ui: InterfacePreferences; setUi: (ui: InterfacePreferences) => void }) {
   return (
     <div className={styles.rows}>
+      <strong className={styles.section}>Theme</strong>
+      <div className={styles.row}>
+        <span className={styles.rowLabel}>Colours</span>
+        <Select<Theme>
+          label="Theme"
+          value={ui.theme}
+          onChange={(theme) => setUi({ ...ui, theme })}
+          options={THEMES.map((t) => ({ value: t, label: { system: 'Same as the device', light: 'Light', dark: 'Dark' }[t] }))}
+        />
+      </div>
       <strong className={styles.section}>Scale</strong>
       <div className={styles.row}>
         <span className={styles.rowLabel}>UI scale</span>
         <Slider label="UI scale" steps={UI_SCALES} value={ui.uiScale} onChange={(uiScale) => setUi({ ...ui, uiScale })} />
         <output className={styles.value}>{Math.round(ui.uiScale * 100)}%</output>
       </div>
-      <p className={styles.note}>Makes everything bigger or smaller, like the game's UI scale. Saved on this device for every game version.</p>
+      <p className={styles.note}>Saved on this device for every game version.</p>
     </div>
   )
 }
