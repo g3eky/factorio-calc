@@ -22,7 +22,7 @@
 
 .note {
   margin: 0;
-  color: var(--color-text-muted);
+  color: var(--ink-faint);
 }
 
 .wide {

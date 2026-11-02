@@ -11,7 +11,6 @@ import { DATA_FILES, type GameData } from '../../src/db/types.ts'
 import { readDataset } from '../build-db.ts'
 import { packAtlas } from './atlas.ts'
 import { convert, nameFromId, type Raw } from './convert.ts'
-import { themeCss } from './theme.ts'
 import { Wiki } from './wiki.ts'
 
 const DEFAULT_VERSION = '2.1.24'
@@ -93,8 +92,3 @@ async function importDataset(version: string, dataset: (typeof DATASETS)[number]
 const version = process.argv[2] ?? DEFAULT_VERSION
 const wiki = new Wiki(join(cache, 'wiki'))
 for (const dataset of DATASETS) await importDataset(version, dataset, wiki)
-
-// The site's theme numbers come from the game's GUI styles, which Space Age's dump includes.
-const themePath = join(root, 'src', 'theme', 'game.css')
-await writeFile(themePath, themeCss(JSON.parse(await readFile(join(cache, `${DATASETS[0].game}-${version}.json`), 'utf8'))))
-console.log(`${themePath}: written`)
