@@ -1,6 +1,148 @@
 /* The companion's chain: one card, rows split by lines, sunken on hover, rates in mono accent. */
 .results {
   flex: none;
+  container-type: inline-size;
+}
+
+/* The table, and the needs / needed-by panel beside it once a row is picked. */
+.layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.layout > .scroll {
+  flex: 1;
+  min-width: 0;
+}
+
+.aside {
+  position: sticky;
+  top: 0;
+  flex: none;
+  width: 300px;
+  max-height: calc(100vh / var(--ui-scale, 1) - 120px);
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  animation: appear var(--duration) var(--ease);
+}
+
+/* Under the row instead, when there's no room beside the table. */
+.inline {
+  display: none;
+}
+
+.table .inline > td {
+  padding: 0;
+  background: var(--panel-sunken);
+}
+
+@container (max-width: 1000px) {
+  .aside {
+    display: none;
+  }
+
+  .inline {
+    display: table-row;
+  }
+}
+
+.uses {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px 12px;
+}
+
+.usesTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.usesHead {
+  margin: 6px 0 0;
+  color: var(--ink-faint);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.usesItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.usesAmount,
+.link,
+.note {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 24px;
+}
+
+.usesAmount {
+  font-weight: 500;
+}
+
+.links {
+  margin: 0;
+  padding: 0 0 0 13px;
+  border-left: 1px solid var(--line-strong);
+  margin-left: 9px;
+  list-style: none;
+}
+
+.links.flat {
+  margin-left: 0;
+  padding-left: 0;
+  border-left: 0;
+}
+
+.link {
+  width: 100%;
+  padding: 1px 4px;
+  border: 0;
+  border-radius: var(--radius);
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.link:hover {
+  background: var(--accent-soft);
+}
+
+.note {
+  padding: 1px 4px;
+  color: var(--ink-dim);
+  font-style: italic;
+}
+
+.linkName {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.rate {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .scroll {
@@ -42,8 +184,16 @@
   animation: appear var(--duration) var(--ease);
 }
 
+.row {
+  cursor: pointer;
+}
+
 .row:hover {
   background: var(--panel-sunken);
+}
+
+.row.selected {
+  background: var(--accent-soft);
 }
 
 .recipe,
@@ -55,8 +205,15 @@
 }
 
 .recipe {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
   font-weight: 500;
+  text-align: left;
   white-space: nowrap;
+  cursor: pointer;
 }
 
 .quality {
