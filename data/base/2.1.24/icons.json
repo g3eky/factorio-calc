@@ -1,1003 +1,1003 @@
 {
  "size": 64,
- "width": 1024,
- "height": 1024,
+ "width": 1280,
+ "height": 1280,
  "icons": {
   "fluid/crude-oil": [
-   0,
-   0
+   8,
+   8
   ],
   "fluid/heavy-oil": [
-   64,
-   0
+   88,
+   8
   ],
   "fluid/light-oil": [
-   128,
-   0
+   168,
+   8
   ],
   "fluid/lubricant": [
-   192,
-   0
+   248,
+   8
   ],
   "fluid/petroleum-gas": [
-   256,
-   0
+   328,
+   8
   ],
   "fluid/steam": [
-   320,
-   0
+   408,
+   8
   ],
   "fluid/sulfuric-acid": [
-   384,
-   0
+   488,
+   8
   ],
   "fluid/water": [
-   448,
-   0
+   568,
+   8
   ],
   "item/accumulator": [
-   512,
-   0
+   648,
+   8
   ],
   "item/active-provider-chest": [
-   576,
-   0
+   728,
+   8
   ],
   "item/advanced-circuit": [
-   640,
-   0
+   808,
+   8
   ],
   "item/arithmetic-combinator": [
-   704,
-   0
+   888,
+   8
   ],
   "item/artillery-shell": [
-   768,
-   0
+   968,
+   8
   ],
   "item/artillery-targeting-remote": [
-   832,
-   0
+   1048,
+   8
   ],
   "item/artillery-turret": [
-   896,
-   0
+   1128,
+   8
   ],
   "item/artillery-wagon": [
-   960,
-   0
+   1208,
+   8
   ],
   "item/assembling-machine-1": [
-   0,
-   64
+   8,
+   88
   ],
   "item/assembling-machine-2": [
-   64,
-   64
+   88,
+   88
   ],
   "item/assembling-machine-3": [
-   128,
-   64
+   168,
+   88
   ],
   "item/atomic-bomb": [
-   192,
-   64
+   248,
+   88
   ],
   "item/automation-science-pack": [
-   256,
-   64
+   328,
+   88
   ],
   "item/barrel": [
-   320,
-   64
+   408,
+   88
   ],
   "item/battery": [
-   384,
-   64
+   488,
+   88
   ],
   "item/battery-equipment": [
-   448,
-   64
+   568,
+   88
   ],
   "item/battery-mk2-equipment": [
-   512,
-   64
+   648,
+   88
   ],
   "item/beacon": [
-   576,
-   64
+   728,
+   88
   ],
   "item/belt-immunity-equipment": [
-   640,
-   64
+   808,
+   88
   ],
   "item/big-electric-pole": [
-   704,
-   64
+   888,
+   88
   ],
   "item/boiler": [
-   768,
-   64
+   968,
+   88
   ],
   "item/buffer-chest": [
-   832,
-   64
+   1048,
+   88
   ],
   "item/bulk-inserter": [
-   896,
-   64
+   1128,
+   88
   ],
   "item/burner-inserter": [
-   960,
-   64
+   1208,
+   88
   ],
   "item/burner-mining-drill": [
-   0,
-   128
+   8,
+   168
   ],
   "item/cannon-shell": [
-   64,
-   128
+   88,
+   168
   ],
   "item/car": [
-   128,
-   128
+   168,
+   168
   ],
   "item/cargo-landing-pad": [
-   192,
-   128
+   248,
+   168
   ],
   "item/cargo-wagon": [
-   256,
-   128
+   328,
+   168
   ],
   "item/centrifuge": [
-   320,
-   128
+   408,
+   168
   ],
   "item/chemical-plant": [
-   384,
-   128
+   488,
+   168
   ],
   "item/chemical-science-pack": [
-   448,
-   128
+   568,
+   168
   ],
   "item/cliff-explosives": [
-   512,
-   128
+   648,
+   168
   ],
   "item/cluster-grenade": [
-   576,
-   128
+   728,
+   168
   ],
   "item/coal": [
-   640,
-   128
+   808,
+   168
   ],
   "item/combat-shotgun": [
-   704,
-   128
+   888,
+   168
   ],
   "item/concrete": [
-   768,
-   128
+   968,
+   168
   ],
   "item/constant-combinator": [
-   832,
-   128
+   1048,
+   168
   ],
   "item/construction-robot": [
-   896,
-   128
+   1128,
+   168
   ],
   "item/copper-cable": [
-   960,
-   128
+   1208,
+   168
   ],
   "item/copper-ore": [
-   0,
-   192
+   8,
+   248
   ],
   "item/copper-plate": [
-   64,
-   192
+   88,
+   248
   ],
   "item/copper-wire": [
-   128,
-   192
+   168,
+   248
   ],
   "item/crude-oil-barrel": [
-   192,
-   192
+   248,
+   248
   ],
   "item/decider-combinator": [
-   256,
-   192
+   328,
+   248
   ],
   "item/defender-capsule": [
-   320,
-   192
+   408,
+   248
   ],
   "item/depleted-uranium-fuel-cell": [
-   384,
-   192
+   488,
+   248
   ],
   "item/destroyer-capsule": [
-   448,
-   192
+   568,
+   248
   ],
   "item/discharge-defense-equipment": [
-   512,
-   192
+   648,
+   248
   ],
   "item/discharge-defense-remote": [
-   576,
-   192
+   728,
+   248
   ],
   "item/display-panel": [
-   640,
-   192
+   808,
+   248
   ],
   "item/distractor-capsule": [
-   704,
-   192
+   888,
+   248
   ],
   "item/efficiency-module": [
-   768,
-   192
+   968,
+   248
   ],
   "item/efficiency-module-2": [
-   832,
-   192
+   1048,
+   248
   ],
   "item/efficiency-module-3": [
-   896,
-   192
+   1128,
+   248
   ],
   "item/electric-engine-unit": [
-   960,
-   192
+   1208,
+   248
   ],
   "item/electric-furnace": [
-   0,
-   256
+   8,
+   328
   ],
   "item/electric-mining-drill": [
-   64,
-   256
+   88,
+   328
   ],
   "item/electronic-circuit": [
-   128,
-   256
+   168,
+   328
   ],
   "item/energy-shield-equipment": [
-   192,
-   256
+   248,
+   328
   ],
   "item/energy-shield-mk2-equipment": [
-   256,
-   256
+   328,
+   328
   ],
   "item/engine-unit": [
-   320,
-   256
+   408,
+   328
   ],
   "item/exoskeleton-equipment": [
-   384,
-   256
+   488,
+   328
   ],
   "item/explosive-cannon-shell": [
-   448,
-   256
+   568,
+   328
   ],
   "item/explosive-rocket": [
-   512,
-   256
+   648,
+   328
   ],
   "item/explosive-uranium-cannon-shell": [
-   576,
-   256
+   728,
+   328
   ],
   "item/explosives": [
-   640,
-   256
+   808,
+   328
   ],
   "item/express-splitter": [
-   704,
-   256
+   888,
+   328
   ],
   "item/express-transport-belt": [
-   768,
-   256
+   968,
+   328
   ],
   "item/express-underground-belt": [
-   832,
-   256
+   1048,
+   328
   ],
   "item/fast-inserter": [
-   896,
-   256
+   1128,
+   328
   ],
   "item/fast-splitter": [
-   960,
-   256
+   1208,
+   328
   ],
   "item/fast-transport-belt": [
-   0,
-   320
+   8,
+   408
   ],
   "item/fast-underground-belt": [
-   64,
-   320
+   88,
+   408
   ],
   "item/firearm-magazine": [
-   128,
-   320
+   168,
+   408
   ],
   "item/fission-reactor-equipment": [
-   192,
-   320
+   248,
+   408
   ],
   "item/flamethrower": [
-   256,
-   320
+   328,
+   408
   ],
   "item/flamethrower-ammo": [
-   320,
-   320
+   408,
+   408
   ],
   "item/flamethrower-turret": [
-   384,
-   320
+   488,
+   408
   ],
   "item/fluid-wagon": [
-   448,
-   320
+   568,
+   408
   ],
   "item/flying-robot-frame": [
-   512,
-   320
+   648,
+   408
   ],
   "item/gate": [
-   576,
-   320
+   728,
+   408
   ],
   "item/green-wire": [
-   640,
-   320
+   808,
+   408
   ],
   "item/grenade": [
-   704,
-   320
+   888,
+   408
   ],
   "item/gun-turret": [
-   768,
-   320
+   968,
+   408
   ],
   "item/hazard-concrete": [
-   832,
-   320
+   1048,
+   408
   ],
   "item/heat-exchanger": [
-   896,
-   320
+   1128,
+   408
   ],
   "item/heat-pipe": [
-   960,
-   320
+   1208,
+   408
   ],
   "item/heavy-armor": [
-   0,
-   384
+   8,
+   488
   ],
   "item/heavy-oil-barrel": [
-   64,
-   384
+   88,
+   488
   ],
   "item/inserter": [
-   128,
-   384
+   168,
+   488
   ],
   "item/iron-chest": [
-   192,
-   384
+   248,
+   488
   ],
   "item/iron-gear-wheel": [
-   256,
-   384
+   328,
+   488
   ],
   "item/iron-ore": [
-   320,
-   384
+   408,
+   488
   ],
   "item/iron-plate": [
-   384,
-   384
+   488,
+   488
   ],
   "item/iron-stick": [
-   448,
-   384
+   568,
+   488
   ],
   "item/lab": [
-   512,
-   384
+   648,
+   488
   ],
   "item/land-mine": [
-   576,
-   384
+   728,
+   488
   ],
   "item/landfill": [
-   640,
-   384
+   808,
+   488
   ],
   "item/laser-turret": [
-   704,
-   384
+   888,
+   488
   ],
   "item/light-armor": [
-   768,
-   384
+   968,
+   488
   ],
   "item/light-oil-barrel": [
-   832,
-   384
+   1048,
+   488
   ],
   "item/locomotive": [
-   896,
-   384
+   1128,
+   488
   ],
   "item/logistic-robot": [
-   960,
-   384
+   1208,
+   488
   ],
   "item/logistic-science-pack": [
-   0,
-   448
+   8,
+   568
   ],
   "item/long-handed-inserter": [
-   64,
-   448
+   88,
+   568
   ],
   "item/low-density-structure": [
-   128,
-   448
+   168,
+   568
   ],
   "item/lubricant-barrel": [
-   192,
-   448
+   248,
+   568
   ],
   "item/medium-electric-pole": [
-   256,
-   448
+   328,
+   568
   ],
   "item/military-science-pack": [
-   320,
-   448
+   408,
+   568
   ],
   "item/modular-armor": [
-   384,
-   448
+   488,
+   568
   ],
   "item/night-vision-equipment": [
-   448,
-   448
+   568,
+   568
   ],
   "item/nuclear-fuel": [
-   512,
-   448
+   648,
+   568
   ],
   "item/nuclear-reactor": [
-   576,
-   448
+   728,
+   568
   ],
   "item/offshore-pump": [
-   640,
-   448
+   808,
+   568
   ],
   "item/oil-refinery": [
-   704,
-   448
+   888,
+   568
   ],
   "item/passive-provider-chest": [
-   768,
-   448
+   968,
+   568
   ],
   "item/personal-laser-defense-equipment": [
-   832,
-   448
+   1048,
+   568
   ],
   "item/personal-roboport-equipment": [
-   896,
-   448
+   1128,
+   568
   ],
   "item/personal-roboport-mk2-equipment": [
-   960,
-   448
+   1208,
+   568
   ],
   "item/petroleum-gas-barrel": [
-   0,
-   512
+   8,
+   648
   ],
   "item/piercing-rounds-magazine": [
-   64,
-   512
+   88,
+   648
   ],
   "item/piercing-shotgun-shell": [
-   128,
-   512
+   168,
+   648
   ],
   "item/pipe": [
-   192,
-   512
+   248,
+   648
   ],
   "item/pipe-to-ground": [
-   256,
-   512
+   328,
+   648
   ],
   "item/pistol": [
-   320,
-   512
+   408,
+   648
   ],
   "item/plastic-bar": [
-   384,
-   512
+   488,
+   648
   ],
   "item/poison-capsule": [
-   448,
-   512
+   568,
+   648
   ],
   "item/power-armor": [
-   512,
-   512
+   648,
+   648
   ],
   "item/power-armor-mk2": [
-   576,
-   512
+   728,
+   648
   ],
   "item/power-switch": [
-   640,
-   512
+   808,
+   648
   ],
   "item/processing-unit": [
-   704,
-   512
+   888,
+   648
   ],
   "item/production-science-pack": [
-   768,
-   512
+   968,
+   648
   ],
   "item/productivity-module": [
-   832,
-   512
+   1048,
+   648
   ],
   "item/productivity-module-2": [
-   896,
-   512
+   1128,
+   648
   ],
   "item/productivity-module-3": [
-   960,
-   512
+   1208,
+   648
   ],
   "item/programmable-speaker": [
-   0,
-   576
+   8,
+   728
   ],
   "item/pump": [
-   64,
-   576
+   88,
+   728
   ],
   "item/pumpjack": [
-   128,
-   576
+   168,
+   728
   ],
   "item/radar": [
-   192,
-   576
+   248,
+   728
   ],
   "item/rail": [
-   256,
-   576
+   328,
+   728
   ],
   "item/rail-chain-signal": [
-   320,
-   576
+   408,
+   728
   ],
   "item/rail-signal": [
-   384,
-   576
+   488,
+   728
   ],
   "item/raw-fish": [
-   448,
-   576
+   568,
+   728
   ],
   "item/red-wire": [
-   512,
-   576
+   648,
+   728
   ],
   "item/refined-concrete": [
-   576,
-   576
+   728,
+   728
   ],
   "item/refined-hazard-concrete": [
-   640,
-   576
+   808,
+   728
   ],
   "item/repair-pack": [
-   704,
-   576
+   888,
+   728
   ],
   "item/requester-chest": [
-   768,
-   576
+   968,
+   728
   ],
   "item/roboport": [
-   832,
-   576
+   1048,
+   728
   ],
   "item/rocket": [
-   896,
-   576
+   1128,
+   728
   ],
   "item/rocket-fuel": [
-   960,
-   576
+   1208,
+   728
   ],
   "item/rocket-launcher": [
-   0,
-   640
+   8,
+   808
   ],
   "item/rocket-silo": [
-   64,
-   640
+   88,
+   808
   ],
   "item/satellite": [
-   128,
-   640
+   168,
+   808
   ],
   "item/selector-combinator": [
-   192,
-   640
+   248,
+   808
   ],
   "item/shotgun": [
-   256,
-   640
+   328,
+   808
   ],
   "item/shotgun-shell": [
-   320,
-   640
+   408,
+   808
   ],
   "item/slowdown-capsule": [
-   384,
-   640
+   488,
+   808
   ],
   "item/small-electric-pole": [
-   448,
-   640
+   568,
+   808
   ],
   "item/small-lamp": [
-   512,
-   640
+   648,
+   808
   ],
   "item/solar-panel": [
-   576,
-   640
+   728,
+   808
   ],
   "item/solar-panel-equipment": [
-   640,
-   640
+   808,
+   808
   ],
   "item/solid-fuel": [
-   704,
-   640
+   888,
+   808
   ],
   "item/space-science-pack": [
-   768,
-   640
+   968,
+   808
   ],
   "item/speed-module": [
-   832,
-   640
+   1048,
+   808
   ],
   "item/speed-module-2": [
-   896,
-   640
+   1128,
+   808
   ],
   "item/speed-module-3": [
-   960,
-   640
+   1208,
+   808
   ],
   "item/spidertron": [
-   0,
-   704
+   8,
+   888
   ],
   "item/splitter": [
-   64,
-   704
+   88,
+   888
   ],
   "item/steam-engine": [
-   128,
-   704
+   168,
+   888
   ],
   "item/steam-turbine": [
-   192,
-   704
+   248,
+   888
   ],
   "item/steel-chest": [
-   256,
-   704
+   328,
+   888
   ],
   "item/steel-furnace": [
-   320,
-   704
+   408,
+   888
   ],
   "item/steel-plate": [
-   384,
-   704
+   488,
+   888
   ],
   "item/stone": [
-   448,
-   704
+   568,
+   888
   ],
   "item/stone-brick": [
-   512,
-   704
+   648,
+   888
   ],
   "item/stone-furnace": [
-   576,
-   704
+   728,
+   888
   ],
   "item/stone-wall": [
-   640,
-   704
+   808,
+   888
   ],
   "item/storage-chest": [
-   704,
-   704
+   888,
+   888
   ],
   "item/storage-tank": [
-   768,
-   704
+   968,
+   888
   ],
   "item/submachine-gun": [
-   832,
-   704
+   1048,
+   888
   ],
   "item/substation": [
-   896,
-   704
+   1128,
+   888
   ],
   "item/sulfur": [
-   960,
-   704
+   1208,
+   888
   ],
   "item/sulfuric-acid-barrel": [
-   0,
-   768
+   8,
+   968
   ],
   "item/tank": [
-   64,
-   768
+   88,
+   968
   ],
   "item/train-stop": [
-   128,
-   768
+   168,
+   968
   ],
   "item/transport-belt": [
-   192,
-   768
+   248,
+   968
   ],
   "item/underground-belt": [
-   256,
-   768
+   328,
+   968
   ],
   "item/uranium-235": [
-   320,
-   768
+   408,
+   968
   ],
   "item/uranium-238": [
-   384,
-   768
+   488,
+   968
   ],
   "item/uranium-cannon-shell": [
-   448,
-   768
+   568,
+   968
   ],
   "item/uranium-fuel-cell": [
-   512,
-   768
+   648,
+   968
   ],
   "item/uranium-ore": [
-   576,
-   768
+   728,
+   968
   ],
   "item/uranium-rounds-magazine": [
-   640,
-   768
+   808,
+   968
   ],
   "item/utility-science-pack": [
-   704,
-   768
+   888,
+   968
   ],
   "item/water-barrel": [
-   768,
-   768
+   968,
+   968
   ],
   "item/wood": [
-   832,
-   768
+   1048,
+   968
   ],
   "item/wooden-chest": [
-   896,
-   768
+   1128,
+   968
   ],
   "machine/assembling-machine-1": [
-   960,
-   768
+   1208,
+   968
   ],
   "machine/assembling-machine-2": [
-   0,
-   832
+   8,
+   1048
   ],
   "machine/assembling-machine-3": [
-   64,
-   832
+   88,
+   1048
   ],
   "machine/boiler": [
-   128,
-   832
+   168,
+   1048
   ],
   "machine/burner-mining-drill": [
-   192,
-   832
+   248,
+   1048
   ],
   "machine/centrifuge": [
-   256,
-   832
+   328,
+   1048
   ],
   "machine/chemical-plant": [
-   320,
-   832
+   408,
+   1048
   ],
   "machine/electric-furnace": [
-   384,
-   832
+   488,
+   1048
   ],
   "machine/electric-mining-drill": [
-   448,
-   832
+   568,
+   1048
   ],
   "machine/heat-exchanger": [
-   512,
-   832
+   648,
+   1048
   ],
   "machine/offshore-pump": [
-   576,
-   832
+   728,
+   1048
   ],
   "machine/oil-refinery": [
-   640,
-   832
+   808,
+   1048
   ],
   "machine/pumpjack": [
-   704,
-   832
+   888,
+   1048
   ],
   "machine/rocket-silo": [
-   768,
-   832
+   968,
+   1048
   ],
   "machine/steel-furnace": [
-   832,
-   832
+   1048,
+   1048
   ],
   "machine/stone-furnace": [
-   896,
-   832
+   1128,
+   1048
   ],
   "planet/nauvis": [
-   960,
-   832
+   1208,
+   1048
   ],
   "recipe/advanced-oil-processing": [
-   0,
-   896
+   8,
+   1128
   ],
   "recipe/basic-oil-processing": [
-   64,
-   896
+   88,
+   1128
   ],
   "recipe/coal-liquefaction": [
-   128,
-   896
+   168,
+   1128
   ],
   "recipe/crude-oil-barrel": [
-   192,
-   896
+   248,
+   1128
   ],
   "recipe/empty-crude-oil-barrel": [
-   256,
-   896
+   328,
+   1128
   ],
   "recipe/empty-heavy-oil-barrel": [
-   320,
-   896
+   408,
+   1128
   ],
   "recipe/empty-light-oil-barrel": [
-   384,
-   896
+   488,
+   1128
   ],
   "recipe/empty-lubricant-barrel": [
-   448,
-   896
+   568,
+   1128
   ],
   "recipe/empty-petroleum-gas-barrel": [
-   512,
-   896
+   648,
+   1128
   ],
   "recipe/empty-sulfuric-acid-barrel": [
-   576,
-   896
+   728,
+   1128
   ],
   "recipe/empty-water-barrel": [
-   640,
-   896
+   808,
+   1128
   ],
   "recipe/heavy-oil-barrel": [
-   704,
-   896
+   888,
+   1128
   ],
   "recipe/heavy-oil-cracking": [
-   768,
-   896
+   968,
+   1128
   ],
   "recipe/kovarex-enrichment-process": [
-   832,
-   896
+   1048,
+   1128
   ],
   "recipe/light-oil-barrel": [
-   896,
-   896
+   1128,
+   1128
   ],
   "recipe/light-oil-cracking": [
-   960,
-   896
+   1208,
+   1128
   ],
   "recipe/lubricant-barrel": [
-   0,
-   960
+   8,
+   1208
   ],
   "recipe/nuclear-fuel-reprocessing": [
-   64,
-   960
+   88,
+   1208
   ],
   "recipe/petroleum-gas-barrel": [
-   128,
-   960
+   168,
+   1208
   ],
   "recipe/solid-fuel-from-heavy-oil": [
-   192,
-   960
+   248,
+   1208
   ],
   "recipe/solid-fuel-from-light-oil": [
-   256,
-   960
+   328,
+   1208
   ],
   "recipe/solid-fuel-from-petroleum-gas": [
-   320,
-   960
+   408,
+   1208
   ],
   "recipe/sulfuric-acid-barrel": [
-   384,
-   960
+   488,
+   1208
   ],
   "recipe/uranium-processing": [
-   448,
-   960
+   568,
+   1208
   ],
   "recipe/water-barrel": [
-   512,
-   960
+   648,
+   1208
   ]
  }
 }

@@ -39,7 +39,7 @@ Out:
 
 **Names.** Each wiki infobox has the prototype's internal name; its page title is the English name. Technology and archived pages are skipped. Anything without a wiki page gets a name made from its id (`iron-plate` → `Iron plate`).
 
-**Icons.** Wiki icons are named after the English name (`File:Iron plate.png`). The importer downloads them (cached in `node_modules/.cache/factorio-calc/`), resizes them to 64 px with `sharp`, and packs them into `icons.webp` + `icons.json`. The build copies the atlas to `dist/db/` with a content hash and stores positions in the database.
+**Icons.** Wiki icons are named after the English name (`File:Iron plate.png`). The importer downloads them (cached in `node_modules/.cache/factorio-calc/`), resizes them to 64 px with `sharp`, and packs them into `icons.webp` + `icons.json`, with an 8 px gap around each icon filled with copies of its own edge pixels (otherwise shrinking an icon blends in its neighbours, drawn as thin lines along its edges). The build copies the atlas to `dist/db/` with a content hash and stores positions in the database.
 
 **Version folder.** The exact game version: `data/space-age/2.1.24/`.
 
