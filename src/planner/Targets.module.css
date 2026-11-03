@@ -84,6 +84,15 @@
   border-bottom: 1px solid var(--line);
 }
 
+/* About five saved lists, then they scroll on their own. */
+.savedLists {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 178px;
+}
+
 .listHead {
   display: flex;
   align-items: center;

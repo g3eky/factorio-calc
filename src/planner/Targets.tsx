@@ -101,6 +101,7 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
             </Button>
           </form>
           {saved.length === 0 && <p className={styles.hint}>No saved lists yet.</p>}
+          <ScrollPane className={styles.savedLists}>
           {saved.map((l, i) => (
             <div key={i} className={styles.saveRow}>
               <TextInput
@@ -117,6 +118,7 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
               </Button>
             </div>
           ))}
+          </ScrollPane>
         </section>
         <div className={styles.listHead}>
           <h3 className={styles.savedHead}>Build list</h3>
