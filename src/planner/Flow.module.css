@@ -58,7 +58,7 @@
   position: relative;
   flex: 0 1 auto;
   height: calc(100vh / var(--ui-scale, 1));
-  min-height: 240px;
+  min-height: 120px;
   /* Clip, not hidden: focusing an off-screen box mustn't scroll it; the canvas pans instead. */
   overflow: clip;
   cursor: grab;

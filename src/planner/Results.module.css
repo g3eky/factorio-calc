@@ -1,14 +1,15 @@
 /* The companion's chain: one card, rows split by lines, sunken on hover, rates in mono accent. */
 .results {
-  /* Shrinks to the space left on the sheet (but not below 420 px); the table, tree and panel
-     scroll inside it. */
+  /* Shrinks to the space left on the sheet, so it ends at the window's bottom edge (only below
+     240 px does the page scroll); the table, tree and panel scroll inside it. */
   flex: 0 1 auto;
-  min-height: 420px;
+  min-height: 240px;
   container-type: inline-size;
 }
 
 /* The table, and the needs / needed-by panel beside it once a row is picked. */
 .layout {
+  position: relative;
   display: flex;
   flex: 0 1 auto;
   gap: 12px;
@@ -57,17 +58,15 @@
     display: none;
   }
 
-  /* The tree has no rows to open under, so the panel goes below it. */
-  .tree {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
+  /* The tree has no rows to open under, so the panel floats over the canvas's right side
+     (below its toolbar); the canvas pans, so nothing is lost under it. */
   .tree .aside {
+    position: absolute;
+    top: 44px;
+    right: 8px;
     display: block;
-    align-self: stretch;
-    width: auto;
-    max-height: 45%;
+    width: min(300px, calc(100% - 16px));
+    max-height: calc(100% - 52px);
   }
 
   .inline {
@@ -419,6 +418,7 @@
   }
 
   .layout.expanded .aside {
+    position: static;
     display: block;
     align-self: flex-start;
     width: 300px;
