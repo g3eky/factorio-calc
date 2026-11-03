@@ -9,8 +9,10 @@ import { Icon } from '../ui/Icon/Icon.tsx'
 import { Popover } from '../ui/Popover/Popover.tsx'
 import { ScrollPane } from '../ui/ScrollPane/ScrollPane.tsx'
 import { Slot } from '../ui/Slot/Slot.tsx'
+import { Tabs } from '../ui/Tabs/Tabs.tsx'
 import { cx } from '../ui/cx.ts'
 import { Window } from '../ui/Window/Window.tsx'
+import { Flow } from './Flow.tsx'
 import { long, power, short, UNIT_LABELS, UNIT_SECONDS } from './format.ts'
 import { ModuleSetupEditor } from './ModuleSetupEditor.tsx'
 import { QualitySelect } from './QualitySelect.tsx'
@@ -97,8 +99,12 @@ function ResultsTable({ result, calc, prefs, update }: Props) {
   const edited = editing && editing.type !== 'recipe' ? result.processes.find((p) => p.key === editing.key) : undefined
   // The row whose inputs and outputs are traced in the side panel (or under the row when narrow).
   const [selectedKey, setSelectedKey] = useState<string>()
+  // The same chain as a table, or as a flow diagram.
+  const [view, setView] = useState<'table' | 'tree'>('table')
   const selected = result.processes.find((p) => p.key === selectedKey)
   const table = useRef<HTMLDivElement>(null)
+  // The tree and its side panel can fill the whole tab together.
+  const [expanded, setExpanded] = useState(false)
   const toggle = useCallback((key: string) => setSelectedKey((k) => (k === key ? undefined : key)), [])
   // From the panel: select another row and bring it into view.
   const select = (key: string) => {
@@ -108,8 +114,15 @@ function ResultsTable({ result, calc, prefs, update }: Props) {
   const uses = selected && <Uses process={selected} result={result} calc={calc} onSelect={select} onClose={() => setSelectedKey(undefined)} />
 
   return (
-    <Window title="Production" className={styles.results}>
-      <div className={styles.layout}>
+    <Window
+      title="Production"
+      className={styles.results}
+      actions={<Tabs label="Production view" value={view} onChange={setView} tabs={[{ id: 'table', label: 'Table' }, { id: 'tree', label: 'Tree' }]} />}
+    >
+      <div className={cx(styles.layout, view === 'tree' && styles.tree, view === 'tree' && expanded && styles.expanded)}>
+      {view === 'tree' ? (
+        <Flow result={result} calc={calc} selectedKey={selectedKey} onSelect={toggle} expanded={expanded} onExpand={setExpanded} />
+      ) : (
       <ScrollPane ref={table} className={styles.scroll}>
         <table className={styles.table}>
           <thead>
@@ -145,6 +158,7 @@ function ResultsTable({ result, calc, prefs, update }: Props) {
           </tbody>
         </table>
       </ScrollPane>
+      )}
       {uses && <aside className={styles.aside} aria-label="Needs and needed by">{uses}</aside>}
       </div>
       {editing?.type === 'machine' && edited && (
@@ -333,7 +347,7 @@ function Uses({ process, result, calc, onSelect, onClose }: { process: ProcessRe
   )
   const section = (title: string, list: Amount[], side: 'inputs' | 'outputs') => (
     <>
-      <h4 className={styles.usesHead}>{title}</h4>
+      <h3 className={styles.usesHead}>{title}</h3>
       {list.length === 0 && <p className={styles.none}>Nothing.</p>}
       {list.map((a) => {
         const others = rows(a, side === 'inputs' ? 'outputs' : 'inputs')

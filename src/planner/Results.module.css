@@ -1,14 +1,18 @@
 /* The companion's chain: one card, rows split by lines, sunken on hover, rates in mono accent. */
 .results {
-  flex: none;
+  /* Shrinks to the space left on the sheet (but not below 420 px); the table, tree and panel
+     scroll inside it. */
+  flex: 0 1 auto;
+  min-height: 420px;
   container-type: inline-size;
 }
 
 /* The table, and the needs / needed-by panel beside it once a row is picked. */
 .layout {
   display: flex;
-  align-items: flex-start;
+  flex: 0 1 auto;
   gap: 12px;
+  min-height: 0;
 }
 
 .layout > .scroll {
@@ -17,17 +21,25 @@
 }
 
 .aside {
-  position: sticky;
-  top: 0;
   flex: none;
+  align-self: flex-start;
   width: 300px;
-  max-height: calc(100vh / var(--ui-scale, 1) - 120px);
+  max-height: 100%;
   overflow-y: auto;
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
   background: var(--panel);
   box-shadow: var(--shadow);
   animation: appear var(--duration) var(--ease);
+}
+
+/* The tree and its panel filling the tab, over everything else on the page. */
+.expanded {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  padding: 12px;
+  background: var(--panel);
 }
 
 /* Under the row instead, when there's no room beside the table. */
@@ -43,6 +55,19 @@
 @container (max-width: 1000px) {
   .aside {
     display: none;
+  }
+
+  /* The tree has no rows to open under, so the panel goes below it. */
+  .tree {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tree .aside {
+    display: block;
+    align-self: stretch;
+    width: auto;
+    max-height: 45%;
   }
 
   .inline {
@@ -373,5 +398,30 @@
 @keyframes appear {
   from {
     opacity: 0;
+  }
+}
+
+/* Phones: the page scrolls, so the table gets a scroll area of its own. */
+@media (max-width: 900px) {
+  .results {
+    min-height: 0;
+  }
+
+  .scroll {
+    max-height: 75vh;
+  }
+}
+
+/* Filling the tab, the window's width decides where the panel goes, not the card's. */
+@media (min-width: 1000px) {
+  .layout.expanded {
+    flex-direction: row;
+  }
+
+  .layout.expanded .aside {
+    display: block;
+    align-self: flex-start;
+    width: 300px;
+    max-height: 100%;
   }
 }
