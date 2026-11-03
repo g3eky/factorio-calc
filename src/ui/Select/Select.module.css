@@ -87,9 +87,11 @@
   background: var(--accent-soft);
 }
 
+/* `translate`, not `transform`: the list's position is an inline transform, and animating
+   transform would replace it, sliding the list in from the corner of the page. */
 @keyframes drop {
   from {
     opacity: 0;
-    transform: translateY(-4px);
+    translate: 0 -4px;
   }
 }
