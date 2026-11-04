@@ -10,6 +10,7 @@
 
 .tools {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
   gap: 4px;
@@ -43,6 +44,17 @@
   stroke-width: 1.6;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.find {
+  width: 150px;
+}
+
+.found {
+  min-width: 7ch;
+  color: var(--ink-dim);
+  font-family: var(--font-mono);
+  font-size: 12px;
 }
 
 .zoom {
@@ -175,6 +187,16 @@ button.box:hover {
 
 .selected .meta {
   color: var(--ink);
+}
+
+/* Find in tree: every match ringed, the one in view ringed solid. */
+.match {
+  outline: 1px dashed var(--accent);
+  outline-offset: 3px;
+}
+
+.current {
+  outline: 2px solid var(--accent);
 }
 
 .text {

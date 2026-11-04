@@ -7,10 +7,11 @@ See the production chain as a flow diagram: a box per production row, arrows for
 ## Scope
 
 In:
-- Production gets two tabs, **Table** (as now) and **Tree**. Both show the same result and settings.
+- Production gets two tabs, **Table** (as now) and **Tree**. Both show the same result and settings. The last one shown is remembered (`factorio-calc:v1:production-view`), and **T** switches between them (as **/** jumps to the Catalog's search; both listed in About, and ignored while typing or in a dialog).
 - Tree: a box per production row (recipe icon and name, machine and count), a box per raw resource and import, and an arrow per item from each row that makes it to each row that uses it, labelled with its rate. Fluids drawn in the fluid colour. Your targets are marked.
 - Clicking a box selects that row and opens the same Needed by / Needs panel as the table. Following a link in the panel selects that box and scrolls to it.
 - An endless canvas: drag anywhere to pan, with no stop at the diagram's edges; the mouse wheel zooms around the pointer (20% to 200%), a sideways swipe pans. The graph paper moves with it. Buttons zoom out, in, to fit (centred), and back to 100%. Following a panel link or tabbing to a box off screen pans to it.
+- **Find in tree:** a search box in the toolbar rings every box whose name matches, and brings the first into view; Enter and Shift+Enter step through them ("2 of 3"), Esc clears it.
 - An icon button makes the tree and its panel fill the browser tab (not the browser's full screen), over the rest of the page; the button or Esc puts it back.
 - Production fills the space left on the sheet and its table, tree and panel scroll inside it, so the page itself doesn't scroll on desktop. On phones the table and tree get a scroll area of 75% of the screen. Saved lists scroll on their own after about five.
 

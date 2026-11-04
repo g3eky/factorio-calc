@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type FocusEvent, type MouseEvent, type PointerEvent } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type FocusEvent, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent, type PointerEvent } from 'react'
 import type { ELK, ElkNode } from 'elkjs/lib/elk-api.js'
 import type { SolveResult } from '../calculator/types.ts'
 import { useGame } from '../db/GameProvider.tsx'
 import { Button } from '../ui/Button/Button.tsx'
 import { Icon } from '../ui/Icon/Icon.tsx'
+import { TextInput } from '../ui/Input/Input.tsx'
 import { cx } from '../ui/cx.ts'
 import { uiZoom } from '../ui/zoom.ts'
 import { flowGraph, type FlowNode } from './flowGraph.ts'
@@ -96,6 +97,9 @@ export function Flow({ result, calc, selectedKey, onSelect, expanded, onExpand }
   // Dragging pans: where the pointer and the view were when it went down.
   const drag = useRef<{ x: number; y: number; vx: number; vy: number; moved: boolean }>(undefined)
   const dragged = useRef(false)
+  // Find in the tree: every box whose name contains the text is marked; one at a time is brought into view.
+  const [query, setQuery] = useState('')
+  const [found, setFound] = useState(0)
   const targetKeys = calc.targets.map((t) => `${t.kind}/${t.id}@${t.quality ?? ''}`).join(',')
 
   const apply = useCallback(() => {
@@ -192,6 +196,29 @@ export function Flow({ result, calc, selectedKey, onSelect, expanded, onExpand }
     if (selectedKey) reveal(selectedKey)
   }, [selectedKey, reveal])
 
+  // Matches in reading order: column by column from the targets, top to bottom.
+  const matches = useMemo(() => {
+    const needle = query.trim().toLowerCase()
+    if (!layout || !needle) return []
+    const name = (n: FlowNode) => (n.kind === 'process' ? processName(game, n.process) : amountName(game, n.amount))
+    return layout.boxes
+      .filter((b) => name(b.node).toLowerCase().includes(needle))
+      .sort((a, b) => a.x - b.x || a.y - b.y)
+      .map((b) => b.node.id)
+  }, [layout, query, game])
+  const current = matches.length ? matches[found % matches.length] : undefined
+  useEffect(() => {
+    if (current) reveal(current)
+  }, [current, reveal])
+  const onFindKey = (e: ReactKeyboardEvent) => {
+    if (e.key === 'Enter' && matches.length) setFound((f) => (f + (e.shiftKey ? matches.length - 1 : 1)) % matches.length)
+    if (e.key === 'Escape' && query) {
+      // Clears the search instead of shrinking the expanded tree.
+      e.stopPropagation()
+      setQuery('')
+    }
+  }
+
   useEffect(() => {
     const el = pane.current
     if (!el) return
@@ -282,6 +309,7 @@ export function Flow({ result, calc, selectedKey, onSelect, expanded, onExpand }
   // The diagram itself only re-renders when the layout or the selection changes, not on pan or zoom.
   const content = useMemo(() => {
     if (!layout) return null
+    const marked = new Set(matches)
     const targets = new Set(targetKeys.split(','))
     const box = (b: Box) => {
       const n = b.node
@@ -289,7 +317,7 @@ export function Flow({ result, calc, selectedKey, onSelect, expanded, onExpand }
       if (n.kind !== 'process') {
         const label = `${amountName(game, n.amount)}: ${long(n.amount.rate * scale)}${unit}, ${n.kind === 'raw' ? 'raw resource' : 'imported'}`
         return (
-          <div key={n.id} className={cx(styles.box, styles.source)} style={style} aria-label={label} title={label} role="img">
+          <div key={n.id} className={cx(styles.box, styles.source, marked.has(n.id) && styles.match, n.id === current && styles.current)} style={style} aria-label={label} title={label} role="img">
             <Icon kind={n.amount.kind} id={n.amount.id} size={24} />
             <span className={styles.text}>
               <span className={styles.name}>{amountName(game, n.amount)}</span>
@@ -310,7 +338,7 @@ export function Flow({ result, calc, selectedKey, onSelect, expanded, onExpand }
           key={n.id}
           type="button"
           data-node={n.id}
-          className={cx(styles.box, target && styles.target, n.id === selectedKey && styles.selected)}
+          className={cx(styles.box, target && styles.target, n.id === selectedKey && styles.selected, marked.has(n.id) && styles.match, n.id === current && styles.current)}
           style={style}
           aria-pressed={n.id === selectedKey}
           aria-label={`${name}${target ? ' (target)' : ''}: ${long(p.machines)} ${machine?.name ?? p.machine}`}
@@ -358,7 +386,7 @@ export function Flow({ result, calc, selectedKey, onSelect, expanded, onExpand }
         {layout.boxes.map(box)}
       </>
     )
-  }, [layout, selectedKey, onSelect, game, scale, unit, targetKeys])
+  }, [layout, selectedKey, onSelect, game, scale, unit, targetKeys, matches, current])
 
   return (
     <div className={styles.flow}>
@@ -367,6 +395,24 @@ export function Flow({ result, calc, selectedKey, onSelect, expanded, onExpand }
           Laying out…
         </span>
         <span className={styles.hint}>Drag to move, scroll to zoom</span>
+        <TextInput
+          type="search"
+          className={styles.find}
+          placeholder="Find in tree"
+          aria-label="Find in tree"
+          title="Enter for the next match, Shift+Enter for the one before"
+          value={query}
+          onChange={(e) => {
+            setQuery(e.target.value)
+            setFound(0)
+          }}
+          onKeyDown={onFindKey}
+        />
+        {query.trim() && (
+          <span className={styles.found} aria-live="polite">
+            {matches.length ? `${(found % matches.length) + 1} of ${matches.length}` : 'None'}
+          </span>
+        )}
         <Button onClick={() => step(-1)} aria-label="Zoom out" square>
           −
         </Button>

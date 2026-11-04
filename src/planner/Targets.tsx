@@ -1,4 +1,5 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 import { useGame } from '../db/GameProvider.tsx'
 import { Button } from '../ui/Button/Button.tsx'
 import { NumberInput, TextInput } from '../ui/Input/Input.tsx'
@@ -13,6 +14,7 @@ import { Window } from '../ui/Window/Window.tsx'
 import { ItemInfo } from './ItemInfo.tsx'
 import { QualitySelect } from './QualitySelect.tsx'
 import type { Update } from './Planner.tsx'
+import { shortcut } from './Results.tsx'
 import { usePersistentState } from '../settings/storage.ts'
 import { isSavedLists, knownTargets, recipesFor, type Calculation, type SavedList, type TargetUnit } from './state.ts'
 import styles from './Targets.module.css'
@@ -34,6 +36,18 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
   // Named build lists, per dataset since item ids differ between versions.
   const [saved, setSaved] = usePersistentState<SavedList[]>(`factorio-calc:v1:saved-lists:${game.dataset.id}`, () => [], (v) => (isSavedLists(v) ? v : undefined))
   const [saveName, setSaveName] = useState('')
+  const catalog = useRef<HTMLDivElement>(null)
+  // / opens the Catalog and puts you in its search box.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== '/' || !shortcut(e)) return
+      e.preventDefault()
+      flushSync(() => setTab('items'))
+      catalog.current?.querySelector<HTMLInputElement>('input')?.focus()
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [])
   const targets = knownTargets(game, calc.targets)
   const name = (t: Pick) => (t.kind === 'fluid' ? game.fluids : game.items).get(t.id)?.name ?? t.id
   // Only offer things the calculator can make.
@@ -82,7 +96,7 @@ export function Targets({ calc, update }: { calc: Calculation; update: Update })
       />
       {/* Both stay mounted, so switching doesn't rebuild the few hundred item slots. */}
       {/* Every item that can be made, by category; click one to make it. */}
-      <div role="tabpanel" aria-label="Catalog" className={styles.panel} hidden={tab !== 'items'}>
+      <div ref={catalog} role="tabpanel" aria-label="Catalog" className={styles.panel} hidden={tab !== 'items'}>
         <ItemPicker onPick={toggle} filter={makeable} selected={making} details={info} />
       </div>
       <ScrollPane role="tabpanel" aria-label="Build list" className={styles.list} hidden={tab !== 'making'}>

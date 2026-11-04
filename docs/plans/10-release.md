@@ -36,7 +36,7 @@ Out:
 - Lighthouse: Accessibility, Best Practices and SEO 100. Performance 91 on desktop and 74 on simulated slow-4G mobile. ✘ for the ≥ 95 performance target, and measured on the local preview server, not the live site (not deployed yet). Total blocking time 0 ms, layout shift 0.002. On mobile the remaining time is downloading 315 KB of JavaScript and the 685 KB SQLite WebAssembly, which the local preview server sends uncompressed; GitHub Pages compresses JavaScript, so the live numbers should be better. Re-measure after deploying.
 - With the network off, a second visit loads and calculates. ✔ Checked in Chrome over the DevTools protocol.
 - No axe violations on the main screen and settings window. ✔ (axe-core injected into the production build.)
-- Licensing and credits are settled and shown on the site. ✔ The About window credits Wube, factorio-data, the wiki (CC BY-NC-SA 3.0 text), Titillium Web, HiGHS and sql.js; the README too. The icons remain Wube's art, used knowingly (see 02).
+- Licensing and credits are settled and shown on the site. ✔ The About window credits Wube, factorio-data, the wiki (CC BY-NC-SA 3.0 text), the fonts (Saira Condensed, IBM Plex Sans and Mono), HiGHS and sql.js; the README too. The icons remain Wube's art, used knowingly (see 02).
 
 ## What changed
 

@@ -1,9 +1,10 @@
-import { Fragment, memo, useCallback, useMemo, useRef, useState, type ReactNode } from 'react'
+import { Fragment, memo, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { onSurface } from '../calculator/processes.ts'
 import type { Amount, ModuleSetup, ProcessResult, ProcessSettings, SolveResult } from '../calculator/types.ts'
 import { useGame, type Game } from '../db/GameProvider.tsx'
 import type { EffectName } from '../db/types.ts'
 import type { Preferences } from '../settings/preferences.ts'
+import { usePersistentState } from '../settings/storage.ts'
 import { Button } from '../ui/Button/Button.tsx'
 import { Icon } from '../ui/Icon/Icon.tsx'
 import { Popover } from '../ui/Popover/Popover.tsx'
@@ -90,6 +91,12 @@ export const Results = memo(
     sameTargets(a.calc.targets, b.calc.targets),
 )
 
+// A one-key shortcut applies unless a modifier is held, you're typing, or a dialog is open.
+export const shortcut = (e: KeyboardEvent) =>
+  !e.ctrlKey && !e.metaKey && !e.altKey && !e.defaultPrevented &&
+  !(e.target instanceof Element && e.target.closest('input, textarea, select, [contenteditable], [role=dialog]')) &&
+  !document.querySelector('[aria-modal=true]')
+
 function ResultsTable({ result, calc, prefs, update }: Props) {
   const game = useGame()
   const rows = useMemo(() => inOrder(result, calc), [result, calc])
@@ -99,8 +106,10 @@ function ResultsTable({ result, calc, prefs, update }: Props) {
   const edited = editing && editing.type !== 'recipe' ? result.processes.find((p) => p.key === editing.key) : undefined
   // The row whose inputs and outputs are traced in the side panel (or under the row when narrow).
   const [selectedKey, setSelectedKey] = useState<string>()
-  // The same chain as a table, or as a flow diagram.
-  const [view, setView] = useState<'table' | 'tree'>('table')
+  // The same chain as a table, or as a flow diagram; the last one shown is shown again next time.
+  const [view, setView] = usePersistentState<'table' | 'tree'>('factorio-calc:v1:production-view', () => 'table', (v) =>
+    v === 'table' || v === 'tree' ? v : undefined,
+  )
   const selected = result.processes.find((p) => p.key === selectedKey)
   const table = useRef<HTMLDivElement>(null)
   // The tree and its side panel can fill the whole tab together.
@@ -111,13 +120,23 @@ function ResultsTable({ result, calc, prefs, update }: Props) {
     setSelectedKey(key)
     table.current?.querySelector(`[data-process="${CSS.escape(key)}"]`)?.scrollIntoView({ block: 'nearest' })
   }
+  // T switches between the table and the tree, unless you're typing or in a dialog.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() !== 't' || !shortcut(e)) return
+      e.preventDefault()
+      setView((v) => (v === 'table' ? 'tree' : 'table'))
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [setView])
   const uses = selected && <Uses process={selected} result={result} calc={calc} onSelect={select} onClose={() => setSelectedKey(undefined)} />
 
   return (
     <Window
       title="Production"
       className={styles.results}
-      actions={<Tabs label="Production view" value={view} onChange={setView} tabs={[{ id: 'table', label: 'Table' }, { id: 'tree', label: 'Tree' }]} />}
+      actions={<Tabs label="Production view" value={view} onChange={setView} tabs={[{ id: 'table', label: 'Table', title: 'Table (T)' }, { id: 'tree', label: 'Tree', title: 'Tree (T)' }]} />}
     >
       <div className={cx(styles.layout, view === 'tree' && styles.tree, view === 'tree' && expanded && styles.expanded)}>
       {view === 'tree' ? (

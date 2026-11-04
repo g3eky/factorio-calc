@@ -19,8 +19,19 @@ export function About({ onClose }: { onClose: () => void }) {
             Item names and icons come from the <a href="https://wiki.factorio.com">official Factorio wiki</a> (text under CC BY-NC-SA 3.0).
           </li>
           <li>
-            Font: <a href="https://fonts.google.com/specimen/Titillium+Web">Titillium Web</a>, SIL Open Font License. Solver:{' '}
+            Fonts: <a href="https://fonts.google.com/specimen/Saira+Condensed">Saira Condensed</a>,{' '}
+            <a href="https://fonts.google.com/specimen/IBM+Plex+Sans">IBM Plex Sans</a> and <a href="https://fonts.google.com/specimen/IBM+Plex+Mono">IBM Plex Mono</a>,
+            SIL Open Font License. Solver:{' '}
             <a href="https://highs.dev">HiGHS</a>. Database: <a href="https://sql.js.org">sql.js</a>.
+          </li>
+        </ul>
+        <h3>Shortcuts</h3>
+        <ul>
+          <li>
+            <kbd>/</kbd> search the Catalog
+          </li>
+          <li>
+            <kbd>T</kbd> switch Production between Table and Tree
           </li>
         </ul>
         <p>
