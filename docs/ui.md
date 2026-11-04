@@ -12,7 +12,7 @@ The theme comes from the factorio-companion app (see `docs/plans/12-companion-th
 
 | Element | Look |
 |---|---|
-| Window | Card: panel colour, thin line, 4 px radius, soft shadow; heading in condensed uppercase with a rule line after it. |
+| Window | Card: panel colour, thin line, 4 px radius, soft shadow; heading in condensed uppercase with a rule line after it. Optionally collapsible: the heading becomes a button with a chevron (Totals and Machines; remembered in the browser). |
 | Panel | A tile inside a card; `deep` is the sunken variant. |
 | Button | Ghost button: condensed uppercase, strong line, accent on hover. Confirm and selected are filled with the accent; danger is a quiet ✕ that turns accent. |
 | Slot | A cell: transparent until hovered, then panel colour with a line; selected has an accent border and soft accent fill. Counts in mono, white with a dark outline. |

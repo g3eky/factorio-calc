@@ -40,6 +40,14 @@ export function PlannerSkeleton({ children }: { children: ReactNode }) {
   )
 }
 
+interface Collapsed {
+  totals?: boolean
+  machines?: boolean
+}
+
+const readCollapsed = (v: unknown): Collapsed | undefined =>
+  typeof v === 'object' && v !== null && !Array.isArray(v) && Object.values(v).every((x) => typeof x === 'boolean') ? (v as Collapsed) : undefined
+
 // The calculator screen: targets on the left, the production chain on the right.
 export function Planner({ onDataset, switching }: { onDataset: (id: string) => void; switching: boolean }) {
   const game = useGame()
@@ -50,6 +58,9 @@ export function Planner({ onDataset, switching }: { onDataset: (id: string) => v
   const [ui, setUi] = usePersistentState(INTERFACE_KEY, defaultInterface, readInterface)
   useEffect(() => applyUiScale(ui.uiScale), [ui.uiScale])
   useEffect(() => applyTheme(ui.theme), [ui.theme])
+  // Which cards are collapsed, for every dataset.
+  const [collapsed, setCollapsed] = usePersistentState<Collapsed>('factorio-calc:v1:collapsed', () => ({}), readCollapsed)
+  const collapseTotals = useCallback((totals: boolean) => setCollapsed((c) => ({ ...c, totals })), [setCollapsed])
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [aboutOpen, setAboutOpen] = useState(false)
   const closeAbout = useCallback(() => setAboutOpen(false), [])
@@ -138,8 +149,8 @@ export function Planner({ onDataset, switching }: { onDataset: (id: string) => v
         ) : (
           result && (
             <>
-              <Totals result={result} calc={calc} solving={solving} />
-              <Window title="Machines">
+              <Totals result={result} calc={calc} solving={solving} collapsed={!!collapsed.totals} onCollapse={collapseTotals} />
+              <Window title="Machines" collapsed={!!collapsed.machines} onCollapse={(machines) => setCollapsed((c) => ({ ...c, machines }))}>
                 <MachineChoices prefs={prefs} setPrefs={setPrefs} planet={calc.planet} compact />
               </Window>
               <Results result={result} calc={calc} prefs={prefs} update={setCalc} />

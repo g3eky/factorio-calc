@@ -43,3 +43,49 @@
   gap: var(--space-2);
   min-height: 0;
 }
+
+/* Collapsible windows: the title is a button with a chevron that turns when closed. */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+
+.toggle:hover {
+  color: var(--ink);
+}
+
+.chevron {
+  width: 10px;
+  height: 10px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform var(--duration) var(--ease);
+}
+
+.collapsed .chevron {
+  transform: rotate(-90deg);
+}
+
+.collapsed .titleBar {
+  margin-bottom: 0;
+}
+
+.collapsed {
+  padding-bottom: 10px;
+}
+
+.body[hidden] {
+  display: none;
+}

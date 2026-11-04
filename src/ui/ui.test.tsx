@@ -10,6 +10,7 @@ import { Select } from './Select/Select.tsx'
 import { Slot } from './Slot/Slot.tsx'
 import { Slider } from './Slider/Slider.tsx'
 import { Tabs } from './Tabs/Tabs.tsx'
+import { Window } from './Window/Window.tsx'
 
 let game: Game
 beforeAll(async () => {
@@ -126,4 +127,24 @@ test('slider moves between its steps and reports the value', () => {
   expect(slider.getAttribute('aria-valuetext')).toBe('1')
   fireEvent.change(slider, { target: { value: '2' } })
   expect(onChange).toHaveBeenCalledWith(1.5)
+})
+
+test('a collapsible window hides its content from its title button', () => {
+  function Card() {
+    const [collapsed, setCollapsed] = useState(false)
+    return (
+      <Window title="Totals" collapsed={collapsed} onCollapse={setCollapsed}>
+        <p>Inside</p>
+      </Window>
+    )
+  }
+  render(<Card />)
+  const toggle = screen.getByRole('button', { name: 'Totals' })
+  expect(toggle.getAttribute('aria-expanded')).toBe('true')
+  expect(screen.getByText('Inside')).toBeTruthy()
+  fireEvent.click(toggle)
+  expect(toggle.getAttribute('aria-expanded')).toBe('false')
+  expect(screen.queryByText('Inside')?.closest('[hidden]')).toBeTruthy()
+  fireEvent.click(toggle)
+  expect(screen.getByText('Inside').closest('[hidden]')).toBeNull()
 })

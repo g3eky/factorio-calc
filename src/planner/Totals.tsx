@@ -13,15 +13,21 @@ interface Props {
   result: SolveResult
   calc: Calculation
   solving: boolean
+  collapsed: boolean
+  onCollapse: (collapsed: boolean) => void
 }
 
 // Raw resources in, surplus out, power, and machines to build. Re-renders only when those change.
 export const Totals = memo(
   TotalsPanel,
-  (a: Props, b: Props) => a.result === b.result && a.solving === b.solving && a.calc.unit === b.calc.unit && a.calc.belt === b.calc.belt,
+  (a: Props, b: Props) =>
+    a.result === b.result &&
+    a.solving === b.solving &&
+    a.collapsed === b.collapsed &&
+    a.onCollapse === b.onCollapse && a.calc.unit === b.calc.unit && a.calc.belt === b.calc.belt,
 )
 
-function TotalsPanel({ result, calc, solving }: Props) {
+function TotalsPanel({ result, calc, solving, collapsed, onCollapse }: Props) {
   const game = useGame()
   const scale = UNIT_SECONDS[calc.unit]
   const unit = UNIT_LABELS[calc.unit]
@@ -50,7 +56,7 @@ function TotalsPanel({ result, calc, solving }: Props) {
     .sort((a, b) => a!.spoil!.time - b!.spoil!.time) as NonNullable<ReturnType<typeof game.items.get>>[]
 
   return (
-    <Window title="Totals" actions={<span className={styles.solving} data-visible={solving}>Solving…</span>}>
+    <Window title="Totals" collapsed={collapsed} onCollapse={onCollapse} actions={<span className={styles.solving} data-visible={solving}>Solving…</span>}>
       <div className={styles.totals}>
         <Panel className={styles.section}>
           <h3>Raw resources {unit}</h3>
