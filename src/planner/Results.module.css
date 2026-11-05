@@ -257,19 +257,44 @@
   white-space: nowrap;
 }
 
-/* An input slot with its share of a belt underneath. */
-.withBelt {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
+/* Needed: what each row makes, with how many of the chosen belt it fills in brackets. */
+.beltHead > * {
+  vertical-align: middle;
 }
 
 .belt {
-  min-height: 1.2em;
-  color: var(--ink-faint);
+  color: var(--ink);
   font-family: var(--font-mono);
-  font-size: 10.5px;
-  line-height: 1.2;
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.share {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.choose {
+  margin: 0 -6px;
+  padding: 2px 5px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.choose:hover,
+.choose:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.belts {
+  color: var(--ink-dim);
 }
 
 .plain {

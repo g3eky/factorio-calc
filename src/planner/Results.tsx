@@ -147,10 +147,22 @@ function ResultsTable({ result, calc, prefs, update }: Props) {
           <thead>
             <tr>
               <th>Recipe</th>
+              <th
+                className={styles.beltHead}
+                aria-label={`Needed ${unit}${belt ? ` (${belt.name}s)` : ''}`}
+                title={belt && `What the row makes, and in brackets how many ${belt.name.toLowerCase()}s that fills`}
+              >
+                Needed {unit}
+                {belt && (
+                  <>
+                    {' ('}
+                    <Icon kind="item" id={belt.id} size={16} />)
+                  </>
+                )}
+              </th>
               <th>Machines</th>
               <th>Modules</th>
-              <th>Inputs {unit}, % of a belt</th>
-              <th>Outputs {unit}</th>
+              <th>Inputs {unit}</th>
               <th>Power</th>
             </tr>
           </thead>
@@ -207,8 +219,8 @@ interface RowProps {
   // Modules and beacons in effect: the override's, else the preferences'.
   setup: ModuleSetup | undefined
   unit: Calculation['unit']
-  // The belt chosen in the header, for each item input's share of it.
-  belt: { name: string; speed: number } | undefined
+  // The belt chosen in the header, for each item output's share of it.
+  belt: { id: string; name: string; speed: number } | undefined
   onEdit: (editing: Editing) => void
   // Shown in the side panel; clicking the row (outside its buttons) toggles it.
   selected: boolean
@@ -225,14 +237,11 @@ const Row = memo(
     const name = processName(game, p)
     const editable = p.kind !== 'pump'
 
-    // Inputs show how much of a belt they fill (items only; fluids go in pipes).
-    const amounts = (list: Amount[], showBelt = false) =>
+    const amounts = (list: Amount[]) =>
       list.map((a) => {
         const choices = recipesFor(game, a.kind, a.id)
-        const share = showBelt && belt && a.kind === 'item' ? a.rate / belt.speed : undefined
-        const beltText = share === undefined ? '' : ` (${percent(share)} of a ${belt!.name.toLowerCase()})`
-        const label = `${amountName(game, a)}: ${long(a.rate * scale)}${unit}${beltText}`
-        const slot = (
+        const label = `${amountName(game, a)}: ${long(a.rate * scale)}${unit}`
+        return (
           <Slot
             key={`${a.kind}/${a.id}@${a.quality ?? ''}`}
             kind={a.kind}
@@ -240,22 +249,15 @@ const Row = memo(
             quality={a.quality}
             amount={short(a.rate * scale)}
             title={amountName(game, a)}
-            details={`${long(a.rate * scale)}${unit}${beltText}${choices.length > 1 ? '. Click to choose its recipe.' : ''}`}
+            details={`${long(a.rate * scale)}${unit}${choices.length > 1 ? '. Click to choose its recipe.' : ''}`}
             aria-label={label}
             className={choices.length > 1 ? undefined : styles.plain}
             onClick={choices.length > 1 ? (e) => onEdit({ type: 'recipe', item: a, anchor: e.currentTarget }) : undefined}
           />
         )
-        if (!showBelt) return slot
-        return (
-          <span key={`${a.kind}/${a.id}@${a.quality ?? ''}`} className={styles.withBelt}>
-            {slot}
-            <span className={styles.belt} aria-hidden>
-              {share === undefined ? '' : percent(share)}
-            </span>
-          </span>
-        )
       })
+    // What the row makes, and how many belts each item fills (fluids go in pipes); icons only when it makes several.
+    const belts = (o: Amount) => (belt && o.kind === 'item' ? o.rate / belt.speed : undefined)
 
     return (
       <tr
@@ -271,6 +273,35 @@ const Row = memo(
             {name}
             {p.quality && <span className={styles.quality}>({game.data.qualities.find((q) => q.id === p.quality)?.name ?? p.quality})</span>}
           </button>
+        </td>
+        <td className={styles.belt}>
+          {p.outputs.map((o) => {
+            const text = `${amountName(game, o)}: ${long(o.rate * scale)}${unit}${belts(o) === undefined ? '' : ` (${long(belts(o)!)} × ${belt!.name.toLowerCase()})`}`
+            const inside = (
+              <>
+                {p.outputs.length > 1 && <Icon kind={o.kind} id={o.id} size={16} />}
+                {short(o.rate * scale)}
+                {belts(o) !== undefined && <span className={styles.belts}>(× {long(belts(o)!)})</span>}
+              </>
+            )
+            const key = `${o.kind}/${o.id}@${o.quality ?? ''}`
+            // An item with more than one recipe: click to choose which makes it.
+            return recipesFor(game, o.kind, o.id).length > 1 ? (
+              <button
+                key={key}
+                type="button"
+                className={cx(styles.share, styles.choose)}
+                title={`${text}. Click to choose its recipe.`}
+                onClick={(e) => onEdit({ type: 'recipe', item: o, anchor: e.currentTarget })}
+              >
+                {inside}
+              </button>
+            ) : (
+              <span key={key} className={styles.share} title={text}>
+                {inside}
+              </span>
+            )
+          })}
         </td>
         <td>
           <span className={cx(styles.machine, override?.machine && styles.custom)} title={override?.machine ? 'Set for this calculation' : undefined}>
@@ -314,10 +345,7 @@ const Row = memo(
           )}
         </td>
         <td>
-          <span className={styles.amounts}>{amounts(p.inputs, true)}</span>
-        </td>
-        <td>
-          <span className={styles.amounts}>{amounts(p.outputs)}</span>
+          <span className={styles.amounts}>{amounts(p.inputs)}</span>
         </td>
         <td className={styles.power}>{p.power > 0 ? <Changed value={power(p.power)} /> : '–'}</td>
       </tr>
@@ -341,7 +369,15 @@ function Uses({ process, result, calc, onSelect, onClose }: { process: ProcessRe
   const game = useGame()
   const scale = UNIT_SECONDS[calc.unit]
   const unit = UNIT_LABELS[calc.unit]
-  const rate = (a: Amount) => `${short(a.rate * scale)}${unit}`
+  const belt = game.data.belts.find((b) => b.id === calc.belt)
+  // The rate, and for items how many of the chosen belt it fills.
+  const rate = (a: Amount) => (
+    <>
+      {short(a.rate * scale)}
+      {unit}
+      {belt && a.kind === 'item' && <span className={styles.belts}> (× {long(a.rate / belt.speed)})</span>}
+    </>
+  )
   const has = (list: Amount[], a: Amount) => list.find((x) => itemKey(x) === itemKey(a))
   // Other rows that make (or use) the item, with how much of it each makes (or uses).
   const rows = (a: Amount, side: 'inputs' | 'outputs') =>
@@ -460,7 +496,6 @@ function ModuleEditor({ process, calc, prefs, update }: { process: ProcessResult
 }
 
 // 0.0667 -> "6.7%"; under 1% keeps one more decimal.
-const percent = (n: number) => `${Number((n * 100).toFixed(n < 0.01 ? 2 : 1))}%`
 
 const pct = (n: number) => `${n >= 0 ? '+' : ''}${Math.round(n * 1000) / 10}%`
 
