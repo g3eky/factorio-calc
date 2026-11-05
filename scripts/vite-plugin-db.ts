@@ -47,7 +47,7 @@ export function dbPlugin({ dataDir }: { dataDir: string }): Plugin {
       order: 'post',
       async handler(_html, ctx) {
         if (!ctx.bundle) return
-        const base = ctx.server?.config.base ?? '/factorio-calc/'
+        const base = ctx.server?.config.base ?? '/'
         const manifest = JSON.parse(String((ctx.bundle['db/manifest.json'] as { source: string }).source)) as Manifest
         const newest = manifest.datasets
           .filter((d) => d.id.startsWith('space-age-'))

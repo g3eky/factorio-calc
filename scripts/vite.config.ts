@@ -9,7 +9,7 @@ const fromRoot = (path: string) => fileURLToPath(new URL(`../${path}`, import.me
 
 export default defineConfig({
   root: fromRoot('src'),
-  base: '/factorio-calc/',
+  base: '/',
   // Copied as-is: favicon and the link preview image.
   publicDir: fromRoot('src/public'),
   build: { outDir: fromRoot('dist'), emptyOutDir: true },
