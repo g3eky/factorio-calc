@@ -97,9 +97,34 @@ export const shortcut = (e: KeyboardEvent) =>
   !(e.target instanceof Element && e.target.closest('input, textarea, select, [contenteditable], [role=dialog]')) &&
   !document.querySelector('[aria-modal=true]')
 
+type SortKey = 'needed' | 'machines' | 'power'
+// What each sortable column sorts by; a row making several things counts all it makes.
+const SORT: Record<SortKey, (p: ProcessResult) => number> = {
+  needed: (p) => p.outputs.reduce((sum, o) => sum + o.rate, 0),
+  machines: (p) => p.machines,
+  power: (p) => p.power,
+}
+
 function ResultsTable({ result, calc, prefs, update }: Props) {
   const game = useGame()
-  const rows = useMemo(() => inOrder(result, calc), [result, calc])
+  // Number columns sort on click: biggest first, then smallest first, then back to chain order.
+  const [sort, setSort] = useState<{ by: SortKey; dir: 1 | -1 }>()
+  const rows = useMemo(() => {
+    const chain = inOrder(result, calc)
+    return sort ? [...chain].sort((a, b) => (SORT[sort.by](a) - SORT[sort.by](b)) * sort.dir) : chain
+  }, [result, calc, sort])
+  const sortBy = (by: SortKey) =>
+    setSort((s) => (s?.by !== by ? { by, dir: -1 } : s.dir === -1 ? { by, dir: 1 } : undefined))
+  const sortable = (by: SortKey, label: ReactNode, name?: string, title?: string) => (
+    <th aria-sort={sort?.by === by ? (sort.dir === 1 ? 'ascending' : 'descending') : undefined}>
+      <button type="button" className={styles.sort} aria-label={name} title={title ?? 'Sort'} onClick={() => sortBy(by)}>
+        <span>{label}</span>
+        <span className={styles.sortMark} aria-hidden>
+          {sort?.by === by ? (sort.dir === 1 ? '▲' : '▼') : ''}
+        </span>
+      </button>
+    </th>
+  )
   const [editing, setEditing] = useState<Editing>()
   const unit = UNIT_LABELS[calc.unit]
   const belt = useMemo(() => game.data.belts.find((b) => b.id === calc.belt), [game, calc.belt])
@@ -112,8 +137,15 @@ function ResultsTable({ result, calc, prefs, update }: Props) {
   )
   const selected = result.processes.find((p) => p.key === selectedKey)
   const table = useRef<HTMLDivElement>(null)
-  // The tree and its side panel can fill the whole tab together.
+  // Production (table or tree, and the side panel) can fill the whole tab.
   const [expanded, setExpanded] = useState(false)
+  // Escape puts it back into the page.
+  useEffect(() => {
+    if (!expanded) return
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setExpanded(false)
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [expanded])
   const toggle = useCallback((key: string) => setSelectedKey((k) => (k === key ? undefined : key)), [])
   // From the panel: select another row and bring it into view.
   const select = (key: string) => {
@@ -135,35 +167,53 @@ function ResultsTable({ result, calc, prefs, update }: Props) {
   return (
     <Window
       title="Production"
-      className={styles.results}
-      actions={<Tabs label="Production view" value={view} onChange={setView} tabs={[{ id: 'table', label: 'Table', title: 'Table (T)' }, { id: 'tree', label: 'Tree', title: 'Tree (T)' }]} />}
+      className={cx(styles.results, expanded && styles.expanded)}
+      actions={
+        <>
+          <Tabs label="Production view" value={view} onChange={setView} tabs={[{ id: 'table', label: 'Table', title: 'Table (T)' }, { id: 'tree', label: 'Tree', title: 'Tree (T)' }]} />
+          <Button
+            square
+            onClick={() => setExpanded(!expanded)}
+            aria-pressed={expanded}
+            aria-label="Fill the tab"
+            title={expanded ? 'Back into the page (Esc)' : 'Fill the tab'}
+          >
+            {/* Corners pointing out to fill the tab, in to go back. */}
+            <svg className={styles.icon} viewBox="0 0 16 16" aria-hidden>
+              <path d={expanded ? 'M6 2v4H2M10 2v4h4M6 14v-4H2M10 14v-4h4' : 'M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4'} />
+            </svg>
+          </Button>
+        </>
+      }
     >
-      <div className={cx(styles.layout, view === 'tree' && styles.tree, view === 'tree' && expanded && styles.expanded)}>
+      <div className={cx(styles.layout, view === 'tree' && styles.tree)}>
       {view === 'tree' ? (
-        <Flow result={result} calc={calc} selectedKey={selectedKey} onSelect={toggle} expanded={expanded} onExpand={setExpanded} />
+        <Flow result={result} calc={calc} selectedKey={selectedKey} onSelect={toggle} />
       ) : (
       <ScrollPane ref={table} className={styles.scroll}>
         <table className={styles.table}>
           <thead>
             <tr>
+              <th>Makes</th>
+              {sortable(
+                'needed',
+                <>
+                  Needed {unit}
+                  {belt && (
+                    <>
+                      {' ('}
+                      <Icon kind="item" id={belt.id} size={16} />)
+                    </>
+                  )}
+                </>,
+                `Needed ${unit}${belt ? ` (${belt.name}s)` : ''}`,
+                belt && `What the row makes, and in brackets how many ${belt.name.toLowerCase()}s that fills. Click to sort.`,
+              )}
               <th>Recipe</th>
-              <th
-                className={styles.beltHead}
-                aria-label={`Needed ${unit}${belt ? ` (${belt.name}s)` : ''}`}
-                title={belt && `What the row makes, and in brackets how many ${belt.name.toLowerCase()}s that fills`}
-              >
-                Needed {unit}
-                {belt && (
-                  <>
-                    {' ('}
-                    <Icon kind="item" id={belt.id} size={16} />)
-                  </>
-                )}
-              </th>
-              <th>Machines</th>
+              {sortable('machines', 'Machines')}
               <th>Modules</th>
               <th>Inputs {unit}</th>
-              <th>Power</th>
+              {sortable('power', 'Power')}
             </tr>
           </thead>
           <tbody>
@@ -181,7 +231,7 @@ function ResultsTable({ result, calc, prefs, update }: Props) {
               />
               {p.key === selectedKey && (
                 <tr className={styles.inline}>
-                  <td colSpan={6}>{uses}</td>
+                  <td colSpan={7}>{uses}</td>
                 </tr>
               )}
               </Fragment>
@@ -256,8 +306,10 @@ const Row = memo(
           />
         )
       })
-    // What the row makes, and how many belts each item fills (fluids go in pipes); icons only when it makes several.
+    // How many belts each item it makes fills (fluids go in pipes).
     const belts = (o: Amount) => (belt && o.kind === 'item' ? o.rate / belt.speed : undefined)
+    // The first product that has more than one recipe, if any.
+    const choosable = p.kind === 'recipe' ? p.outputs.find((o) => recipesFor(game, o.kind, o.id).length > 1) : undefined
 
     return (
       <tr
@@ -268,40 +320,41 @@ const Row = memo(
         }}
       >
         <td>
-          <button type="button" className={styles.recipe} aria-pressed={selected} title="Show what it needs and what needs it" onClick={() => onSelect(p.key)}>
-            <Icon kind={p.kind === 'recipe' ? 'recipe' : p.outputs[0].kind} id={p.kind === 'recipe' ? p.id : p.outputs[0].id} />
-            {name}
-            {p.quality && <span className={styles.quality}>({game.data.qualities.find((q) => q.id === p.quality)?.name ?? p.quality})</span>}
+          {/* What the row makes, one line per product; clicking shows what it needs and what needs it. */}
+          <button type="button" className={styles.made} aria-pressed={selected} title="Show what it needs and what needs it" onClick={() => onSelect(p.key)}>
+            {p.outputs.map((o) => (
+              <span key={`${o.kind}/${o.id}@${o.quality ?? ''}`} className={styles.line}>
+                <Icon kind={o.kind} id={o.id} size={24} />
+                {amountName(game, o)}
+              </span>
+            ))}
           </button>
         </td>
         <td className={styles.belt}>
-          {p.outputs.map((o) => {
-            const text = `${amountName(game, o)}: ${long(o.rate * scale)}${unit}${belts(o) === undefined ? '' : ` (${long(belts(o)!)} × ${belt!.name.toLowerCase()})`}`
-            const inside = (
-              <>
-                {p.outputs.length > 1 && <Icon kind={o.kind} id={o.id} size={16} />}
-                {short(o.rate * scale)}
-                {belts(o) !== undefined && <span className={styles.belts}>(× {long(belts(o)!)})</span>}
-              </>
-            )
-            const key = `${o.kind}/${o.id}@${o.quality ?? ''}`
-            // An item with more than one recipe: click to choose which makes it.
-            return recipesFor(game, o.kind, o.id).length > 1 ? (
-              <button
-                key={key}
-                type="button"
-                className={cx(styles.share, styles.choose)}
-                title={`${text}. Click to choose its recipe.`}
-                onClick={(e) => onEdit({ type: 'recipe', item: o, anchor: e.currentTarget })}
-              >
-                {inside}
-              </button>
-            ) : (
-              <span key={key} className={styles.share} title={text}>
-                {inside}
-              </span>
-            )
-          })}
+          {p.outputs.map((o) => (
+            <span
+              key={`${o.kind}/${o.id}@${o.quality ?? ''}`}
+              className={styles.line}
+              title={`${amountName(game, o)}: ${long(o.rate * scale)}${unit}${belts(o) === undefined ? '' : ` (${long(belts(o)!)} × ${belt!.name.toLowerCase()})`}`}
+            >
+              {short(o.rate * scale)}
+              {belts(o) !== undefined && <span className={styles.belts}>(× {long(belts(o)!)})</span>}
+            </span>
+          ))}
+        </td>
+        <td>
+          {/* Only when a product could be made another way: the recipe in use, click to choose another. */}
+          {choosable ? (
+            <button
+              type="button"
+              className={styles.choose}
+              title={`${name}. Click to choose how to make ${amountName(game, choosable).toLowerCase()}.`}
+              onClick={(e) => onEdit({ type: 'recipe', item: choosable, anchor: e.currentTarget })}
+            >
+              <Icon kind="recipe" id={p.id} size={20} />
+              <span className={styles.chooseName}>{name}</span>
+            </button>
+          ) : null}
         </td>
         <td>
           <span className={cx(styles.machine, override?.machine && styles.custom)} title={override?.machine ? 'Set for this calculation' : undefined}>
@@ -379,21 +432,25 @@ function Uses({ process, result, calc, onSelect, onClose }: { process: ProcessRe
     </>
   )
   const has = (list: Amount[], a: Amount) => list.find((x) => itemKey(x) === itemKey(a))
-  // Other rows that make (or use) the item, with how much of it each makes (or uses).
-  const rows = (a: Amount, side: 'inputs' | 'outputs') =>
-    result.processes.flatMap((p) => {
-      const amount = p.key !== process.key && has(p[side], a)
-      return amount ? [{ process: p, amount }] : []
-    })
-  const link = (p: ProcessResult, amount: Amount) => (
-    <li key={p.key}>
-      <button type="button" className={styles.link} onClick={() => onSelect(p.key)}>
-        <Icon kind={p.kind === 'recipe' ? 'recipe' : p.outputs[0].kind} id={p.kind === 'recipe' ? p.id : p.outputs[0].id} size={20} />
-        <span className={styles.linkName}>{processName(game, p)}</span>
-        <span className={styles.rate}>{rate(amount)}</span>
-      </button>
-    </li>
-  )
+  // Other rows that make (or use) the item.
+  const rows = (a: Amount, side: 'inputs' | 'outputs') => result.processes.filter((p) => p.key !== process.key && has(p[side], a))
+  // Everything made of an item: by rows (mining and pumping included) or imported.
+  const made = (a: Amount) => result.processes.reduce((sum, p) => sum + (has(p.outputs, a)?.rate ?? 0), 0) + (has(result.imports, a)?.rate ?? 0)
+  // Another row, as the machines it runs for this row's share of the item (`a`): shares are in
+  // proportion, as in the tree, so that's its machines × this row's amount ÷ everything made.
+  const link = (p: ProcessResult, a: Amount) => {
+    const machine = game.machines.get(p.machine)
+    const count = (p.machines * a.rate) / (made(a) || a.rate)
+    return (
+      <li key={p.key}>
+        <button type="button" className={styles.link} title={`Go to ${processName(game, p)}`} onClick={() => onSelect(p.key)}>
+          <Icon kind="machine" id={p.machine} size={20} />
+          <span className={styles.linkName}>{machine?.name ?? p.machine}</span>
+          <span className={styles.count}>× {long(count)}</span>
+        </button>
+      </li>
+    )
+  }
   const note = (text: string, amount?: Amount) => (
     <li className={styles.note}>
       <span className={styles.linkName}>{text}</span>
@@ -421,7 +478,7 @@ function Uses({ process, result, calc, onSelect, onClose }: { process: ProcessRe
               </div>
             )}
             <ul className={cx(styles.links, side === 'outputs' && list.length === 1 && styles.flat)}>
-              {others.map((o) => link(o.process, o.amount))}
+              {others.map((o) => link(o, a))}
               {raw && note('Raw resource', raw)}
               {imported && note('Imported', imported)}
               {target && note('Your target')}

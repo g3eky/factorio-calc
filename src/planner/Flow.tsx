@@ -71,15 +71,12 @@ interface Props {
   calc: Calculation
   selectedKey: string | undefined
   onSelect: (key: string) => void
-  // The tree and its panel fill the browser tab.
-  expanded: boolean
-  onExpand: (expanded: boolean) => void
 }
 
 // The production chain as a flow diagram: your targets on the left, raw resources on the right.
 // An endless canvas: drag anywhere to pan, the wheel zooms around the pointer, nothing stops at the
 // diagram's edges. Pan and zoom are one transform set straight on the DOM, so moving re-renders nothing.
-export function Flow({ result, calc, selectedKey, onSelect, expanded, onExpand }: Props) {
+export function Flow({ result, calc, selectedKey, onSelect }: Props) {
   const game = useGame()
   const scale = UNIT_SECONDS[calc.unit]
   const unit = UNIT_LABELS[calc.unit]
@@ -213,7 +210,7 @@ export function Flow({ result, calc, selectedKey, onSelect, expanded, onExpand }
   const onFindKey = (e: ReactKeyboardEvent) => {
     if (e.key === 'Enter' && matches.length) setFound((f) => (f + (e.shiftKey ? matches.length - 1 : 1)) % matches.length)
     if (e.key === 'Escape' && query) {
-      // Clears the search instead of shrinking the expanded tree.
+      // Clears the search instead of shrinking Production back into the page.
       e.stopPropagation()
       setQuery('')
     }
@@ -282,14 +279,6 @@ export function Flow({ result, calc, selectedKey, onSelect, expanded, onExpand }
       if (key) reveal(key)
     },
   }
-
-  // Escape shrinks the expanded tree back into the card.
-  useEffect(() => {
-    if (!expanded) return
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onExpand(false)
-    document.addEventListener('keydown', onKey)
-    return () => document.removeEventListener('keydown', onKey)
-  }, [expanded, onExpand])
 
   const centre = () => ({ x: (pane.current?.clientWidth ?? 0) / 2, y: (pane.current?.clientHeight ?? 0) / 2 })
   const fit = () => {
@@ -428,18 +417,6 @@ export function Flow({ result, calc, selectedKey, onSelect, expanded, onExpand }
           }}
         >
           100%
-        </Button>
-        <Button
-          square
-          onClick={() => onExpand(!expanded)}
-          aria-pressed={expanded}
-          aria-label="Fill the tab"
-          title={expanded ? 'Back into the page (Esc)' : 'Fill the tab'}
-        >
-          {/* Corners pointing out to fill the tab, in to go back. */}
-          <svg className={styles.icon} viewBox="0 0 16 16" aria-hidden>
-            <path d={expanded ? 'M6 2v4H2M10 2v4h4M6 14v-4H2M10 14v-4h4' : 'M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4'} />
-          </svg>
         </Button>
       </div>
       <div ref={pane} className={styles.pane} role="group" aria-label="Crafting tree" {...pan}>

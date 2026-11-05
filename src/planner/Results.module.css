@@ -34,13 +34,24 @@
   animation: appear var(--duration) var(--ease);
 }
 
-/* The tree and its panel filling the tab, over everything else on the page. */
+/* Production filling the tab, over everything else on the page; as the card is the container,
+   its width now decides where the side panel goes. */
 .expanded {
   position: fixed;
   inset: 0;
   z-index: var(--z-modal);
-  padding: 12px;
-  background: var(--panel);
+  border: 0;
+  border-radius: 0;
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* Under the row instead, when there's no room beside the table. */
@@ -161,6 +172,14 @@
   text-overflow: ellipsis;
 }
 
+.count {
+  color: var(--ink-dim);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
 .rate {
   color: var(--accent);
   font-family: var(--font-mono);
@@ -185,7 +204,7 @@
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
-  padding: 7px 10px;
+  padding: 7px 7px;
   border-bottom: 1px solid var(--line);
   background: var(--panel);
   color: var(--ink-faint);
@@ -199,7 +218,7 @@
 }
 
 .table td {
-  padding: 3px 10px;
+  padding: 3px 7px;
   border-top: 1px solid var(--line);
   vertical-align: middle;
 }
@@ -220,7 +239,6 @@
   background: var(--accent-soft);
 }
 
-.recipe,
 .machine,
 .amounts {
   display: flex;
@@ -228,7 +246,10 @@
   gap: 7px;
 }
 
-.recipe {
+/* Makes: one line per product, lined up with its rate in Needed. */
+.made {
+  display: flex;
+  flex-direction: column;
   padding: 0;
   border: 0;
   background: none;
@@ -240,9 +261,11 @@
   cursor: pointer;
 }
 
-.quality {
-  color: var(--ink-faint);
-  font-weight: 400;
+.line {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 28px;
 }
 
 .amounts {
@@ -257,11 +280,38 @@
   white-space: nowrap;
 }
 
-/* Needed: what each row makes, with how many of the chosen belt it fills in brackets. */
-.beltHead > * {
+/* Number columns: the header is a button that sorts; an arrow shows which way. */
+.sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+
+.sort:hover,
+.sort:focus-visible {
+  outline: none;
+  color: var(--ink);
+}
+
+.sort > span:first-child > * {
   vertical-align: middle;
 }
 
+.sortMark {
+  min-width: 1em;
+  color: var(--accent);
+  font-size: 9px;
+}
+
+/* Needed: what each row makes, with how many of the chosen belt it fills in brackets. */
 .belt {
   color: var(--ink);
   font-family: var(--font-mono);
@@ -270,21 +320,29 @@
   white-space: nowrap;
 }
 
-.share {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
 .choose {
-  margin: 0 -6px;
-  padding: 2px 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 170px;
+  min-height: 30px;
+  padding: 2px 6px;
+  white-space: nowrap;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: transparent;
   color: inherit;
   font: inherit;
   cursor: pointer;
+}
+
+.choose > :first-child {
+  flex: none;
+}
+
+.chooseName {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .choose:hover,
@@ -433,20 +491,5 @@
 
   .scroll {
     max-height: 75vh;
-  }
-}
-
-/* Filling the tab, the window's width decides where the panel goes, not the card's. */
-@media (min-width: 1000px) {
-  .layout.expanded {
-    flex-direction: row;
-  }
-
-  .layout.expanded .aside {
-    position: static;
-    display: block;
-    align-self: flex-start;
-    width: 300px;
-    max-height: 100%;
   }
 }
